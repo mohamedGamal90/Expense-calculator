@@ -8,8 +8,8 @@ node_modules/
 dist/
 web-build/
 
-# Unnessary
-%ProgramData%/
+# # Unnessary
+# %ProgramData%/
 
 # Native
 *.orig.*
