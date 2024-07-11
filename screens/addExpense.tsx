@@ -11,14 +11,14 @@ import { COLORS, fontSizes, styleNumber } from "../constants/constants";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "../components/Button";
 
-const AddExpense = () => {
+export const ExpenseForm = () => {
   const expenseCTX = useContext(ExpenseContext);
   const { navigate } = useNavigation();
 
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { isValid },
   } = useForm();
 
   const onSubmit = (data: FieldValues) => {
@@ -49,7 +49,7 @@ const AddExpense = () => {
               value={value}
               onChangeText={onChange}
               maxLength={20}
-              style={[styles.textInput,styles.formField]}
+              style={[styles.textInput, styles.formField]}
               placeholderTextColor={COLORS.white}
             />
           )}
@@ -62,8 +62,12 @@ const AddExpense = () => {
           control={control}
           render={({ field: { onChange } }) => (
             <SelectDropdown
-            buttonStyle={[styles.selectListbuttonStyle,styles.formField]}
-            data={["income", "expense"]}
+              buttonStyle={[styles.DropdownButtonStyle, styles.formField]}
+              buttonTextStyle={styles.DropdownButtonTextStyle}
+              dropdownStyle={styles.DropdownStyle}
+              rowTextStyle={styles.DropdownRowTextStyle}
+              rowStyle={styles.DropdownRowStyle}
+              data={["income", "expense"]}
               onSelect={onChange}
               buttonTextAfterSelection={(selectedItem) => selectedItem}
               rowTextForSelection={(item) => item}
@@ -80,11 +84,10 @@ const AddExpense = () => {
               keyboardType="decimal-pad"
               placeholder="Amount"
               maxLength={6}
-              style={[styles.textInput,styles.formField]}
+              style={[styles.textInput, styles.formField]}
               value={value}
-              onChangeText={onChange}
+              onChangeText={(amount)=>onChange(+amount)}
               placeholderTextColor={COLORS.white}
-
             />
           )}
           name="amount"
@@ -95,7 +98,11 @@ const AddExpense = () => {
           control={control}
           render={({ field: { onChange } }) => (
             <SelectDropdown
-              buttonStyle={[styles.selectListbuttonStyle,styles.formField]}
+              buttonStyle={[styles.DropdownButtonStyle, styles.formField]}
+              buttonTextStyle={styles.DropdownButtonTextStyle}
+              dropdownStyle={styles.DropdownStyle}
+              rowTextStyle={styles.DropdownRowTextStyle}
+              rowStyle={styles.DropdownRowStyle}
               data={[
                 "subscriptions",
                 "Transportation",
@@ -109,7 +116,7 @@ const AddExpense = () => {
             />
           )}
           name="category"
-          rules={{ required: "Amount is required" }}
+          rules={{ required: "Category is required" }}
           defaultValue=""
         />
         <Controller
@@ -117,10 +124,10 @@ const AddExpense = () => {
           render={({ field: { onChange, value } }) => (
             <TextInput
               multiline={true}
-              numberOfLines={5}
-              style={[styles.textInput,styles.formField]}
-              placeholder="description"
+              style={[styles.textInput, styles.formField]}
+              placeholder="Description"
               value={value}
+              numberOfLines={5}
               onChangeText={onChange}
               placeholderTextColor={COLORS.white}
             />
@@ -138,23 +145,18 @@ const AddExpense = () => {
   );
 };
 
-export default AddExpense;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
-  selectListbuttonStyle: {
-    width: "85%",
-  },
   textInput: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 17,
     paddingVertical: 15,
     color: COLORS.white,
   },
-  formField:{
+  formField: {
     backgroundColor: COLORS.formBlack,
     margin: 10,
     borderBottomWidth: 3,
@@ -162,5 +164,25 @@ const styles = StyleSheet.create({
     borderColor: COLORS.neongreen2,
     borderTopEndRadius: styleNumber.borderRadius,
     borderTopStartRadius: styleNumber.borderRadius,
-  }
+  },
+  DropdownButtonStyle: {
+    width: "85%",
+  },
+  DropdownButtonTextStyle: {
+    color: COLORS.white,
+    textAlign: "left",
+    fontSize: fontSizes.labelFont,
+  },
+  DropdownStyle: {
+    backgroundColor: COLORS.formBlack,
+    borderBottomEndRadius: styleNumber.borderRadius,
+    borderBottomStartRadius: styleNumber.borderRadius,
+  },
+  DropdownRowTextStyle: {
+    color: COLORS.white,
+  },
+  DropdownRowStyle: {
+    borderBottomWidth: 0,
+    borderTopWidth: 0,
+  },
 });

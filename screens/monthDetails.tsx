@@ -27,7 +27,7 @@ const MonthDetails = () => {
 
   return (
     <LinearGradient
-      colors={[COLORS.neonGrey, "black"]}
+      colors={[COLORS.neonGrey, COLORS.black]}
       style={styles.container}
     >
       <View style={styles.incomeExpenseContainer}>

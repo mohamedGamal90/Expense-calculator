@@ -3,31 +3,32 @@ import {
   FlatList,
   ScrollView,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 import { ExpenseContext } from "../store/context/expense-context";
 import Expense from "../components/expense";
 import IncomeCard from "../components/incomeCard";
 import { ExpenseModal } from "../modals/expenseModal";
 import { fetchExpenses } from "../dataBase/databse";
-import { COLORS, styleNumber } from "../constants/constants";
+import { COLORS } from "../constants/constants";
+import { Button } from "../components/Button";
 
-const HomeScreen = ({ navigation }: any) => {
+const HomeScreen = () => {
+  const { navigate } = useNavigation();
+
   const expenseCTX = useContext(ExpenseContext);
   const expensesOBJ: ExpenseModal[] = expenseCTX.expenses;
   const [start, setStart] = useState(true);
 
   const addExpenseHandler = () => {
-    navigation.navigate("AddExpenseScreen");
+    navigate("AddExpenseScreen" as never);
   };
 
   const monthlyDetailsHandler = () => {
-    navigation.navigate("MonthDetailsScreen");
+    navigate("MonthDetailsScreen" as never);
   };
 
   const isFocused = useIsFocused();
@@ -35,7 +36,6 @@ const HomeScreen = ({ navigation }: any) => {
   useEffect(() => {
     const fetchexpensesHandler = async () => {
       if (start) {
-        console.log(!start);
         const expenses = await fetchExpenses();
         expenseCTX.addExpenses(expenses);
         // expenses.forEach((element: ExpenseModal) => {
@@ -52,31 +52,23 @@ const HomeScreen = ({ navigation }: any) => {
 
   return (
     <LinearGradient
-      colors={[COLORS.neonGrey, "black"]}
+      colors={[COLORS.neonGrey, COLORS.black]}
       style={styles.mainContainer}
     >
       <IncomeCard
         expensesOBJ={expensesOBJ}
         monthlyDetailsHandler={monthlyDetailsHandler}
       />
-      <TouchableOpacity
-        onPress={addExpenseHandler}
-        style={styles.addExpenseButton}
-      >
-        <Text>Add Expenses</Text>
-      </TouchableOpacity>
+      <Button onPress={addExpenseHandler} btnPlaceHolder={"Add Expenses"} />
       <ScrollView
         contentContainerStyle={styles.scrollViewcontentContainerStyle}
         style={styles.scrollViewContainer}
       >
         <View style={styles.expenseContainer}>
-          <View></View>
-          <View>
             <FlatList
               data={expensesOBJ}
               renderItem={(item) => <Expense expense={item.item} />}
             />
-          </View>
         </View>
       </ScrollView>
     </LinearGradient>
@@ -104,15 +96,5 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     padding: 10,
     paddingBottom: 140,
-  },
-  addExpenseButton: {
-    padding: 10,
-    paddingVertical: 15,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "90%",
-    backgroundColor: COLORS.neongreen2,
-    marginBottom: 5,
-    borderRadius: styleNumber.borderRadius,
   },
 });
