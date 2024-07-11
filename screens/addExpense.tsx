@@ -1,98 +1,124 @@
-import React, { useContext, useState } from "react";
-import {
-  Alert,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import React, { useContext } from "react";
+import { useForm, Controller, FieldValues } from "react-hook-form";
+
+import { StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { ExpenseContext } from "../store/context/expense-context";
-import { insertExpenses } from "../dataBase/databse";
+// import { insertExpenses } from "../dataBase/databse";
 import { COLORS, styleNumber } from "../constants/constants";
+import { useNavigation } from "@react-navigation/native";
 
-const AddExpense = ({ navigation }: any) => {
+const AddExpense = () => {
   const expenseCTX = useContext(ExpenseContext);
+  const { navigate } = useNavigation();
 
-  const [form, setForm] = useState({
-    name: "",
-    type: "",
-    amount: 0,
-    category: "",
-    description: "",
-  });
+  const {
+    control,
+    handleSubmit,
+    // formState: { errors },
+  } = useForm();
 
-  const submitForm = async () => {
-    if (form.name && form.type && form.category && form.amount >= 1) {
-      expenseCTX.addExpense(form);
-      await insertExpenses(form);
-      navigation.navigate("HomeScreen");
-    } else {
-      Alert.alert(
-        "invalid Form Input",
-        "Make sure to add a name, type, category, valid amount ",
-        [
-          {
-            text: "OK",
-            onPress: () => console.log("cancel"),
-          },
-        ]
-      );
-    }
+  const onSubmit = (data:FieldValues) => {
+    expenseCTX.addExpense(data);
+    // await insertExpenses(form);
+    navigate("HomeScreen" as never);
   };
 
   return (
     <LinearGradient
-      colors={[COLORS.neonGrey, "black"]}
+      colors={[COLORS.neonGrey, COLORS.black]}
       style={styles.container}
     >
-      <TextInput
-        placeholder="Name"
-        maxLength={20}
-        style={styles.textInput}
-        onChangeText={(text) => setForm({ ...form, name: text })}
+      <Controller
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            placeholder="Name"
+            value={value}
+            onChangeText={onChange}
+            maxLength={20}
+            style={styles.textInput}
+          />
+        )}
+        name="name"
+        rules={{ required: "Name is required" }}
+        defaultValue=""
       />
-      <SelectDropdown
-        buttonStyle={styles.selectListbuttonStyle}
-        data={["income", "expense"]}
-        onSelect={(selectedItem) => {
-          setForm({ ...form, type: selectedItem });
-        }}
-        buttonTextAfterSelection={(selectedItem) => selectedItem}
-        rowTextForSelection={(item) => item}
+
+      <Controller
+        control={control}
+        render={({ field: { onChange } }) => (
+          <SelectDropdown
+            buttonStyle={styles.selectListbuttonStyle}
+            data={["income", "expense"]}
+            onSelect={onChange}
+            buttonTextAfterSelection={(selectedItem) => selectedItem}
+            rowTextForSelection={(item) => item}
+          />
+        )}
+        name="type"
+        rules={{ required: "Type is required" }}
+        defaultValue=""
       />
-      <TextInput
-        keyboardType="decimal-pad"
-        placeholder="Amount"
-        maxLength={6}
-        style={styles.textInput}
-        onChangeText={(number) => setForm({ ...form, amount: +number })}
+      <Controller
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            keyboardType="decimal-pad"
+            placeholder="Amount"
+            maxLength={6}
+            style={styles.textInput}
+            value={value}
+            onChangeText={onChange}
+          />
+        )}
+        name="amount"
+        rules={{ required: "Amount is required" }}
+        defaultValue=""
       />
-      <SelectDropdown
-        buttonStyle={styles.selectListbuttonStyle}
-        data={[
-          "subscriptions",
-          "Transportation",
-          "consumables",
-          "medice",
-          "other",
-        ]}
-        onSelect={(selectedItem) => {
-          setForm({ ...form, category: selectedItem });
-        }}
-        buttonTextAfterSelection={(selectedItem) => selectedItem}
-        rowTextForSelection={(item) => item}
+      <Controller
+        control={control}
+        render={({ field: { onChange } }) => (
+          <SelectDropdown
+            buttonStyle={styles.selectListbuttonStyle}
+            data={[
+              "subscriptions",
+              "Transportation",
+              "consumables",
+              "medice",
+              "other",
+            ]}
+            onSelect={onChange}
+            buttonTextAfterSelection={(selectedItem) => selectedItem}
+            rowTextForSelection={(item) => item}
+          />
+        )}
+        name="category"
+        rules={{ required: "Amount is required" }}
+        defaultValue=""
       />
-      <TextInput
-        multiline={true}
-        numberOfLines={5}
-        style={styles.textInput}
-        placeholder="description"
-        onChangeText={(text) => setForm({ ...form, description: text })}
+      <Controller
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            multiline={true}
+            numberOfLines={5}
+            style={styles.textInput}
+            placeholder="description"
+            value={value}
+            onChangeText={onChange}
+          />
+        )}
+        name="description"
+        defaultValue=""
       />
-      <TouchableOpacity onPress={submitForm} style={styles.SubmitButton}>
+
+      <TouchableOpacity
+        onPress={handleSubmit(onSubmit)}
+        style={styles.SubmitButton}
+      >
         <Text>Submit</Text>
       </TouchableOpacity>
     </LinearGradient>
