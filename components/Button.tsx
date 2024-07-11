@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: styleNumber.borderRadius,
     backgroundColor: COLORS.neongreen2,
-    marginTop: 20,
+    marginVertical: 30,
     width: "85%",
   },
   disabledBtn: {
