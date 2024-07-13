@@ -5,11 +5,11 @@ import { ScrollView, StyleSheet, TextInput } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import { LinearGradient } from "expo-linear-gradient";
 
-import { ExpenseContext } from "../store/context/expense-context";
-// import { insertExpenses } from "../dataBase/databse";
-import { COLORS, fontSizes, styleNumber } from "../constants/constants";
+import { ExpenseContext } from "../../store/context/expense-context";
+import { COLORS, fontSizes, styleNumber } from "../../constants/constants";
 import { useNavigation } from "@react-navigation/native";
-import { Button } from "../components/Button";
+import { Button } from "../../components/Button";
+import { insertExpenses } from "../../dataBase/databse";
 
 export const ExpenseForm = () => {
   const expenseCTX = useContext(ExpenseContext);
@@ -21,9 +21,9 @@ export const ExpenseForm = () => {
     formState: { isValid },
   } = useForm();
 
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = async (data: FieldValues) => {
     expenseCTX.addExpense(data);
-    // await insertExpenses(form);
+    await insertExpenses(data);
     navigate("HomeScreen" as never);
   };
 
@@ -86,7 +86,7 @@ export const ExpenseForm = () => {
               maxLength={6}
               style={[styles.textInput, styles.formField]}
               value={value}
-              onChangeText={(amount)=>onChange(+amount)}
+              onChangeText={(amount) => onChange(+amount)}
               placeholderTextColor={COLORS.white}
             />
           )}
@@ -152,8 +152,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textInput: {
+    paddingVertical: 10,
     paddingHorizontal: 17,
-    paddingVertical: 15,
     color: COLORS.white,
   },
   formField: {
@@ -162,8 +162,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     fontSize: fontSizes.labelFont,
     borderColor: COLORS.neongreen2,
-    borderTopEndRadius: styleNumber.borderRadius,
-    borderTopStartRadius: styleNumber.borderRadius,
+    borderTopLeftRadius: styleNumber.borderRadius,
+    borderTopRightRadius: styleNumber.borderRadius,
   },
   DropdownButtonStyle: {
     width: "85%",

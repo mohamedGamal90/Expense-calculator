@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import AppLoading from "expo-app-loading";
+import AppLoading from "expo-app-loading";
 
-import HomeScreen from "./screens/homeScreen";
-import { ExpenseForm } from "./screens/addExpense";
+import { HomeScreen } from "./screens/HomeSceen/homeScreen";
+import { ExpenseForm } from "./screens/ExpenseFormScreen/ExpenseForm";
 import ExpenseContextProvider from "./store/context/expense-context";
 import MonthDetails from "./screens/monthDetails";
 import { init } from "./dataBase/databse";
@@ -22,13 +22,13 @@ export default function App() {
         setDbInitialized(false);
       })
       .catch((error) => {
-        console.error("Error initializing database:", error);
+        console.error(error);
       });
   }, []);
 
-  // if (dbInitialized) {
-  //   return <AppLoading />;
-  // }
+  if (dbInitialized) {
+    return <AppLoading />;
+  }
 
   return (
     <NavigationContainer>
