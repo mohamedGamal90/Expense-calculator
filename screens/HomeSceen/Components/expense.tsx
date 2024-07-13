@@ -2,7 +2,12 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import { COLORS, styleNumber } from "../../../constants/constants";
+import {
+  COLORS,
+  fontSizes,
+  spacing,
+  styleNumber,
+} from "../../../constants/constants";
 import { ExpenseModal } from "../../../modals/expenseModal";
 
 type PropType = {
@@ -35,9 +40,9 @@ export const Expense = ({ expense }: PropType) => {
 const styles = StyleSheet.create({
   expenseContainer: {
     marginHorizontal: "5%",
-    marginVertical: 10,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    marginVertical: spacing.s,
+    paddingHorizontal: spacing.m,
+    paddingVertical: spacing.s,
     borderWidth: 3,
     borderColor: COLORS.neonGrey,
     borderRadius: styleNumber.borderRadius,
@@ -46,18 +51,18 @@ const styles = StyleSheet.create({
   },
   cardTxt: {
     color: COLORS.white,
-    fontSize: 17,
+    fontSize: fontSizes.labelfontmedium,
   },
   cardCategoryTxt: {
     color: "grey",
-    fontSize: 17,
+    fontSize: fontSizes.labelfontmedium,
   },
   amountContainer: {
     justifyContent: "center",
     alignItems: "center",
   },
   amountTxt: {
-    fontSize: 24,
+    fontSize: fontSizes.heading,
   },
   iconContainer: {
     width: 30,

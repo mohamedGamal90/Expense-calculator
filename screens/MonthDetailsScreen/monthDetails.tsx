@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ExpenseContext } from "../../store/context/expense-context";
 import { ExpenseModal } from "../../modals/expenseModal";
 import { PieChartComponent } from "../../components/piechartComponent";
-import { COLORS } from "../../constants/constants";
+import { COLORS, fontSizes, spacing } from "../../constants/constants";
 
 export const MonthDetails = () => {
   const expenseCTX = useContext(ExpenseContext);
@@ -51,12 +51,12 @@ const styles = StyleSheet.create({
   },
   expenseTxt: {
     color: COLORS.white,
-    fontSize: 20,
+    fontSize: fontSizes.labelFont,
   },
   incomeExpenseContainer: {
     flexDirection: "row",
     width: "90%",
     justifyContent: "space-around",
-    margin: 40,
+    margin: spacing.xl,
   },
 });

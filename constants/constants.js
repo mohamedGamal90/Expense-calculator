@@ -18,5 +18,16 @@ export const styleNumber = {
   borderRadius: 10,
 };
 export const fontSizes = {
+  headingl: 30,
+  heading: 24,
   labelFont: 20,
+  labelfontmedium: 17,
+};
+
+export const spacing = {
+  xl: 30,
+  l: 20,
+  m: 15,
+  s: 10,
+  xs: 5,
 };

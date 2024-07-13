@@ -4,7 +4,7 @@ import PieChart from "react-native-pie-chart";
 
 import { ExpenseModal } from "../modals/expenseModal";
 import { PieChartColorDetail } from "./pieChartColorDetail";
-import { COLORS } from "../constants/constants";
+import { COLORS, fontSizes } from "../constants/constants";
 
 type PropType = {
   expensesOBJ: ExpenseModal[];
@@ -89,6 +89,6 @@ const styles = StyleSheet.create({
   },
   expenseTxt: {
     color: COLORS.white,
-    fontSize: 20,
+    fontSize: fontSizes.labelFont,
   },
 });

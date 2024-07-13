@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { PieChartComponent } from "../../../components/piechartComponent";
-import { COLORS, styleNumber } from "../../../constants/constants";
+import { COLORS, fontSizes, spacing, styleNumber } from "../../../constants/constants";
 import { ExpenseModal } from "../../../modals/expenseModal";
 
 type PropType = {
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: "90%",
     height: 150,
-    marginBottom: 20,
-    padding: 10,
+    marginBottom: spacing.l,
+    padding: spacing.s,
     flexDirection: "row",
     justifyContent: "space-around",
     borderRadius: styleNumber.borderRadius,
@@ -83,6 +83,6 @@ const styles = StyleSheet.create({
   },
   incomeExpenseTXT: {
     color: COLORS.white,
-    fontSize: 30,
+    fontSize: fontSizes.headingl,
   },
 });

@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { COLORS } from "../constants/constants";
+import { COLORS, spacing } from "../constants/constants";
 
 type PropType = {
   colorDetail: { amount: number; category: string; color: string };
@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
     color: COLORS.white,
   },
   colorBox: {
-    width: 20,
-    height: 20,
-    marginRight: 10,
+    width: spacing.l,
+    height: spacing.l,
+    marginRight: spacing.s,
   },
   colorDetailsContainer: {
     flexDirection: "row",
-    marginTop: 14,
-    marginBottom: 7,
+    marginTop: spacing.m,
+    marginBottom: spacing.s,
   },
 });

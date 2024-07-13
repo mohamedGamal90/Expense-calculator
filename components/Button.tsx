@@ -1,6 +1,6 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
-import { styleNumber, COLORS, fontSizes } from "../constants/constants";
+import { styleNumber, COLORS, fontSizes, spacing } from "../constants/constants";
 
 type Props = {
   onPress: () => void;
@@ -19,13 +19,12 @@ export const Button = ({ onPress, btnPlaceHolder, disabled }: Props) => (
 
 const styles = StyleSheet.create({
   Btn: {
-    paddingHorizontal: 10,
-    paddingVertical: 15,
+    paddingHorizontal: spacing.s,
+    paddingVertical: spacing.m,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: styleNumber.borderRadius,
     backgroundColor: COLORS.neongreen2,
-    marginVertical: 30,
     width: "85%",
   },
   disabledBtn: {

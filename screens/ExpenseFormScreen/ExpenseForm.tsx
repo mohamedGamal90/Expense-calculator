@@ -6,7 +6,7 @@ import SelectDropdown from "react-native-select-dropdown";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { ExpenseContext } from "../../store/context/expense-context";
-import { COLORS, fontSizes, styleNumber } from "../../constants/constants";
+import { COLORS, fontSizes, spacing, styleNumber } from "../../constants/constants";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "../../components/Button";
 import { insertExpenses } from "../../dataBase/databse";
@@ -150,15 +150,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    paddingBottom: spacing.s,
   },
   textInput: {
-    paddingVertical: 10,
+    paddingVertical: spacing.s,
     paddingHorizontal: 17,
     color: COLORS.white,
   },
   formField: {
     backgroundColor: COLORS.formBlack,
-    margin: 10,
+    margin: spacing.s,
     borderBottomWidth: 3,
     fontSize: fontSizes.labelFont,
     borderColor: COLORS.neongreen2,
