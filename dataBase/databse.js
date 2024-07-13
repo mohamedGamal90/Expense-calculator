@@ -1,7 +1,5 @@
 import * as SQLite from "expo-sqlite";
 
-import { ExpenseModal } from "../modals/expenseModal";
-
 const database = SQLite.openDatabaseSync("Expenses.db");
 
 export const init = async () =>
@@ -25,41 +23,5 @@ export const insertExpenses = async (expense) =>
     expense.description
   );
 
-export const fetchExpenses = async () => {
-  console.log("fetchExpenses");
-  const allRows = await database.getAllAsync('SELECT * FROM test');
-  for (const row of allRows) {
-    console.log(row.id, row.value, row.intValue);
-  }
-  return [];
-  // const promise = new Promise((resolve, reject) => {
-  //   database.transaction((tx) => {
-  //     tx.executeSql(
-  //       "SELECT * FROM Expenses",
-  //       [],
-  //       (_, result) => {
-  //         const expenses = [];
-
-  //         for (const dp of result.rows._array) {
-  //           expenses.push(
-  //             new ExpenseModal(
-  //               dp.name,
-  //               dp.type,
-  //               dp.amount,
-  //               dp.category,
-  //               dp.description
-  //             )
-  //           );
-  //         }
-  //         resolve(expenses);
-  //       },
-  //       (_, error) => {
-  //         console.log("fetch error");
-  //         reject(error);
-  //       }
-  //     );
-  //   });
-  // });
-
-  // return promise;
-};
+export const fetchExpenses = async () =>
+  await database.getAllAsync("SELECT * FROM Expenses");

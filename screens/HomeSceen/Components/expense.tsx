@@ -1,29 +1,16 @@
-import React, { useLayoutEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import { COLORS, styleNumber } from "../constants/constants";
-import { ExpenseModal } from "../modals/expenseModal";
+import { COLORS, styleNumber } from "../../../constants/constants";
+import { ExpenseModal } from "../../../modals/expenseModal";
 
 type PropType = {
   expense: ExpenseModal;
 };
-const Expense = ({ expense }: PropType) => {
-  const [icon, setIcon] = useState("");
-  const [color, setColor] = useState("");
-
-  useLayoutEffect(() => {
-    const returnAmountColor = () => {
-      if (expense.type === "income") {
-        setIcon("arrow-right");
-        setColor(COLORS.neongreen2);
-      } else {
-        setIcon("arrow-left");
-        setColor(COLORS.neonRed);
-      }
-    };
-    returnAmountColor();
-  }, []);
+export const Expense = ({ expense }: PropType) => {
+  const icon = expense.type === "income" ? "arrow-right" : "arrow-left";
+  const color = expense.type === "income" ? COLORS.neongreen2 : COLORS.neonRed;
 
   return (
     <View style={styles.expenseContainer}>
@@ -45,16 +32,14 @@ const Expense = ({ expense }: PropType) => {
   );
 };
 
-export default Expense;
-
 const styles = StyleSheet.create({
   expenseContainer: {
+    marginHorizontal: "5%",
     marginVertical: 10,
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderWidth: 3,
     borderColor: COLORS.neonGrey,
-    width: "100%",
     borderRadius: styleNumber.borderRadius,
     overflow: "hidden",
     flexDirection: "row",

@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 import { ExpenseContext } from "../../store/context/expense-context";
-import Expense from "../../components/expense";
+import { Expense } from "./Components/expense";
 import { IncomeCard } from "./Components/incomeCard";
 import { ExpenseModal } from "../../modals/expenseModal";
 import { fetchExpenses } from "../../dataBase/databse";
@@ -71,8 +71,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   expenseContainer: {
-    width: "90%",
-    paddingHorizontal: 10,
-    paddingBottom: 140,
+    width: "100%",
+    marginBottom: 15,
   },
 });
