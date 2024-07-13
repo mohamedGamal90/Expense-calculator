@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { PieChartComponent } from "../../../components/piechartComponent";
-import { COLORS, fontSizes, spacing, styleNumber } from "../../../constants/constants";
+import {
+  COLORS,
+  fontSizes,
+  spacing,
+  styleNumber,
+} from "../../../constants/constants";
 import { ExpenseModal } from "../../../modals/expenseModal";
 
 type PropType = {
@@ -17,15 +22,17 @@ export const IncomeCard = ({
   const [incomeAmount, setIncomeAmount] = useState(0);
 
   useEffect(() => {
-    setIncomeAmount(0);
-    setExpenseAmount(0);
+    let expense = 0;
+    let income = 0;
     expensesOBJ.map((singleExpense: ExpenseModal) => {
       if (singleExpense.type === "income") {
-        setIncomeAmount((prevState) => prevState + singleExpense.amount);
+        income += singleExpense.amount;
       } else {
-        setExpenseAmount((prevState) => prevState + singleExpense.amount);
+        expense += singleExpense.amount;
       }
     });
+    setExpenseAmount(expense);
+    setIncomeAmount(income);
   }, [expensesOBJ]);
 
   const expenseTotalHandlert = () => {
