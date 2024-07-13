@@ -27,6 +27,3 @@ forth & fifth hour:
 sixth to eighth hour:
   1. adding sqlite.
   2. bug fixes with the app state. 
-
-<img src="assets/Appscreenshots/27.png" >
-
