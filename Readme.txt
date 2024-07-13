@@ -28,5 +28,5 @@ sixth to eighth hour:
   1. adding sqlite.
   2. bug fixes with the app state. 
 
-![IMG_9827!](https://github.com/user-attachments/assets/bf3713d7-be20-4757-ab5f-9661701c01f8)
+![IMG_9827!](https://drive.google.com/file/d/1kK0wpaNZ3xlT1KCjCU_gzPxm3LAFOuwQ/view)
 
