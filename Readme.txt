@@ -28,4 +28,4 @@ sixth to eighth hour:
   1. adding sqlite.
   2. bug fixes with the app state. 
 
-  ![screenshot](AppScreenshots/IMG_9827.png)
+<img src="AppScreenshots/IMG_9827.png" width="128"/>
