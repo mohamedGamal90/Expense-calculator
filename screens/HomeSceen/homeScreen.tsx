@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   expenseContainer: {
+    flex: 1,
     width: "100%",
-    marginBottom: 15,
   },
 });

@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, View } from "react-native";
 import PieChart from "react-native-pie-chart";
 
 import { ExpenseModal } from "../modals/expenseModal";
-import PieChartColorDetail from "./pieChartColorDetail";
+import { PieChartColorDetail } from "./pieChartColorDetail";
 import { COLORS } from "../constants/constants";
 
 type PropType = {
@@ -11,7 +11,7 @@ type PropType = {
   widthAndHeight: number;
   listItems: boolean;
 };
-const PieChartComponent = ({
+export const PieChartComponent = ({
   expensesOBJ,
   widthAndHeight,
   listItems,
@@ -81,8 +81,6 @@ const PieChartComponent = ({
   );
 };
 
-export default PieChartComponent;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -91,6 +89,6 @@ const styles = StyleSheet.create({
   },
   expenseTxt: {
     color: COLORS.white,
-    fontsize: 20,
+    fontSize: 20,
   },
 });

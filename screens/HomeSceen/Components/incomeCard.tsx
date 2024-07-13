@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import PieChartComponent from "../../../components/piechartComponent";
+import { PieChartComponent } from "../../../components/piechartComponent";
 import { COLORS, styleNumber } from "../../../constants/constants";
 import { ExpenseModal } from "../../../modals/expenseModal";
 
@@ -9,7 +9,10 @@ type PropType = {
   expensesOBJ: ExpenseModal[];
   monthlyDetailsHandler: () => void;
 };
-export const IncomeCard = ({ expensesOBJ, monthlyDetailsHandler }: PropType) => {
+export const IncomeCard = ({
+  expensesOBJ,
+  monthlyDetailsHandler,
+}: PropType) => {
   const [expenseAmount, setExpenseAmount] = useState(0);
   const [incomeAmount, setIncomeAmount] = useState(0);
 

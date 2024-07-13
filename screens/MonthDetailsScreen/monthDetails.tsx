@@ -2,12 +2,12 @@ import React, { useContext, useLayoutEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-import { ExpenseContext } from "../store/context/expense-context";
-import { ExpenseModal } from "../modals/expenseModal";
-import PieChartComponent from "../components/piechartComponent";
-import { COLORS } from "../constants/constants";
+import { ExpenseContext } from "../../store/context/expense-context";
+import { ExpenseModal } from "../../modals/expenseModal";
+import { PieChartComponent } from "../../components/piechartComponent";
+import { COLORS } from "../../constants/constants";
 
-const MonthDetails = () => {
+export const MonthDetails = () => {
   const expenseCTX = useContext(ExpenseContext);
   const expensesOBJ: ExpenseModal[] = expenseCTX.expenses;
   const [expenseAmount, setExpenseAmount] = useState(0);
@@ -42,8 +42,6 @@ const MonthDetails = () => {
     </LinearGradient>
   );
 };
-
-export default MonthDetails;
 
 const styles = StyleSheet.create({
   container: {
