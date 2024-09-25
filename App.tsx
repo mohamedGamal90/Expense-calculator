@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import AppLoading from "expo-app-loading";
+import * as SplashScreen from 'expo-splash-screen';
 
 import { HomeScreen } from "./screens/HomeSceen/homeScreen";
 import { ExpenseForm } from "./screens/ExpenseFormScreen/ExpenseForm";
@@ -14,22 +14,19 @@ import { MonthDetails } from "./screens/MonthDetailsScreen/monthDetails";
 
 const Stack = createNativeStackNavigator();
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
-  const [dbInitialized, setDbInitialized] = useState(true);
 
   useEffect(() => {
     init()
       .then(() => {
-        setDbInitialized(false);
+        SplashScreen.hideAsync()
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
-
-  if (dbInitialized) {
-    return <AppLoading />;
-  }
 
   return (
     <NavigationContainer>

@@ -32,7 +32,6 @@ export const HomeScreen = () => {
     const fetchexpensesHandler = async () => {
       if (start) {
         const expenses = await fetchExpenses();
-        expenseCTX.addExpenses(expenses);
         expenses.forEach((element: ExpenseModal) => {
           expenseCTX.addExpense(element);
         });
