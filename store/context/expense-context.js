@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const ExpenseContext = createContext({
   expenses: [],
   addExpense: (expense) => {},
-  addExpenses:(expenses)=>{},
+  addExpenses: (expenses) => {},
   removeExpense: (expense) => {},
 });
 
@@ -24,12 +24,14 @@ const ExpenseContextProvider = ({ children }) => {
 
   const value = {
     expenses: expenseIds,
-    addExpense:addExpense,
-    addExpenses:addExpenses,
-    removeExpense:removeExpense,
+    addExpense: addExpense,
+    addExpenses: addExpenses,
+    removeExpense: removeExpense,
   };
 
-  return <ExpenseContext.Provider value={value}>{children}</ExpenseContext.Provider>;
+  return (
+    <ExpenseContext.Provider value={value}>{children}</ExpenseContext.Provider>
+  );
 };
 
 export default ExpenseContextProvider;
