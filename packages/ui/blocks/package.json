@@ -1,0 +1,16 @@
+{
+	"name": "@aurora/blocks",
+	"version": "1.0.0",
+	"main": "src/index.ts",
+	"license": "MIT",
+	"dependencies": {
+		"@aurora/icons": "*",
+		"@hookform/resolvers": "^3.9.1",
+		"expo-image": "~2.0.0",
+		"react-hook-form": "^7.53.2",
+		"yup": "^1.4.0"
+	},
+	"peerDependencies": {
+		"react-native": "0.76.2"
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"name": "@aurora/auth",
+	"version": "1.0.0",
+	"main": "src/index.ts",
+	"license": "MIT",
+	"dependencies": {
+		"@aurora/blocks": "*",
+		"@aurora/components": "*",
+		"@aurora/icons": "*",
+    "@aurora/utils": "*",
+		"expo-router": "^1.5.3"
+	}
+}

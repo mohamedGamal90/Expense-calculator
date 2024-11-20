@@ -1,0 +1,10 @@
+{
+  "name": "@aurora/utils",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "expo-secure-store": "~14.0.0",
+    "js-cookie": "^3.0.5"
+  }
+}
