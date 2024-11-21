@@ -18,7 +18,9 @@ export function DialogInstance({ title, icon, children }: Props) {
 						width={50}
 						icon={icon}
 					/>
-					<StyledText color={"$secondary900"} variant="BodySemiBoldm">
+					<StyledText
+						color={"$secondary900"}
+						variant={screenWidth > 600 ? "BodySemiBoldm" : "BodySemiBolds"}>
 						{title}
 					</StyledText>
 				</View>

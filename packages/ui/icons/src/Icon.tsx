@@ -24,6 +24,9 @@ export function updateIcons(
 
 interface IconComponentProps extends SvgProps {
   name: IconKeys; // Ensure the name prop is a valid key of the icons object
+  color?: string;
+  width?: number;
+  height?: number;
 }
 
 // Create the IconComponent functional component

@@ -1,22 +1,17 @@
 import { memo } from "react";
-import {
-	StyleSheet,
-	ImageBackground as RNImageBackground,
-	Dimensions,
-} from "react-native";
+import { StyleSheet, ImageBackground as RNImageBackground } from "react-native";
 import { Card } from "../types";
 import { StyledText, View } from "@aurora/components";
 
-const screenWidth = Dimensions.get("window").width;
-
 type Props = {
 	card: Card;
+	width: number;
 };
 
-export const CardItem = memo(({ card }: Props) => {
+export const CardItem = memo(({ card, width }: Props) => {
 	return (
 		<View
-			width={screenWidth}
+			width={width}
 			height={200}
 			alignItems="center"
 			justifyContent="center"
@@ -32,9 +27,9 @@ export const CardItem = memo(({ card }: Props) => {
 					alignSelf="center"
 					borderRadius={5}
 					padding={5}
-					right={50}
+					right={58}
 					top={148}>
-					<StyledText variant="Headingxl" color={"white"}>
+					<StyledText variant="Headingl" color={"white"}>
 						{card.cardMask}
 					</StyledText>
 				</View>

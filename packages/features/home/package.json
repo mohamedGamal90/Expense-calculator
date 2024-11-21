@@ -1,0 +1,11 @@
+{
+	"name": "@aurora/home",
+	"version": "1.0.0",
+	"main": "src/index.ts",
+	"license": "MIT",
+	"dependencies": {
+		"@aurora/blocks": "*",
+		"@aurora/components": "*",
+		"expo-router": "^1.5.3"
+	}
+}

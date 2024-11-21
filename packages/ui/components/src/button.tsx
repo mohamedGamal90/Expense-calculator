@@ -23,11 +23,17 @@ export const StyledButton = styled(Button, {
       },
       secondary: {
         backgroundColor: "$gray50",
-        borderColor: "$primary500",
         borderWidth: 1,
-        color: "$primary500",
+      },
+      iconBtn: {
+        backgroundColor: "$black",
+        borderWidth: 1,
+        borderRadius: 5,
+        hoverStyle: {
+          backgroundColor: "$secondary500",
+        },
         pressStyle: {
-          backgroundColor: "$primary100",
+          backgroundColor: "$secondary800",
         },
       },
       negative: {
@@ -52,3 +58,4 @@ export const StyledButton = styled(Button, {
     variant: "primary",
   },
 } as const);
+

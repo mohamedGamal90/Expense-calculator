@@ -15,7 +15,7 @@ const PillFrame = styled(View, {
         backgroundColor: "$warning100",
       },
       negative: {
-        backgroundColor: "$negative100",
+        backgroundColor: "$error100",
       },
     },
   },
@@ -44,19 +44,20 @@ function PillText({
       case "warning":
         return "$warning500";
       case "negative":
-        return "$negative500";
+        return "$error500";
       default:
         return "$gray900";
     }
   })();
 
-  return <StyledText variant="Bodys" color={color} {...props} />;
+  return <StyledText variant="Bodysm" color={color} {...props} />;
 }
 
 export function Pill(props: PillProps) {
   return (
-    <PillFrame {...props}>
+    <PillFrame {...props} justifyContent="center" alignItems="center">
       <PillText variant={props.variant}>{props.children}</PillText>
     </PillFrame>
   );
 }
+

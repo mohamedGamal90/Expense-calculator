@@ -8,7 +8,10 @@ const { width: screenWidth } = Dimensions.get("window");
 export const CardCurrencyDetails = ({ card }: { card: Card }) => {
 	const cardStatus = card.statusName === "VALID CARD" ? "Active" : "UnActive";
 	return (
-		<View flexDirection="row" margin={screenWidth > 600 ? "$ml" : "$sm"}>
+		<View
+			flexDirection="row"
+			justifyContent="center"
+			margin={screenWidth > 600 ? "$ml" : "$sm"}>
 			<CardInfoBlock title={"Your Balance"}>
 				<StyledText
 					variant={screenWidth > 600 ? "BodySemiBoldml" : "BodySemiBoldsm"}
