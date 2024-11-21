@@ -2,6 +2,7 @@
 	"name": "@aurora/blocks",
 	"version": "1.0.0",
 	"main": "src/index.ts",
+	"module:jsx": "src",
 	"license": "MIT",
 	"dependencies": {
 		"@aurora/icons": "*",
