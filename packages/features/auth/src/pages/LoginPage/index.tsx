@@ -1,11 +1,4 @@
-import {
-	Button,
-	Input,
-	StyledButton,
-	StyledText,
-	TextInput,
-	View,
-} from "@aurora/components";
+import { StyledButton, StyledText, TextInput, View } from "@aurora/components";
 import { Image } from "expo-image";
 import { Icon } from "@aurora/icons";
 

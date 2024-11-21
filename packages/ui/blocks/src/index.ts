@@ -5,6 +5,5 @@ export * from "./transaction-history";
 export * from "./CardList";
 export * from "./Form";
 export * from "./Dialog";
-export * from "./login-page";
 export * from "./dialog-screens/card-mangement";
 

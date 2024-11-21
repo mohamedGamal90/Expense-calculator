@@ -1,7 +1,7 @@
 {
   "name": "@aurora/utils",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "license": "MIT",
   "dependencies": {
     "expo-secure-store": "~14.0.0",
