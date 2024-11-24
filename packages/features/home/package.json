@@ -5,7 +5,6 @@
 	"license": "MIT",
 	"dependencies": {
 		"@aurora/blocks": "*",
-		"@aurora/components": "*",
-		"expo-router": "^1.5.3"
+		"@aurora/components": "*"
 	}
 }

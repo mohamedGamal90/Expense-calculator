@@ -14,9 +14,6 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@aurora/blocks": "*",
-    "@aurora/components": "*",
-    "@aurora/home": "*",
     "@aurora/auth": "*",
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/bottom-tabs": "^7.0.0",

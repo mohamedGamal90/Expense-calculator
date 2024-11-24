@@ -7,7 +7,6 @@
 		"@aurora/blocks": "*",
 		"@aurora/components": "*",
 		"@aurora/icons": "*",
-    "@aurora/utils": "*",
-		"expo-router": "^1.5.3"
+		"@aurora/utils": "*"
 	}
 }

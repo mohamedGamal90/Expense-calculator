@@ -1,3 +1,3 @@
-export * from "./ForgotPassowrd";
-export * from "./NewPassword";
-export * from "./LoginPage";
+export * from "./ForgotPasswordScreen";
+export * from "./NewPasswordScreen";
+export * from "./LoginScreen";

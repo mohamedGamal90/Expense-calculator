@@ -122,5 +122,3 @@ export const config = createConfig({
     transparent: "transparent",
   },
 });
-
-export default config;
