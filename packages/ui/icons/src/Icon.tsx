@@ -9,9 +9,7 @@ type IconComponent = (props: SvgProps) => React.ReactElement; // Specify the ret
 export type IconKeys = keyof typeof svgs; // Get the keys from the icons object
 
 // Function to update icons
-export function updateIcons(
-  newIcons: Partial<Record<IconKeys, IconComponent>>
-) {
+export function updateIcons(newIcons: Partial<Record<IconKeys, IconComponent>>) {
   for (const [key, component] of Object.entries(newIcons)) {
     const iconKey = key as IconKeys; // Cast to IconKeys
     if (iconKey in svgs) {

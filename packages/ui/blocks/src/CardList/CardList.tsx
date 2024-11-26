@@ -40,9 +40,7 @@ export const CardList = ({ cards, width }: CardListProps) => {
     });
     setCurrentIndex(prevIndex);
   };
-  const handleMomentumScrollEnd = (
-    event: NativeSyntheticEvent<NativeScrollEvent>
-  ) => {
+  const handleMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const newIndex = Math.round(event.nativeEvent.contentOffset.x / width);
     setCurrentIndex(newIndex);
   };
@@ -85,15 +83,11 @@ export const CardList = ({ cards, width }: CardListProps) => {
         disabled={currentIndex === 0} // Disable when at the first item
       />
 
-      <Pressable
-        style={{ width: "100%" }}
-        onPressIn={handleTouchStart}
-        onPressOut={handleTouchEnd}
-      >
+      <Pressable style={{ width: "100%" }} onPressIn={handleTouchStart} onPressOut={handleTouchEnd}>
         <FlatList
           ref={flatListRef}
           data={cards}
-          keyExtractor={(item) => `card-${item.id}`}
+          keyExtractor={item => `card-${item.id}`}
           renderItem={({ item }) => <CardItem card={item} width={width} />}
           horizontal
           pagingEnabled
@@ -143,4 +137,3 @@ export const CardList = ({ cards, width }: CardListProps) => {
     </View>
   );
 };
-

@@ -7,11 +7,7 @@ type ControlledFieldProps = FieldItem & {
   error?: string;
 };
 
-export const ControlledField = ({
-  fieldName,
-  error,
-  ...inputProps
-}: ControlledFieldProps) => {
+export const ControlledField = ({ fieldName, error, ...inputProps }: ControlledFieldProps) => {
   const {
     field,
     formState: { errors },

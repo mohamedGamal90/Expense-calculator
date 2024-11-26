@@ -12,9 +12,8 @@
 
 ## Description
 
-
-
 ## Related Tickets & Documents
+
 - Related Issue #
 
 ## QA Instructions, Screenshots, Recordings

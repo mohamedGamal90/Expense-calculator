@@ -58,4 +58,3 @@ export const StyledButton = styled(Button, {
     variant: "primary",
   },
 } as const);
-

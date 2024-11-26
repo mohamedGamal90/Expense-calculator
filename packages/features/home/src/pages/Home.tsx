@@ -8,10 +8,7 @@ export const Home = () => {
   return (
     <ScrollView>
       <View flexDirection="row" flexWrap="wrap" gap={"$base"} margin={"$base"}>
-        <CardListView
-          currentIndex={currentIndex}
-          setCurrentIndex={setCurrentIndex}
-        />
+        <CardListView currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} />
         <TransactionHistory />
       </View>
     </ScrollView>

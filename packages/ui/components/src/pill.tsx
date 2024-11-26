@@ -23,10 +23,11 @@ const PillFrame = styled(View, {
 
 type PillProps = GetProps<typeof PillFrame>;
 
-type Override<
+type Override<Type, NewType extends { [key in keyof Type]?: NewType[key] }> = Omit<
   Type,
-  NewType extends { [key in keyof Type]?: NewType[key] }
-> = Omit<Type, keyof NewType> & NewType;
+  keyof NewType
+> &
+  NewType;
 
 function PillText({
   variant,
@@ -60,4 +61,3 @@ export function Pill(props: PillProps) {
     </PillFrame>
   );
 }
-
