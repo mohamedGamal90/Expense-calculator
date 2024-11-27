@@ -1,14 +1,19 @@
-import { Button, styled } from "tamagui";
+import { GetProps, View, Text, createStyledContext, styled, withStaticProperties } from "tamagui";
 
-export const StyledButton = styled(Button, {
-  unstyled: true,
+const ButtonContext = createStyledContext({
+  variant: "primary",
+});
+
+const ButtonFrame = styled(View, {
+  name: "Button",
+  context: ButtonContext,
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
   borderRadius: "$m",
   paddingVertical: "$m",
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "center",
-  width: "100%",
-  color: "$white",
+  cursor: "pointer",
+
   variants: {
     variant: {
       primary: {
@@ -18,43 +23,47 @@ export const StyledButton = styled(Button, {
           backgroundColor: "$primary600",
         },
         pressStyle: {
-          backgroundColor: "$primary600",
+          backgroundColor: "$primary700",
         },
-      },
-      secondary: {
-        backgroundColor: "$gray50",
-        borderWidth: 1,
-      },
-      iconBtn: {
-        backgroundColor: "$black",
-        borderWidth: 1,
-        borderRadius: 5,
-        hoverStyle: {
-          backgroundColor: "$secondary500",
-        },
-        pressStyle: {
-          backgroundColor: "$secondary800",
-        },
-      },
-      negative: {
-        backgroundColor: "$negative500",
-        pressStyle: {
-          backgroundColor: "$negative600",
-        },
-      },
-      outlined: {
-        backgroundColor: "$transparent",
-        borderColor: "$transparent",
       },
     },
-    disabled: {
-      true: {
-        backgroundColor: "$secondary100",
-        color: "$secondary700",
-      },
-    },
-  },
+  } as const,
+
   defaultVariants: {
     variant: "primary",
   },
-} as const);
+});
+
+type ButtonProps = GetProps<typeof ButtonFrame>;
+
+const ButtonText = styled(Text, {
+  name: "ButtonText",
+  context: ButtonContext,
+  userSelect: "none",
+
+  variants: {
+    variant: {
+      primary: {
+        color: "$white",
+      },
+    },
+  } as const,
+});
+
+const Button = withStaticProperties(ButtonFrame, {
+  Props: ButtonContext.Provider,
+  Text: ButtonText,
+});
+
+type StyledButtonProps = ButtonProps & {
+  icon?: React.ReactNode;
+};
+
+export function StyledButton({ children, icon, ...props }: StyledButtonProps) {
+  return (
+    <Button {...props}>
+      {icon}
+      <Button.Text>{children}</Button.Text>
+    </Button>
+  );
+}
