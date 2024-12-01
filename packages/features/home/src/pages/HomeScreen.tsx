@@ -1,6 +1,7 @@
-import { config, ScrollView, View } from "@aurora/components";
+import { config, ScrollView, StyledText, View } from "@aurora/components";
 import { CardListView, TransactionHistory } from "@aurora/blocks";
 import { useState } from "react";
+import { Icon } from "@aurora/icons";
 
 export const HomeScreen = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

@@ -7,3 +7,4 @@ export * from "./Form";
 export * from "./Dialog";
 export * from "./dialog-screens/card-mangement";
 export * from "./dialog-screens/report-card";
+export * from "./Sidebar";

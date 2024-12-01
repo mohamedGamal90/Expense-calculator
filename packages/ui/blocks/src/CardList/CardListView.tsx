@@ -41,7 +41,7 @@ export const CardListView = ({ currentIndex, setCurrentIndex }: Props) => {
         <DialogInstance title={"Top Up"} icon={<Icon name={"topup"} />} children={<View />} />
         <DialogInstance
           title={"Manage"}
-          icon={<Icon name={"mange"} width={24} height={24} />}
+          icon={<Icon name={"manage"} width={24} height={24} />}
           children={<CardMangementDialogScreen />}
         />
         <DialogInstance title={"Add Card"} icon={<Icon name={"card-add"} />} children={<View />} />
