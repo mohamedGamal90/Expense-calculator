@@ -11,6 +11,9 @@ import {
   Inter_600SemiBold,
   Inter_700Bold,
 } from "@expo-google-fonts/inter";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const { isLoaded } = useLoadAssets({
@@ -28,8 +31,10 @@ export default function RootLayout() {
     return null;
   }
   return (
-    <TamaguiProvider config={config}>
-      <Slot />
-    </TamaguiProvider>
+    <QueryClientProvider client={queryClient}>
+      <TamaguiProvider config={config}>
+        <Slot />
+      </TamaguiProvider>
+    </QueryClientProvider>
   );
 }

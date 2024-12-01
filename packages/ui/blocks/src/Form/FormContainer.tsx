@@ -66,19 +66,16 @@ export const FormContainer: React.FC<FormContainerProps> = ({
     mode: "onSubmit",
 
     resolver: yupResolver(validationSchema),
-    defaultValues: fields.reduce(
-      (acc, field) => {
-        if ("fields" in field) {
-          (field.fields as FieldItem[]).forEach(groupField => {
-            acc[groupField.fieldName] = groupField.defaultValue || "";
-          });
-        } else {
-          acc[field.fieldName] = field.defaultValue || "";
-        }
-        return acc;
-      },
-      {} as Record<string, any>,
-    ),
+    defaultValues: fields.reduce((acc, field) => {
+      if ("fields" in field) {
+        (field.fields as FieldItem[]).forEach(groupField => {
+          acc[groupField.fieldName] = groupField.defaultValue || "";
+        });
+      } else {
+        acc[field.fieldName] = field.defaultValue || "";
+      }
+      return acc;
+    }, {} as Record<string, any>),
   });
 
   const isValid = formMethods.formState.isValid;
@@ -114,10 +111,8 @@ export const FormContainer: React.FC<FormContainerProps> = ({
             ),
           )}
 
-          <Form.Trigger asChild disabled={isLoading || !isValid} marginTop="$2xl">
-            <StyledButton icon={isLoading ? () => <Spinner /> : undefined} variant={"primary"}>
-              {btnText}
-            </StyledButton>
+          <Form.Trigger asChild marginTop="$2xl">
+            <StyledButton variant={"primary"}>{btnText}</StyledButton>
           </Form.Trigger>
         </ScrollView>
       </FormProvider>

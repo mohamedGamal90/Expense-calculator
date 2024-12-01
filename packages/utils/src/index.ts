@@ -1,4 +1,4 @@
 export * from "./platform";
-export * from "./protectedStore";
+export * as protectedStore from "./protectedStore";
 export * from "./validations";
 export * from "./useLoadAssets";

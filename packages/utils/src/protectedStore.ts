@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 // Check if we are in a web environment
 const isWeb = typeof window !== "undefined";
 
-export const getToken = async (key: string) => {
+export const getValue = async (key: string) => {
   try {
     if (isWeb) {
       // For web, get token from cookies
@@ -15,11 +15,11 @@ export const getToken = async (key: string) => {
       return credentials;
     }
   } catch (error) {
-    console.log("Error getting token", error);
+    console.log("Error getting value", error);
   }
 };
 
-export const setToken = async (key: string, value: string) => {
+export const setValue = async (key: string, value: string) => {
   try {
     if (isWeb) {
       // For web, set token in cookies
@@ -29,11 +29,11 @@ export const setToken = async (key: string, value: string) => {
       await SecureStore.setItemAsync(key, value);
     }
   } catch (error) {
-    console.log("Error setting token", error);
+    console.log("Error setting value", error);
   }
 };
 
-export const deleteToken = async (key: string) => {
+export const deleteValue = async (key: string) => {
   try {
     if (isWeb) {
       // For web, remove token from cookies
@@ -43,6 +43,6 @@ export const deleteToken = async (key: string) => {
       await SecureStore.deleteItemAsync(key);
     }
   } catch (error) {
-    console.log("Error deleting token", error);
+    console.log("Error deleting value", error);
   }
 };
