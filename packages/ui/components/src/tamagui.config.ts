@@ -161,8 +161,11 @@ const interFont = createFont({
   },
   // (native only) swaps out fonts by face/style
   face: {
-    300: { normal: "InterLight", italic: "InterItalic" },
-    600: { normal: "InterBold" },
+    300: { normal: "Inter_300Light" },
+    500: { normal: "Inter_500Medium" },
+    600: { normal: "Inter_600SemiBold" },
+    700: { normal: "Inter_700Bold" },
+    900: { normal: "Inter_900Black" },
   },
 });
 

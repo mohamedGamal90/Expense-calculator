@@ -22,43 +22,29 @@ export const CardListView = ({ currentIndex, setCurrentIndex }: Props) => {
       borderWidth={1}
       borderRadius={"$sm"}
       borderColor={"$secondary100"}
-      paddingVertical={"$m"}
-    >
+      paddingVertical={"$m"}>
       <StyledText marginLeft={"$m"} variant="Headingxl" color={"$secondary900"}>
         Overview
       </StyledText>
       <CardList
         cards={cards}
         width={screenWidth - config.tokens.space.base.val * 2}
-        onChange={(index) => setCurrentIndex(index)}
+        onChange={index => setCurrentIndex(index)}
       />
       <CardCurrencyDetails card={cards[currentIndex]} />
       <View
         flexDirection="row"
         alignSelf="center"
         gap={screenWidth > 600 ? "$5xl" : "$l"}
-        marginTop="$base"
-      >
-        <DialogInstance
-          title={"Send"}
-          icon={<Icon name={"send"} />}
-          children={<View />}
-        />
-        <DialogInstance
-          title={"Top Up"}
-          icon={<Icon name={"topup"} />}
-          children={<View />}
-        />
+        marginTop="$base">
+        <DialogInstance title={"Send"} icon={<Icon name={"send"} />} children={<View />} />
+        <DialogInstance title={"Top Up"} icon={<Icon name={"topup"} />} children={<View />} />
         <DialogInstance
           title={"Manage"}
           icon={<Icon name={"mange"} width={24} height={24} />}
           children={<CardMangementDialogScreen />}
         />
-        <DialogInstance
-          title={"Add Card"}
-          icon={<Icon name={"card-add"} />}
-          children={<View />}
-        />
+        <DialogInstance title={"Add Card"} icon={<Icon name={"card-add"} />} children={<View />} />
       </View>
     </View>
   );

@@ -2,7 +2,7 @@ import { config, ScrollView, View } from "@aurora/components";
 import { CardListView, TransactionHistory } from "@aurora/blocks";
 import { useState } from "react";
 
-export const Home = () => {
+export const HomeScreen = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   return (
     <ScrollView>

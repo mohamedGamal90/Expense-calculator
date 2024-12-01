@@ -1,10 +1,10 @@
 {
-  "name": "@aurora/utils",
+  "name": "@aurora/localization",
   "version": "1.0.0",
   "main": "src/index.ts",
   "license": "MIT",
   "dependencies": {
-    "expo-secure-store": "*",
-    "js-cookie": "*"
+    "react-i18next": "*",
+    "i18next": "*"
   }
 }

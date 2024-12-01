@@ -4,6 +4,7 @@ export const StyledText = styled(Text, {
   unstyled: true,
   color: "$black",
   textAlign: "auto",
+  fontFamily: "Inter_900Black",
   variants: {
     variant: {
       Heading6xl: { fontSize: 44, fontWeight: "bold" },

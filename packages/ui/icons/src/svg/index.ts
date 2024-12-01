@@ -39,7 +39,7 @@ const svgs = {
   "report-card": ReportCard,
   send: Send,
   topup: TopUp,
-  MDPWordmark: MDPWordmark,
+  "mdp-wordmark": MDPWordmark,
 };
 
 export default svgs;

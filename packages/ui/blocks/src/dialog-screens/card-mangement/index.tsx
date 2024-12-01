@@ -27,8 +27,7 @@ export const CardMangementDialogScreen = () => {
             flexDirection="row"
             justifyContent="space-between"
             alignItems="center"
-            marginBottom={"$m"}
-          >
+            marginBottom={"$m"}>
             <StyledText variant="Heading2xl" color={"$secondary800"}>
               Card Management
             </StyledText>
@@ -45,35 +44,27 @@ export const CardMangementDialogScreen = () => {
           </View>
           <FlatList
             data={cardMangementList}
-            keyExtractor={(item) => item.title}
+            keyExtractor={item => item.title}
             renderItem={({ item, index }) => (
               <>
                 <TouchableOpacity
                   onPress={() => {
                     if (item?.render) setRender(item?.render);
-                  }}
-                >
+                  }}>
                   <View
                     flexDirection="row"
                     marginTop={index === 0 ? "$ml" : "$xl"}
-                    marginBottom={
-                      index === cardMangementList.length - 1 ? "$ml" : "$xl"
-                    }
-                  >
+                    marginBottom={index === cardMangementList.length - 1 ? "$ml" : "$xl"}>
                     <View flexDirection="row" gap={"$ml"} alignItems="center">
                       <View
                         padding={"$ml"}
                         backgroundColor={"$secondary100"}
                         justifyContent="center"
                         alignItems="center"
-                        borderRadius={"$s"}
-                      >
+                        borderRadius={"$s"}>
                         {item.icon}
                       </View>
-                      <StyledText
-                        variant="BodySemiBoldml"
-                        color={"$neutral800"}
-                      >
+                      <StyledText variant="BodySemiBoldml" color={"$neutral800"}>
                         {item.title}
                       </StyledText>
                     </View>

@@ -16,11 +16,7 @@ export const ReportCard = ({ onSubmit }: { onSubmit: () => void }) => {
     <View flex={1} justifyContent="space-between">
       <View>
         <Dialog.Title alignSelf="center">
-          <StyledText
-            textAlign="center"
-            variant="Heading2xl"
-            color={"$secondary800"}
-          >
+          <StyledText textAlign="center" variant="Heading2xl" color={"$secondary800"}>
             Report Card
           </StyledText>
         </Dialog.Title>
@@ -32,8 +28,7 @@ export const ReportCard = ({ onSubmit }: { onSubmit: () => void }) => {
           width={40}
           height={26}
           left={0}
-          top={-4}
-        >
+          top={-4}>
           <Icon name={"arrow-left"} width={26} height={26} color="#000000" />
         </StyledButton>
         <StyledText marginTop={"$ml"} variant="Headingxl" color={"$neutral800"}>
@@ -48,8 +43,7 @@ export const ReportCard = ({ onSubmit }: { onSubmit: () => void }) => {
           onPress={({ target }) => {
             if (target.value) setValue(target.value);
           }}
-          accentColor={config.tokens.color.primary800.val}
-        >
+          accentColor={config.tokens.color.primary800.val}>
           <RadioGroupItemWithLabel value="Lost" label="Card Lost" />
           <View height={1} backgroundColor={"$secondary100"} />
 
