@@ -4,7 +4,6 @@ import { useState } from "react";
 
 export const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  console.log(config.tokens.space.base.val);
   return (
     <ScrollView>
       <View flexDirection="row" flexWrap="wrap" gap={"$base"} margin={"$base"}>

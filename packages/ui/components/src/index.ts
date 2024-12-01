@@ -6,6 +6,7 @@ export * from "./utils";
 export * from "./pill";
 export * from "./input";
 export * from "./RootView";
+export * from "./RadioGroupItemWithLabel";
 
 import type { config } from "./tamagui.config";
 

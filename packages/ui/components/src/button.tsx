@@ -17,13 +17,13 @@ const ButtonFrame = styled(View, {
   variants: {
     variant: {
       primary: {
-        backgroundColor: "$primary500",
+        backgroundColor: "$primary800",
         borderColor: "$transparent",
         hoverStyle: {
           backgroundColor: "$primary600",
         },
         pressStyle: {
-          backgroundColor: "$primary700",
+          backgroundColor: "$primary950",
         },
       },
     },
