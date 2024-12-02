@@ -33,7 +33,6 @@ export const CardMangementDialogScreen = () => {
             </StyledText>
             <Dialog.Close asChild>
               <StyledButton
-                variant="secondary"
                 width={40}
                 height={40}
                 backgroundColor={"$white"}

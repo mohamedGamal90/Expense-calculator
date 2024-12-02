@@ -26,6 +26,11 @@ const ButtonFrame = styled(View, {
           backgroundColor: "$primary950",
         },
       },
+      iconBtn: {
+        borderWidth: 1,
+        borderColor: "$secondary800",
+        disabledStyle: { opacity: 0.6 },
+      },
     },
   } as const,
 

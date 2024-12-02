@@ -1,15 +1,15 @@
 {
-	"name": "@aurora/auth",
-	"version": "1.0.0",
-	"main": "src/index.ts",
-	"license": "MIT",
-	"dependencies": {
-		"@aurora/blocks": "*",
-		"@aurora/components": "*",
-		"@aurora/icons": "*",
-		"@aurora/utils": "*",
+  "name": "@aurora/auth",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@aurora/blocks": "*",
+    "@aurora/components": "*",
+    "@aurora/icons": "*",
+    "@aurora/utils": "*",
     "@metroid/api": "*",
     "@tanstack/react-query": "^5.61.3",
     "react-hook-form": "^7.53.2"
-	}
+  }
 }

@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { StyleSheet, ImageBackground as RNImageBackground } from "react-native";
-import { Card } from "../types";
+import { Card } from "../../types";
 import { StyledText, View } from "@aurora/components";
 
 type Props = {
@@ -19,7 +19,7 @@ export const CardItem = memo(({ card, width }: Props) => {
       alignSelf="center"
       marginHorizontal="$auto">
       <RNImageBackground
-        source={require("./cardImage.png")}
+        source={require("../cardImage.png")}
         style={styles.imageBackground}
         resizeMode="contain">
         <View
@@ -27,7 +27,7 @@ export const CardItem = memo(({ card, width }: Props) => {
           alignSelf="center"
           borderRadius={5}
           padding={5}
-          right={58}
+          right={50}
           top={148}>
           <StyledText variant="Headingl" color={"white"}>
             {card.cardMask}

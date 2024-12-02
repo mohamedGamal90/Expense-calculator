@@ -12,8 +12,6 @@ const { width: screenWidth } = Dimensions.get("window");
 type Props = {
   currentIndex: number;
   setCurrentIndex: Dispatch<SetStateAction<number>>;
-  currentIndex: number;
-  setCurrentIndex: Dispatch<SetStateAction<number>>;
 };
 export const CardListView = ({ currentIndex, setCurrentIndex }: Props) => {
   return (
@@ -28,8 +26,9 @@ export const CardListView = ({ currentIndex, setCurrentIndex }: Props) => {
       </StyledText>
       <CardList
         cards={cards}
-        width={screenWidth - config.tokens.space.base.val * 2}
-        onChange={index => setCurrentIndex(index)}
+        width={screenWidth - config.tokens.space.base.val * 2 - 255}
+        currentIndex={currentIndex}
+        setCurrentIndex={setCurrentIndex}
       />
       <CardCurrencyDetails card={cards[currentIndex]} />
       <View

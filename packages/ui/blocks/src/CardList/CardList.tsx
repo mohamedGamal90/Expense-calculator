@@ -1,5 +1,5 @@
 import { View } from "tamagui";
-import { CardItem } from "./CardItem";
+import { CardItem } from "./component/CardItem";
 import {
   FlatList,
   GestureResponderEvent,
@@ -8,8 +8,8 @@ import {
   Pressable,
 } from "react-native";
 import { Card } from "../types";
-import { StyledButton } from "@aurora/components";
-import { useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
+import { ControlIndexBtn } from "./component/ControlIndexBtn";
 import { Icon } from "@aurora/icons";
 
 type CardListProps = {
@@ -17,10 +17,11 @@ type CardListProps = {
   isVertical?: boolean;
   cards: Card[];
   width: number;
+  currentIndex: number;
+  setCurrentIndex: Dispatch<SetStateAction<number>>;
 };
 
-export const CardList = ({ cards, width }: CardListProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+export const CardList = ({ cards, width, currentIndex, setCurrentIndex }: CardListProps) => {
   const flatListRef = useRef<FlatList>(null);
 
   const onNext = () => {
@@ -70,17 +71,11 @@ export const CardList = ({ cards, width }: CardListProps) => {
   };
   return (
     <View position="relative" justifyContent="center">
-      <StyledButton
-        variant="iconBtn"
-        position="absolute"
-        left={20}
-        padding={2}
-        height={30}
-        width={30}
-        icon={<Icon name={"arrow-left"} color="#ffff" width={24} height={24} />}
+      <ControlIndexBtn
         onPress={onPrev}
-        zIndex={100}
-        disabled={currentIndex === 0} // Disable when at the first item
+        left={20}
+        icon={<Icon name={"arrow-left"} color="#ffff" width={24} height={24} />}
+        disabled={currentIndex === 0}
       />
 
       <Pressable style={{ width: "100%" }} onPressIn={handleTouchStart} onPressOut={handleTouchEnd}>
@@ -107,18 +102,13 @@ export const CardList = ({ cards, width }: CardListProps) => {
           onMomentumScrollEnd={handleMomentumScrollEnd}
         />
       </Pressable>
-
-      <StyledButton
-        variant="iconBtn"
-        position="absolute"
-        right={20}
-        width={30}
-        padding={2}
-        height={30}
-        icon={<Icon name={"arrow-right"} width={24} height={24} />}
+      <ControlIndexBtn
         onPress={onNext}
-        disabled={currentIndex === cards.length - 1} // Disable when at the last item
+        right={20}
+        icon={<Icon name={"arrow-right"} color="#ffff" width={24} height={24} />}
+        disabled={currentIndex === cards.length - 1}
       />
+
       <View gap={5} flexDirection="row" alignSelf="center" marginVertical={10}>
         {cards.map((_, index) => (
           <Pressable

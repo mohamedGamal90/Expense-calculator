@@ -66,16 +66,19 @@ export const FormContainer: React.FC<FormContainerProps> = ({
     mode: "onSubmit",
 
     resolver: yupResolver(validationSchema),
-    defaultValues: fields.reduce((acc, field) => {
-      if ("fields" in field) {
-        (field.fields as FieldItem[]).forEach(groupField => {
-          acc[groupField.fieldName] = groupField.defaultValue || "";
-        });
-      } else {
-        acc[field.fieldName] = field.defaultValue || "";
-      }
-      return acc;
-    }, {} as Record<string, any>),
+    defaultValues: fields.reduce(
+      (acc, field) => {
+        if ("fields" in field) {
+          (field.fields as FieldItem[]).forEach(groupField => {
+            acc[groupField.fieldName] = groupField.defaultValue || "";
+          });
+        } else {
+          acc[field.fieldName] = field.defaultValue || "";
+        }
+        return acc;
+      },
+      {} as Record<string, any>,
+    ),
   });
 
   const isValid = formMethods.formState.isValid;

@@ -1,5 +1,5 @@
 import { Sidebar, type SidebarButton } from "@aurora/blocks";
-import { View } from "@aurora/components";
+import { ScrollView, View } from "@aurora/components";
 import { Slot } from "expo-router";
 import React from "react";
 
@@ -33,10 +33,12 @@ const buttons: SidebarButton[] = [
 
 function DashboardLayout() {
   return (
-    <View flexDirection="row">
-      <Sidebar buttons={buttons} />
-      <Slot />
-    </View>
+    <ScrollView>
+      <View flexDirection="row">
+        <Sidebar buttons={buttons} />
+        <Slot />
+      </View>
+    </ScrollView>
   );
 }
 

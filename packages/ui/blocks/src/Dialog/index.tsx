@@ -11,8 +11,7 @@ export function DialogInstance({ title, icon, children }: Props) {
       <Dialog.Trigger asChild>
         <View alignItems="center">
           <StyledButton
-            variant="secondary"
-            borderColor={"$gray9"}
+            variant="iconBtn"
             paddingVertical={"$xs"}
             marginBottom={"$m"}
             width={50}
