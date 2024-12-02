@@ -54,8 +54,7 @@ export const NewPasswordScreen = () => {
         paddingHorizontal="$s"
         backgroundColor="$white"
         gap="$xl"
-        justifyContent="center"
-      >
+        justifyContent="center">
         <StyledButton
           variant="outlined"
           borderColor={"$gray9"}
@@ -67,14 +66,8 @@ export const NewPasswordScreen = () => {
         />
         <StyledText variant="Heading4xl">New Password</StyledText>
         <View gap="$l">
-          <TextInput
-            borderRadius={"$s"}
-            placeholder="Enter your New Password"
-          />
-          <TextInput
-            borderRadius={"$s"}
-            placeholder="Confirm your New Password"
-          />
+          <TextInput borderRadius={"$s"} placeholder="Enter your New Password" />
+          <TextInput borderRadius={"$s"} placeholder="Confirm your New Password" />
         </View>
         <StyledButton>Submit</StyledButton>
       </View>

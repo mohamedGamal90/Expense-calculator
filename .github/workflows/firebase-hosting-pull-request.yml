@@ -1,0 +1,52 @@
+name: Deploy to Firebase Hosting on PR
+on:
+  pull_request:
+  push:
+    branches:
+    - main
+
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
+
+jobs:
+  build_and_preview:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Create Env file
+      run: |
+        cd apps/lib/
+        touch .env
+        echo EXPO_PUBLIC_API_URL=https://10.15.10.157:8443
+        echo EXPO_PUBLIC_REALM_ID=agb
+        cat .env
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: install yarn
+      run: npm install -g yarn
+
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+
+    - name: Build for web
+      run: |
+        cd apps/lib/
+        npx expo export --platform web
+
+    - name: Deploy to Firebase Hosting
+      uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: ${{ secrets.GITHUB_TOKEN }}
+        firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_WHITE_LABEL_EXPO_WIDGETS }}
+        projectId: white-label-expo-widgets
+        entryPoint: ./apps/lib
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        channelId: live
