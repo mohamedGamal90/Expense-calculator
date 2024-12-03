@@ -1,5 +1,5 @@
 import axios from "axios";
-import { protectedStore } from "@aurora/utils";
+import { protectedStore, StoreKey } from "@aurora/utils";
 
 export const getApiUrl = (url: string) => {
   return `${process.env.EXPO_PUBLIC_API_URL}${url}`;
@@ -14,7 +14,7 @@ const authApiClient = axios.create({
 });
 
 authApiClient.interceptors.request.use(async config => {
-  const token = await protectedStore.getValue("token");
+  const token = await protectedStore.getValue(StoreKey.AccessToken);
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

@@ -6,7 +6,7 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "expo-router";
-import { protectedStore } from "@aurora/utils";
+import { protectedStore, StoreKey } from "@aurora/utils";
 
 enum FormFields {
   Username = "username",
@@ -36,7 +36,7 @@ export function LoginScreen() {
     },
     async onSuccess(data) {
       console.log("data", data);
-      await protectedStore.setValue("access_token", data.access_token);
+      await protectedStore.setValue(StoreKey.AccessToken, data.access_token);
       router.push("/dashboard");
     },
   });

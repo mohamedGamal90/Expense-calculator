@@ -1,10 +1,11 @@
 import * as SecureStore from "expo-secure-store";
 import Cookies from "js-cookie";
+import { StoreKey } from "./types";
 
 // Check if we are in a web environment
 const isWeb = typeof window !== "undefined";
 
-export const getValue = async (key: string) => {
+export const getValue = async (key: StoreKey) => {
   try {
     if (isWeb) {
       // For web, get token from cookies
@@ -16,10 +17,11 @@ export const getValue = async (key: string) => {
     }
   } catch (error) {
     console.log("Error getting value", error);
+    return;
   }
 };
 
-export const setValue = async (key: string, value: string) => {
+export const setValue = async (key: StoreKey, value: string) => {
   try {
     if (isWeb) {
       // For web, set token in cookies
@@ -33,7 +35,7 @@ export const setValue = async (key: string, value: string) => {
   }
 };
 
-export const deleteValue = async (key: string) => {
+export const deleteValue = async (key: StoreKey) => {
   try {
     if (isWeb) {
       // For web, remove token from cookies
