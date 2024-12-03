@@ -3,8 +3,8 @@ on:
   pull_request:
   push:
     branches:
-    - main
-
+      - main
+      
 permissions:
   checks: write
   contents: read
@@ -48,5 +48,5 @@ jobs:
         firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_WHITE_LABEL_EXPO_WIDGETS }}
         projectId: white-label-expo-widgets
         entryPoint: ./apps/lib
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        channelId: live
+        # if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        # channelId: live

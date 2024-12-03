@@ -22,6 +22,9 @@ const ButtonFrame = styled(View, {
         hoverStyle: {
           backgroundColor: "$primary600",
         },
+        disabledStyle: {
+          backgroundColor: "$secondary300",
+        },
         pressStyle: {
           backgroundColor: "$primary950",
         },

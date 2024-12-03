@@ -23,6 +23,8 @@ import Cards from "./cards.svg";
 import Group from "./group.svg";
 import LayoutDashboard from "./layout-dashboard.svg";
 import Setting from "./setting.svg";
+import Mobile from "./mobile.svg";
+import TickCircle from "./tick-circle.svg";
 
 const svgs = {
   "arrow-circle-left": ArrowCircleLeft,
@@ -42,12 +44,14 @@ const svgs = {
   group: Group,
   "layout-dashboard": LayoutDashboard,
   manage: Manage,
+  mobile: Mobile,
   "more-circle": MoreCircle,
   password: Password,
   "replace-card": ReplaceCard,
   "report-card": ReportCard,
   send: Send,
   setting: Setting,
+  "tick-circle": TickCircle,
   topup: TopUp,
   "mdp-wordmark": MDPWordmark,
 };

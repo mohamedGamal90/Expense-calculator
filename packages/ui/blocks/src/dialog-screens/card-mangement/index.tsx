@@ -1,24 +1,27 @@
 import { Dialog, StyledButton, StyledText, View } from "@aurora/components";
-import { Icon } from "@aurora/icons";
+import { Icon, IconKeys } from "@aurora/icons";
 import { useState } from "react";
-import { FlatList, TouchableOpacity } from "react-native";
-import { ReportCard } from "../report-card";
-
-const cardMangementList = [
-  { title: "Freeze Card", icon: <Icon name={"freeze-card"} /> },
-  { title: "Card Limits", icon: <Icon name={"card-limit"} /> },
-  {
-    title: "Report Card",
-    icon: <Icon name={"report-card"} />,
-    render: () => <ReportCard onSubmit={() => {}} />,
-  },
-  { title: "Replace Card", icon: <Icon name={"replace-card"} /> },
-  { title: "Change Pin", icon: <Icon name={"change-pin"} /> },
-  { title: "More", icon: <Icon name={"more-circle"} /> },
-];
+import { FlatList, Pressable } from "react-native";
+import { ReportCardFlow } from "../../dialog-flows/ReportCardFlow";
 
 export const CardMangementDialogScreen = () => {
   const [render, setRender] = useState<JSX.Element>();
+
+  const returnBackHandler = () => {
+    setRender(undefined);
+  };
+  const cardMangementList: { title: string; icon: IconKeys; render?: JSX.Element }[] = [
+    { title: "Freeze Card", icon: "freeze-card" },
+    { title: "Card Limits", icon: "card-limit" },
+    {
+      title: "Report Card",
+      icon: "report-card",
+      render: <ReportCardFlow returnBackHandler={returnBackHandler} />,
+    },
+    { title: "Replace Card", icon: "replace-card" },
+    { title: "Change Pin", icon: "change-pin" },
+    { title: "More", icon: "more-circle" },
+  ];
   return (
     <>
       {render ?? (
@@ -28,11 +31,14 @@ export const CardMangementDialogScreen = () => {
             justifyContent="space-between"
             alignItems="center"
             marginBottom={"$m"}>
-            <StyledText variant="Heading2xl" color={"$secondary800"}>
-              Card Management
-            </StyledText>
+            <Dialog.Title>
+              <StyledText variant="Heading2xl" color={"$secondary800"}>
+                Card Management
+              </StyledText>
+            </Dialog.Title>
             <Dialog.Close asChild>
               <StyledButton
+                variant="iconBtn"
                 width={40}
                 height={40}
                 backgroundColor={"$white"}
@@ -46,7 +52,7 @@ export const CardMangementDialogScreen = () => {
             keyExtractor={item => item.title}
             renderItem={({ item, index }) => (
               <>
-                <TouchableOpacity
+                <Pressable
                   onPress={() => {
                     if (item?.render) setRender(item?.render);
                   }}>
@@ -61,14 +67,14 @@ export const CardMangementDialogScreen = () => {
                         justifyContent="center"
                         alignItems="center"
                         borderRadius={"$s"}>
-                        {item.icon}
+                        <Icon name={item.icon} />
                       </View>
                       <StyledText variant="BodySemiBoldml" color={"$neutral800"}>
                         {item.title}
                       </StyledText>
                     </View>
                   </View>
-                </TouchableOpacity>
+                </Pressable>
                 {index < cardMangementList.length - 1 && (
                   <View height={1} backgroundColor={"$secondary100"} />
                 )}
