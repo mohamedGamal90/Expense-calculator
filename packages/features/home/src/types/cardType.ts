@@ -1,4 +1,4 @@
-export interface Card {
+export interface CardType {
   id: string;
   cardMask: string;
   accountNumber: string;
@@ -18,7 +18,6 @@ export interface Card {
   seqNumber: string;
   nickname: string | null;
 }
-
 export interface AvailableStatuse {
   statusCode: string;
   name: string;

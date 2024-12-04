@@ -7,7 +7,7 @@ import {
   NativeSyntheticEvent,
   Pressable,
 } from "react-native";
-import { Card } from "../types";
+import { CardType } from "@aurora/home/src/types/cardType";
 import { Dispatch, SetStateAction, useRef } from "react";
 import { ControlIndexBtn } from "./component/ControlIndexBtn";
 import { Icon } from "@aurora/icons";
@@ -15,7 +15,7 @@ import { Icon } from "@aurora/icons";
 type CardListProps = {
   onChange?: (index: number) => void;
   isVertical?: boolean;
-  cards: Card[];
+  cards: CardType[];
   width: number;
   currentIndex: number;
   setCurrentIndex: Dispatch<SetStateAction<number>>;

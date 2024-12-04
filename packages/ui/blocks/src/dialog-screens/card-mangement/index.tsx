@@ -3,8 +3,9 @@ import { Icon, IconKeys } from "@aurora/icons";
 import { useState } from "react";
 import { FlatList, Pressable } from "react-native";
 import { ReportCardFlow } from "../../dialog-flows/ReportCardFlow";
+import { CardType } from "@aurora/home/src/types/cardType";
 
-export const CardMangementDialogScreen = () => {
+export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: CardType }) => {
   const [render, setRender] = useState<JSX.Element>();
 
   const returnBackHandler = () => {
@@ -16,7 +17,7 @@ export const CardMangementDialogScreen = () => {
     {
       title: "Report Card",
       icon: "report-card",
-      render: <ReportCardFlow returnBackHandler={returnBackHandler} />,
+      render: <ReportCardFlow returnBackHandler={returnBackHandler} selectedCard={selectedCard} />,
     },
     { title: "Replace Card", icon: "replace-card" },
     { title: "Change Pin", icon: "change-pin" },

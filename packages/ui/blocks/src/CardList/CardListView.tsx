@@ -1,18 +1,19 @@
 import { config, StyledDialog, StyledText, View } from "@aurora/components";
 import { CardList } from "../CardList";
-import { cards } from "../dummy";
 import { CardCurrencyDetails } from "../card-currency-details";
 import { Icon } from "@aurora/icons";
 import { CardMangementDialogScreen } from "../dialog-screens/card-mangement";
 import { Dispatch, SetStateAction } from "react";
 import { Dimensions } from "react-native";
+import { CardType } from "@aurora/home/src/types/cardType";
 
 const { width: screenWidth } = Dimensions.get("window");
 type Props = {
   currentIndex: number;
   setCurrentIndex: Dispatch<SetStateAction<number>>;
+  cards: CardType[];
 };
-export const CardListView = ({ currentIndex, setCurrentIndex }: Props) => {
+export const CardListView = ({ currentIndex, setCurrentIndex, cards }: Props) => {
   return (
     <View
       width={"100%"}
@@ -40,7 +41,7 @@ export const CardListView = ({ currentIndex, setCurrentIndex }: Props) => {
         <StyledDialog
           title={"Manage"}
           icon={<Icon name={"manage"} width={24} height={24} />}
-          children={<CardMangementDialogScreen />}
+          children={<CardMangementDialogScreen selectedCard={cards[currentIndex]} />}
         />
       </View>
     </View>

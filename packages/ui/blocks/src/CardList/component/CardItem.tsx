@@ -1,10 +1,10 @@
 import { memo } from "react";
 import { StyleSheet, ImageBackground as RNImageBackground } from "react-native";
-import { Card } from "../../types";
 import { StyledText, View } from "@aurora/components";
+import { CardType } from "@aurora/home/src/types/cardType";
 
 type Props = {
-  card: Card;
+  card: CardType;
   width: number;
 };
 
