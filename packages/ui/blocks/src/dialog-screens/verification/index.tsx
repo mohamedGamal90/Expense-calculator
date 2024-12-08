@@ -1,4 +1,4 @@
-import { StyledButton, StyledText, View } from "@aurora/components";
+import { getTokens, StyledButton, StyledText, View } from "@aurora/components";
 import { OTPInput } from "input-otp";
 import { Icon } from "@aurora/icons";
 import { useState } from "react";
@@ -17,6 +17,7 @@ export const Verification = ({
   isPending: boolean;
 }) => {
   const [value, setValue] = useState("");
+  const { color } = getTokens();
   const verifyObject: { icon: "mobile" | "email"; txt: string; iconTxt: JSX.Element } = (() => {
     switch (type) {
       case "mobile":
@@ -61,7 +62,7 @@ export const Verification = ({
               borderRadius={"$full"}
               justifyContent="center"
               alignItems="center">
-              <Icon name={verifyObject.icon} color="#ffffff" />
+              <Icon name={verifyObject.icon} color={color.white.val} />
             </View>
             {verifyObject.iconTxt}
           </View>
@@ -76,7 +77,7 @@ export const Verification = ({
               borderRadius={"$full"}
               justifyContent="center"
               alignItems="center">
-              <Icon name={"tick-circle"} color="#B0AEB2" />
+              <Icon name={"tick-circle"} color={color.secondary300.val} />
             </View>
             <StyledText variant="Bodysm" color="$neutral800">
               Success
@@ -84,7 +85,7 @@ export const Verification = ({
           </View>
         </View>
         <View flexDirection="row" gap="$ml">
-          <Icon name={verifyObject.icon} color="#414042" />
+          <Icon name={verifyObject.icon} color={color.secondary800.val} />
           <StyledText variant="Headingxl" color="$neutral800">
             {verifyObject.txt}
           </StyledText>

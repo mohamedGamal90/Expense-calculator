@@ -3,25 +3,47 @@ import { Icon, IconKeys } from "@aurora/icons";
 import { useState } from "react";
 import { FlatList, Pressable } from "react-native";
 import { ReportCardFlow } from "../../dialog-flows/ReportCardFlow";
-import { CardType } from "@aurora/home/src/types/cardType";
+import { AvailableStatuse, CardType } from "@aurora/home/src/types/cardType";
+import { CardAvailableStatusCodes } from "./cardStatusCodes";
+import { getTokens } from "@tamagui/core";
 
 export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: CardType }) => {
   const [render, setRender] = useState<JSX.Element>();
+  const { color } = getTokens();
 
   const returnBackHandler = () => {
     setRender(undefined);
   };
-  const cardMangementList: { title: string; icon: IconKeys; render?: JSX.Element }[] = [
-    { title: "Card Activation", icon: "freeze-card" },
-    { title: "Card Limits", icon: "card-limit" },
+  const reportCardDisabled: boolean = !selectedCard?.availableStatuses.some(
+    (item: AvailableStatuse) => item.statusCode === CardAvailableStatusCodes.ReportLostOrStolen,
+  );
+
+  const setPinDisabled: boolean = !selectedCard?.availableStatuses.some(
+    (item: AvailableStatuse) => item.statusCode === CardAvailableStatusCodes.SetPin,
+  );
+
+  const cardMangementList: {
+    title: string;
+    icon: IconKeys;
+    render: JSX.Element;
+    disabled: boolean;
+  }[] = [
+    { title: "Card Activation", icon: "freeze-card", render: <View />, disabled: false },
+    { title: "Card Limits", icon: "card-limit", render: <View />, disabled: false },
     {
       title: "Report Card",
       icon: "report-card",
       render: <ReportCardFlow returnBackHandler={returnBackHandler} selectedCard={selectedCard} />,
+      disabled: reportCardDisabled,
     },
-    { title: "Replace Card", icon: "replace-card" },
-    { title: "Change Pin", icon: "change-pin" },
-    { title: "International Transactions", icon: "arrow-swap-horizontal" },
+    { title: "Replace Card", icon: "replace-card", render: <View />, disabled: false },
+    { title: "Change Pin", icon: "change-pin", render: <View />, disabled: setPinDisabled },
+    {
+      title: "International Transactions",
+      icon: "arrow-swap-horizontal",
+      render: <View />,
+      disabled: false,
+    },
   ];
   return (
     <>
@@ -43,7 +65,7 @@ export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: Card
                 width={40}
                 height={40}
                 backgroundColor={"$white"}
-                icon={<Icon name={"close-circle"} color={"#cb4137"} />}
+                icon={<Icon name={"close-circle"} color={color.error600.val} />}
                 borderWidth={0}
               />
             </Dialog.Close>
@@ -55,33 +77,42 @@ export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: Card
               <>
                 <Pressable
                   onPress={() => {
-                    if (item?.render) setRender(item?.render);
+                    if (!item.disabled) setRender(item?.render);
                   }}>
                   <View
                     flexDirection="row"
-                    marginTop={index === 0 ? "$ml" : "$xl"}
-                    marginBottom={index === cardMangementList.length - 1 ? "$ml" : "$xl"}
+                    paddingVertical={"$m"}
                     alignItems="center"
                     justifyContent="space-between"
-                    paddingRight={"$s"}>
+                    padding={"$s"}
+                    borderRadius={"$xs"}>
                     <View flexDirection="row" gap={"$ml"} alignItems="center">
                       <View
                         padding={"$ml"}
                         backgroundColor={"$secondary100"}
+                        opacity={item.disabled ? 0.8 : 1}
                         justifyContent="center"
                         alignItems="center"
                         borderRadius={"$s"}>
-                        <Icon name={item.icon} />
+                        <Icon
+                          name={item.icon}
+                          color={item.disabled ? color.secondary200.val : color.secondary900.val}
+                        />
                       </View>
-                      <StyledText variant="BodySemiBoldml" color={"$neutral800"}>
+                      <StyledText
+                        variant="BodySemiBoldml"
+                        color={item.disabled ? "$secondary200" : "$neutral800"}>
                         {item.title}
                       </StyledText>
                     </View>
-                    <Icon name={"arrow-circle-right"} />
+                    <Icon
+                      name={"arrow-circle-right"}
+                      color={item.disabled ? color.secondary200.val : color.secondary900.val}
+                    />
                   </View>
                 </Pressable>
                 {index < cardMangementList.length - 1 && (
-                  <View height={1} backgroundColor={"$secondary100"} />
+                  <View height={1} marginVertical={"$m"} backgroundColor={"$secondary100"} />
                 )}
               </>
             )}

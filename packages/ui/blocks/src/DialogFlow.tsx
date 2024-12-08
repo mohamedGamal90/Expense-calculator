@@ -2,6 +2,7 @@ import { Dialog, StyledButton, StyledText, View } from "@aurora/components";
 import { Dimensions, FlatList } from "react-native";
 import { Dispatch, SetStateAction } from "react";
 import { Icon } from "@aurora/icons";
+import { getTokens } from "@tamagui/core";
 
 const screenWidth = Dimensions.get("window").width;
 const dialogWidth = screenWidth > 700 ? 600 - 48 : screenWidth - 48;
@@ -20,6 +21,8 @@ export const DialogFlow = ({
   screensFlow,
   flatListRef,
 }: Props) => {
+  const { color } = getTokens();
+
   const onPrevScreen = () => {
     if (currentScreenIndex === 0) {
       returnBackHandler();
@@ -52,7 +55,7 @@ export const DialogFlow = ({
             onPress={onPrevScreen}
             left={0}
             top={-4}>
-            <Icon name={"arrow-left"} width={26} height={26} color="#000000" />
+            <Icon name={"arrow-left"} width={26} height={26} color={color.$black.val} />
           </StyledButton>
         </>
       )}

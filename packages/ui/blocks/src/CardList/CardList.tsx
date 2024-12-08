@@ -11,6 +11,7 @@ import { CardType } from "@aurora/home/src/types/cardType";
 import { Dispatch, SetStateAction, useRef } from "react";
 import { ControlIndexBtn } from "./component/ControlIndexBtn";
 import { Icon } from "@aurora/icons";
+import { getTokens } from "@tamagui/core";
 
 type CardListProps = {
   onChange?: (index: number) => void;
@@ -23,6 +24,7 @@ type CardListProps = {
 
 export const CardList = ({ cards, width, currentIndex, setCurrentIndex }: CardListProps) => {
   const flatListRef = useRef<FlatList>(null);
+  const { color } = getTokens();
 
   const onNext = () => {
     const nextIndex = Math.min(currentIndex + 1, cards.length - 1);
@@ -74,7 +76,7 @@ export const CardList = ({ cards, width, currentIndex, setCurrentIndex }: CardLi
       <ControlIndexBtn
         onPress={onPrev}
         left={20}
-        icon={<Icon name={"arrow-left"} color="#ffff" width={24} height={24} />}
+        icon={<Icon name={"arrow-left"} color={color.$white.val} width={24} height={24} />}
         disabled={currentIndex === 0}
       />
 
@@ -105,7 +107,7 @@ export const CardList = ({ cards, width, currentIndex, setCurrentIndex }: CardLi
       <ControlIndexBtn
         onPress={onNext}
         right={20}
-        icon={<Icon name={"arrow-right"} color="#ffff" width={24} height={24} />}
+        icon={<Icon name={"arrow-right"} color={color.white.val} width={24} height={24} />}
         disabled={currentIndex === cards.length - 1}
       />
 
