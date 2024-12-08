@@ -19,7 +19,7 @@ export const CardItem = memo(({ card, width }: Props) => {
       alignSelf="center"
       marginHorizontal="$auto">
       <RNImageBackground
-        source={require("../cardImage.png")}
+        source={require("../../cardImage.png")}
         style={styles.imageBackground}
         resizeMode="contain">
         <View

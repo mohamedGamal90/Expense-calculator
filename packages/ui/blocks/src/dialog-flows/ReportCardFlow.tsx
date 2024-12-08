@@ -53,7 +53,13 @@ export const ReportCardFlow = ({ returnBackHandler, selectedCard }: Props) => {
   const ReportCardFlowScreens = [
     {
       title: "Report Card",
-      render: <ReportCard onSubmit={requestOTP} isPending={requestOtpPending} />,
+      render: (
+        <ReportCard
+          onSubmit={requestOTP}
+          isPending={requestOtpPending}
+          cardNumber={selectedCard.cardNumber.slice(-4)}
+        />
+      ),
     },
     {
       title: "Verification",
