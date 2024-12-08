@@ -12,7 +12,7 @@ export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: Card
     setRender(undefined);
   };
   const cardMangementList: { title: string; icon: IconKeys; render?: JSX.Element }[] = [
-    { title: "Freeze Card", icon: "freeze-card" },
+    { title: "Card Activation", icon: "freeze-card" },
     { title: "Card Limits", icon: "card-limit" },
     {
       title: "Report Card",
@@ -21,7 +21,7 @@ export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: Card
     },
     { title: "Replace Card", icon: "replace-card" },
     { title: "Change Pin", icon: "change-pin" },
-    { title: "More", icon: "more-circle" },
+    { title: "International Transactions", icon: "arrow-swap-horizontal" },
   ];
   return (
     <>
@@ -60,7 +60,10 @@ export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: Card
                   <View
                     flexDirection="row"
                     marginTop={index === 0 ? "$ml" : "$xl"}
-                    marginBottom={index === cardMangementList.length - 1 ? "$ml" : "$xl"}>
+                    marginBottom={index === cardMangementList.length - 1 ? "$ml" : "$xl"}
+                    alignItems="center"
+                    justifyContent="space-between"
+                    paddingRight={"$s"}>
                     <View flexDirection="row" gap={"$ml"} alignItems="center">
                       <View
                         padding={"$ml"}
@@ -74,6 +77,7 @@ export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: Card
                         {item.title}
                       </StyledText>
                     </View>
+                    <Icon name={"arrow-circle-right"} />
                   </View>
                 </Pressable>
                 {index < cardMangementList.length - 1 && (

@@ -8,7 +8,13 @@ import {
 } from "@aurora/components";
 import { useState } from "react";
 
-export const ReportCard = ({ onSubmit }: { onSubmit: () => void }) => {
+export const ReportCard = ({
+  onSubmit,
+  isPending,
+}: {
+  onSubmit: () => void;
+  isPending: boolean;
+}) => {
   const [value, setValue] = useState<string | undefined>();
   return (
     <View flex={1} justifyContent="space-between">
@@ -35,7 +41,12 @@ export const ReportCard = ({ onSubmit }: { onSubmit: () => void }) => {
           <RadioGroupItemWithLabel value="ATM" label="ATM took my card" />
         </RadioGroup>
       </View>
-      <StyledButton bottom={1} disabled={!value} onPress={onSubmit} variant="primary">
+      <StyledButton
+        isLoading={isPending}
+        bottom={1}
+        disabled={!value || isPending}
+        onPress={onSubmit}
+        variant="primary">
         Report card
       </StyledButton>
     </View>

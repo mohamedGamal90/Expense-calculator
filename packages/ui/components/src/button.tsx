@@ -1,4 +1,5 @@
 import { GetProps, View, Text, createStyledContext, styled, withStaticProperties } from "tamagui";
+import { ActivityIndicator } from "react-native";
 
 const ButtonContext = createStyledContext({
   variant: "primary",
@@ -64,14 +65,15 @@ const Button = withStaticProperties(ButtonFrame, {
 });
 
 type StyledButtonProps = ButtonProps & {
+  isLoading?: boolean;
   icon?: React.ReactNode;
 };
 
-export function StyledButton({ children, icon, ...props }: StyledButtonProps) {
+export function StyledButton({ children, icon, isLoading, ...props }: StyledButtonProps) {
   return (
     <Button {...props}>
       {icon}
-      <Button.Text>{children}</Button.Text>
+      {isLoading ? <ActivityIndicator /> : <Button.Text>{children}</Button.Text>}
     </Button>
   );
 }

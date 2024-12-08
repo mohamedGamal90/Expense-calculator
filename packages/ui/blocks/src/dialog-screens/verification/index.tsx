@@ -8,9 +8,13 @@ const CELL_COUNT = 4;
 export const Verification = ({
   onSubmit,
   type,
+  crediential,
+  isPending,
 }: {
-  onSubmit: () => void;
+  onSubmit: (otp: string) => void;
   type: "mobile" | "email";
+  crediential: string | undefined;
+  isPending: boolean;
 }) => {
   const [value, setValue] = useState("");
   const verifyObject: { icon: "mobile" | "email"; txt: string; iconTxt: JSX.Element } = (() => {
@@ -90,7 +94,7 @@ export const Verification = ({
             We sent a 4 digit code to:
           </StyledText>
           <StyledText variant="BodymL" color="$neutral800" marginBottom="$l">
-            +233 01148845723
+            {crediential}
           </StyledText>
           <OTPInput
             maxLength={CELL_COUNT}
@@ -119,7 +123,11 @@ export const Verification = ({
           />
         </View>
       </View>
-      <StyledButton bottom={1} disabled={value.length < 4} onPress={onSubmit} variant="primary">
+      <StyledButton
+        isLoading={isPending}
+        disabled={value.length < 4 || isPending}
+        onPress={() => onSubmit(value)}
+        variant="primary">
         Next
       </StyledButton>
     </View>

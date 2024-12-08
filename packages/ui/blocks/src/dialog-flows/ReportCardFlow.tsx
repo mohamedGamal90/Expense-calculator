@@ -5,6 +5,8 @@ import { Verification } from "../dialog-screens/verification";
 import { StatusView } from "../dialog-screens/status-view";
 import { DialogFlow } from "../DialogFlow";
 import { CardType } from "@aurora/home/src/types/cardType";
+import { useRequestOtpMutation } from "./hooks/useRequestOtpMutation";
+import { useReportCardMutation } from "./hooks/useReportCardMutation";
 
 const screenWidth = Dimensions.get("window").width;
 export const dialogWidth = screenWidth > 700 ? 600 - 48 : screenWidth - 48;
@@ -27,14 +29,42 @@ export const ReportCardFlow = ({ returnBackHandler, selectedCard }: Props) => {
     setCurrentScreenIndex(nextIndex);
   };
 
+  const {
+    mutateAsync: requestOTP,
+    isPending: requestOtpPending,
+    data,
+  } = useRequestOtpMutation({
+    onSuccess: () => onNextScreen(),
+    onError: error => console.log("error", error),
+  });
+
+  const { mutateAsync: reportCard, isPending: reportCardIspending } = useReportCardMutation({
+    onSuccess: () => onNextScreen(),
+    onError: error => console.log("error", error),
+  });
+
+  const onReportCard = (otp: string) => {
+    reportCard({
+      cardId: selectedCard.id,
+      otp,
+    });
+  };
+
   const ReportCardFlowScreens = [
     {
       title: "Report Card",
-      render: <ReportCard onSubmit={onNextScreen} />,
+      render: <ReportCard onSubmit={requestOTP} isPending={requestOtpPending} />,
     },
     {
       title: "Verification",
-      render: <Verification onSubmit={onNextScreen} type={"email"} />,
+      render: (
+        <Verification
+          onSubmit={onReportCard}
+          type={data?.data.email ? "email" : "mobile"}
+          crediential={data?.data.email ?? data?.data.phoneNumber}
+          isPending={reportCardIspending}
+        />
+      ),
     },
     {
       title: "StatusView",
