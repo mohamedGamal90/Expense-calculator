@@ -59,7 +59,7 @@ export const ReportCard = ({
       <StyledButton
         isLoading={isPending}
         bottom={1}
-        disabled={!value || isPending}
+        disabled={!value}
         onPress={onSubmit}
         variant="primary">
         Report card

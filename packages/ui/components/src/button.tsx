@@ -86,7 +86,7 @@ type StyledButtonProps = ButtonProps & {
 
 export function StyledButton({ children, icon, isLoading, ...props }: StyledButtonProps) {
   return (
-    <Button {...props}>
+    <Button {...props} disabled={props.disabled || isLoading}>
       {icon}
       {isLoading ? <ActivityIndicator /> : <Button.Text>{children}</Button.Text>}
     </Button>

@@ -126,7 +126,7 @@ export const Verification = ({
       </View>
       <StyledButton
         isLoading={isPending}
-        disabled={value.length < 4 || isPending}
+        disabled={value.length < 4}
         onPress={() => onSubmit(value)}
         variant="primary">
         Next

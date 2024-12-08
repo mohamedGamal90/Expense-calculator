@@ -1,8 +1,8 @@
-import { Form, StyledButton, StyledText, TextInput, View } from "@aurora/components";
+import { Form, StyledButton, StyledText, View } from "@aurora/components";
 import { Link } from "expo-router";
 import { AuthLayout } from "../components/AuthLayout";
 import { useLoginMutation } from "../hooks/useLoginMutation";
-import { Controller, FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "expo-router";
@@ -31,7 +31,7 @@ export function LoginScreen() {
     },
   });
 
-  const { mutate } = useLoginMutation({
+  const { mutate, isPending } = useLoginMutation({
     onError(error) {
       console.log("error", error);
     },
@@ -89,7 +89,7 @@ export function LoginScreen() {
               </StyledText>
             </Link>
             <Form.Trigger mb="$xl" asChild>
-              <StyledButton>Login</StyledButton>
+              <StyledButton isLoading={isPending}>Login</StyledButton>
             </Form.Trigger>
             <View w={"100%"} alignItems="center">
               <View flexDirection="row" paddingBottom={"$xl"} gap={"$space.sm"} alignItems="center">
