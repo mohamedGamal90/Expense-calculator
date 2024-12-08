@@ -4,11 +4,11 @@ import {
   RadioGroup,
   StyledButton,
   RadioGroupItemWithLabel,
-  Image,
   getTokens,
 } from "@aurora/components";
 import { useState } from "react";
 import { GestureResponderEvent } from "react-native";
+import { SelectedCardHeader } from "../components/SelectedCardHeader";
 
 export const ReportCard = ({
   onSubmit,
@@ -24,15 +24,7 @@ export const ReportCard = ({
   return (
     <View flex={1} justifyContent="space-between">
       <View>
-        <StyledText variant="Headingxl" color={"$neutral800"}>
-          Card selected
-        </StyledText>
-        <View flexDirection="row" alignItems="center" gap="$s" marginVertical="$m">
-          <Image style={{ width: 80, height: 50 }} source={require("../../cardImage.png")} />
-          <StyledText
-            variant="Bodym"
-            color={"$neutral800"}>{`Card end with **** ${cardNumber}`}</StyledText>
-        </View>
+        <SelectedCardHeader cardNumber={cardNumber} />
         <StyledText marginTop={"$ml"} variant="Headingxl" color={"$neutral800"}>
           What happened to your card?
         </StyledText>

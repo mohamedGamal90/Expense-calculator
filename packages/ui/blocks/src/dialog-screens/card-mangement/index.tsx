@@ -2,10 +2,10 @@ import { Dialog, StyledButton, StyledText, View } from "@aurora/components";
 import { Icon, IconKeys } from "@aurora/icons";
 import { useState } from "react";
 import { FlatList, Pressable } from "react-native";
-import { ReportCardFlow } from "../../dialog-flows/ReportCardFlow";
 import { AvailableStatuse, CardType } from "@aurora/home/src/types/cardType";
 import { CardAvailableStatusCodes } from "./cardStatusCodes";
 import { getTokens } from "@tamagui/core";
+import { CardLimitFlow, ReportCardFlow } from "../../dialog-flows";
 
 export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: CardType }) => {
   const [render, setRender] = useState<JSX.Element>();
@@ -29,7 +29,12 @@ export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: Card
     disabled: boolean;
   }[] = [
     { title: "Card Activation", icon: "freeze-card", render: <View />, disabled: false },
-    { title: "Card Limits", icon: "card-limit", render: <View />, disabled: false },
+    {
+      title: "Card Limits",
+      icon: "card-limit",
+      render: <CardLimitFlow returnBackHandler={returnBackHandler} selectedCard={selectedCard} />,
+      disabled: false,
+    },
     {
       title: "Report Card",
       icon: "report-card",
