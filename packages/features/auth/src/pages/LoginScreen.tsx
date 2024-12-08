@@ -84,7 +84,7 @@ export function LoginScreen() {
                 marginBottom: 20,
               }}
               href={"/auth/forgot-password"}>
-              <StyledText color={"$primary800"} padding="$space.s" variant="BodyBoldsm">
+              <StyledText color={"$primary800"} padding="$space.s" variant="BodySemiBoldsm">
                 Forgot your password?
               </StyledText>
             </Link>
@@ -97,7 +97,7 @@ export function LoginScreen() {
                 <StyledText>Or</StyledText>
                 <View h={"1px"} w={"100px"} backgroundColor={"$neutral900"}></View>
               </View>
-              <StyledText>
+              <StyledText mb={"$s"} color={"$secondary900"} variant="BodySemiBoldsm">
                 Don't have an account?{" "}
                 <StyledText variant="BodySemiBoldsm" color={"$primary800"}>
                   Sign Up
