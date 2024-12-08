@@ -22,7 +22,7 @@ export function Sidebar({ buttons }: { buttons: SidebarButton[] }) {
       </View>
       <View gap={"$3xl"} alignItems="center" paddingVertical={"$ml"} paddingHorizontal="$2xl">
         {buttons.map((button, index) => (
-          <Link href={button.href}>
+          <Link key={index} href={button.href}>
             <View key={index} gap="$s" alignItems="center">
               <Icon name={button.icon} color="black" />
               <StyledText>{button.title}</StyledText>
