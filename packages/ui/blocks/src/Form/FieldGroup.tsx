@@ -47,6 +47,7 @@ export const FieldGroup = forwardRef<any, FieldGroupProps>(
       containerStyle,
       secureTextEntry,
       value,
+      placeholder,
       onChange,
       renderAfter,
       renderBefore,
@@ -79,7 +80,11 @@ export const FieldGroup = forwardRef<any, FieldGroupProps>(
     return (
       <View {...containerStyle} marginBottom="$l">
         {renderBefore?.()}
-        {label && <StyledText marginBottom="$s">{label}</StyledText>}
+        {label && (
+          <StyledText variant="Bodym" color={"$secondary500"} marginBottom="$s">
+            {label}
+          </StyledText>
+        )}
         <View
           flexDirection="row"
           justifyContent="space-between"
@@ -94,6 +99,7 @@ export const FieldGroup = forwardRef<any, FieldGroupProps>(
           marginBottom="$s">
           {iconLeft && <IconField name={iconLeft} />}
           <Field
+            placeholder={placeholder}
             onChange={onChange}
             value={value}
             type={type}
@@ -104,7 +110,6 @@ export const FieldGroup = forwardRef<any, FieldGroupProps>(
             {secureTextEntry && (
               <IconField name={showPassword ? "eye" : "eye-slash"} onPress={handleShowPassword} />
             )}
-            {value && <IconField name="close-circle" onPress={() => onChange?.("")} />}
           </XStack>
         </View>
         <StyledText color="$error500">{error}</StyledText>

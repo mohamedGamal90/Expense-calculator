@@ -6,11 +6,10 @@ const commonStyles = {
   unstyled: true,
   backgroundColor: "$white",
   color: "$gray900",
-  paddingVertical: "$base",
   paddingHorizontal: "$s",
   outlineColor: "$white",
-  borderWidth: 1,
-  borderColor: "$gray50",
+  paddingVertical: "$s",
+  placeholderTextColor: "gray",
 };
 
 const InputComponent = styled(Input, commonStyles);

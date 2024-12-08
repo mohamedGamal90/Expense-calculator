@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "expo-router";
 import { protectedStore, StoreKey } from "@aurora/utils";
+import { ControlledField } from "@aurora/blocks";
 
 enum FormFields {
   Username = "username",
@@ -42,64 +43,56 @@ export function LoginScreen() {
   });
 
   function handleLogin(data: FormValues) {
-    mutate({
-      username: data.username,
-      password: data.password,
-    });
+    mutate(data);
   }
 
   return (
     <Form flex={1} onSubmit={form.handleSubmit(handleLogin)}>
       <FormProvider {...form}>
         <AuthLayout>
-          <StyledText fontWeight={"$black"} variant="Heading4xl">
-            Log In
-          </StyledText>
-          <View gap={"$space.xl"}>
-            <StyledText variant="Heading4xl">Welcome Back to MDP</StyledText>
-            <View gap={"$m"}>
-              <Controller
-                name={FormFields.Username}
-                render={({ field }) => {
-                  return (
-                    <TextInput borderRadius={"$s"} {...field} placeholder="Enter your email" />
-                  );
-                }}
-              />
-              <View>
-                <Controller
-                  name={FormFields.Password}
-                  render={({ field }) => {
-                    return (
-                      <TextInput
-                        borderRadius={"$s"}
-                        {...field}
-                        secureTextEntry
-                        placeholder="Enter your password"
-                      />
-                    );
-                  }}
-                />
-                <Link
-                  style={{
-                    alignSelf: "flex-end",
-                  }}
-                  href={"/auth/forgot-password"}>
-                  <StyledText color={"$primary800"} padding="$space.s" variant="BodyBoldsm">
-                    Forgot your password?
-                  </StyledText>
-                </Link>
-              </View>
-            </View>
-            <Form.Trigger asChild>
+          <StyledText variant="Heading4xl">Log In</StyledText>
+          <View>
+            <StyledText mb="$s" variant="Heading6xl">
+              Welcome Back to MDP
+            </StyledText>
+
+            <StyledText mb="$xl" variant="Bodysm">
+              Enter Your Credentials to access your account
+            </StyledText>
+
+            <ControlledField
+              fieldName={FormFields.Username}
+              type="textInput"
+              placeholder="Enter your email"
+              label="Email"
+              iconLeft="email"
+            />
+
+            <ControlledField
+              label="Password"
+              fieldName={FormFields.Password}
+              type="textInput"
+              placeholder="Enter Password"
+              secureTextEntry
+              iconLeft="password"
+            />
+
+            <Link
+              style={{
+                alignSelf: "flex-end",
+                marginTop: -20,
+                marginBottom: 20,
+              }}
+              href={"/auth/forgot-password"}>
+              <StyledText color={"$primary800"} padding="$space.s" variant="BodyBoldsm">
+                Forgot your password?
+              </StyledText>
+            </Link>
+            <Form.Trigger mb="$xl" asChild>
               <StyledButton>Login</StyledButton>
             </Form.Trigger>
             <View w={"100%"} alignItems="center">
-              <View
-                flexDirection="row"
-                paddingBottom={"$3xl"}
-                gap={"$space.sm"}
-                alignItems="center">
+              <View flexDirection="row" paddingBottom={"$xl"} gap={"$space.sm"} alignItems="center">
                 <View h={"1px"} w={"100px"} backgroundColor={"$neutral900"}></View>
                 <StyledText>Or</StyledText>
                 <View h={"1px"} w={"100px"} backgroundColor={"$neutral900"}></View>

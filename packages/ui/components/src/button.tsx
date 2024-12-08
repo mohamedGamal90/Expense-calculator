@@ -30,6 +30,21 @@ const ButtonFrame = styled(View, {
           backgroundColor: "$primary950",
         },
       },
+
+      outlined: {
+        backgroundColor: "$transparent",
+        borderColor: "$gray9",
+        borderWidth: 1,
+        hoverStyle: {
+          backgroundColor: "$transparent",
+        },
+        disabledStyle: {
+          backgroundColor: "$transparent",
+        },
+        pressStyle: {
+          backgroundColor: "$transparent",
+        },
+      },
       iconBtn: {
         borderWidth: 1,
         borderColor: "$secondary800",
