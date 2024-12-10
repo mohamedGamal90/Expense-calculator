@@ -21,6 +21,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
           style={{
             flex: 1,
           }}
+          priority={"high"}
           source={require("../assets/login-img.png")}
           contentFit="cover"
         />

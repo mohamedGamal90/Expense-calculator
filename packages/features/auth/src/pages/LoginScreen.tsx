@@ -1,6 +1,5 @@
 import { Form, StyledButton, StyledText, View } from "@aurora/components";
 import { Link } from "expo-router";
-import { AuthLayout } from "../components/AuthLayout";
 import { useLoginMutation } from "../hooks/useLoginMutation";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,6 +7,8 @@ import * as yup from "yup";
 import { useRouter } from "expo-router";
 import { protectedStore, StoreKey } from "@aurora/utils";
 import { ControlledField } from "@aurora/blocks";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 
 enum FormFields {
   Username = "username",
@@ -15,14 +16,16 @@ enum FormFields {
 }
 
 const loginFormResolver = yup.object().shape({
-  [FormFields.Username]: yup.string().required(),
-  [FormFields.Password]: yup.string().required(),
+  [FormFields.Username]: yup.string().required(i18n.t("validation.required")),
+  [FormFields.Password]: yup.string().required(i18n.t("validation.required")),
 });
 
 type FormValues = yup.InferType<typeof loginFormResolver>;
 
 export function LoginScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
+
   const form = useForm({
     resolver: yupResolver(loginFormResolver),
     defaultValues: {
@@ -38,7 +41,7 @@ export function LoginScreen() {
     async onSuccess(data) {
       console.log("data", data);
       await protectedStore.setValue(StoreKey.AccessToken, data.access_token);
-      router.push("/dashboard");
+      router.navigate("/dashboard");
     },
   });
 
@@ -49,30 +52,30 @@ export function LoginScreen() {
   return (
     <Form flex={1} onSubmit={form.handleSubmit(handleLogin)}>
       <FormProvider {...form}>
-        <AuthLayout>
-          <StyledText variant="Heading4xl">Log In</StyledText>
+        <View gap="$xl">
+          <StyledText variant="Heading4xl">{t("titles.login")}</StyledText>
           <View>
             <StyledText mb="$s" variant="Heading6xl">
-              Welcome Back to MDP
+              {t("titles.welcome")}
             </StyledText>
 
             <StyledText mb="$xl" variant="Bodysm">
-              Enter Your Credentials to access your account
+              {t("titles.instruction")}
             </StyledText>
 
             <ControlledField
               fieldName={FormFields.Username}
               type="textInput"
-              placeholder="Enter your email"
-              label="Email"
+              placeholder={t("placeholders.email")}
+              label={t("inputs.email")}
               iconLeft="email"
             />
 
             <ControlledField
-              label="Password"
               fieldName={FormFields.Password}
               type="textInput"
-              placeholder="Enter Password"
+              placeholder={t("placeholders.password")}
+              label={t("inputs.password")}
               secureTextEntry
               iconLeft="password"
             />
@@ -85,27 +88,27 @@ export function LoginScreen() {
               }}
               href={"/auth/forgot-password"}>
               <StyledText color={"$primary800"} padding="$space.s" variant="BodySemiBoldsm">
-                Forgot your password?
+                {t("buttons.forgotPassword")}
               </StyledText>
             </Link>
             <Form.Trigger mb="$xl" asChild>
-              <StyledButton isLoading={isPending}>Login</StyledButton>
+              <StyledButton isLoading={isPending}>{t("buttons.login")}</StyledButton>
             </Form.Trigger>
             <View w={"100%"} alignItems="center">
               <View flexDirection="row" paddingBottom={"$xl"} gap={"$space.sm"} alignItems="center">
                 <View h={"1px"} w={"100px"} backgroundColor={"$neutral900"}></View>
-                <StyledText>Or</StyledText>
+                <StyledText>{t("titles.or")}</StyledText>
                 <View h={"1px"} w={"100px"} backgroundColor={"$neutral900"}></View>
               </View>
               <StyledText mb={"$s"} color={"$secondary900"} variant="BodySemiBoldsm">
-                Don't have an account?{" "}
+                {t("titles.noAccount")}{" "}
                 <StyledText variant="BodySemiBoldsm" color={"$primary800"}>
-                  Sign Up
+                  {t("titles.signUp")}
                 </StyledText>
               </StyledText>
             </View>
           </View>
-        </AuthLayout>
+        </View>
       </FormProvider>
     </Form>
   );

@@ -112,7 +112,9 @@ export const FieldGroup = forwardRef<any, FieldGroupProps>(
             )}
           </XStack>
         </View>
-        <StyledText color="$error500">{error}</StyledText>
+        <StyledText variant="Bodym" color="$error500">
+          {error}
+        </StyledText>
         {renderAfter?.()}
       </View>
     );

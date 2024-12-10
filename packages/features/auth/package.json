@@ -9,6 +9,7 @@
     "@aurora/icons": "*",
     "@aurora/utils": "*",
     "@metroid/api": "*",
+    "@aurora/localization": "*",
     "@tanstack/react-query": "^5.61.3",
     "react-hook-form": "^7.53.2"
   }

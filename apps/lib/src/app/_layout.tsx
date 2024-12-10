@@ -1,6 +1,5 @@
 import { TamaguiProvider } from "@aurora/components";
 import { Slot } from "expo-router";
-import "@aurora/localization";
 import { config } from "../theme";
 import { useLoadAssets } from "@aurora/utils";
 import {
@@ -12,6 +11,7 @@ import {
   Inter_700Bold,
 } from "@expo-google-fonts/inter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "@aurora/localization";
 
 const queryClient = new QueryClient();
 

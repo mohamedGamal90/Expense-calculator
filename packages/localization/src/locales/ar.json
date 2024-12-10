@@ -1,4 +1,35 @@
 {
-  "inputs": {},
-  "buttons": {}
+  "inputs": {
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "newPassword": "كلمة المرور الجديدة",
+    "confirmNewPassword": "تأكيد كلمة المرور الجديدة"
+  },
+  "placeholders": {
+    "email": "أدخل بريدك الإلكتروني",
+    "password": "أدخل كلمة المرور",
+    "newPassword": "أدخل كلمة المرور الجديدة",
+    "confirmNewPassword": "تأكيد كلمة المرور الجديدة"
+  },
+  "buttons": {
+    "login": "تسجيل الدخول",
+    "forgotPassword": "هل نسيت كلمة المرور؟",
+    "submit": "إرسال"
+  },
+  "titles": {
+    "login": "تسجيل الدخول",
+    "welcome": "مرحبًا بعودتك إلى MDP",
+    "instruction": "أدخل بيانات الاعتماد الخاصة بك للوصول إلى حسابك",
+    "or": "أو",
+    "noAccount": "ليس لديك حساب؟",
+    "signUp": "سجل",
+    "newPassword": "كلمة المرور الجديدة",
+    "forgotPassword": "نسيت كلمة المرور"
+  },
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "email": "يرجى إدخال عنوان بريد إلكتروني صالح",
+    "password": "يرجى إدخال كلمة مرور صالحة",
+    "newPassword": "يرجى إدخال كلمة مرور جديدة صحيحة"
+  }
 }

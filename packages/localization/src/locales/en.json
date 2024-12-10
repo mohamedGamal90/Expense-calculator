@@ -1,1 +1,35 @@
-{ "inputs": {}, "buttons": {} }
+{
+  "inputs": {
+    "email": "Email",
+    "password": "Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password"
+  },
+  "placeholders": {
+    "email": "Enter your email",
+    "password": "Enter Password",
+    "newPassword": "Enter your new password",
+    "confirmNewPassword": "Confirm your new password"
+  },
+  "buttons": {
+    "login": "Login",
+    "forgotPassword": "Forgot your password?",
+    "submit": "Submit"
+  },
+  "titles": {
+    "login": "Log In",
+    "welcome": "Welcome Back to MDP",
+    "instruction": "Enter Your Credentials to access your account",
+    "or": "Or",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign Up",
+    "newPassword": "New Password",
+    "forgotPassword": "Forgot Password"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address",
+    "password": "Please enter a valid password",
+    "newPassword": "Please enter a valid new password"
+  }
+}
