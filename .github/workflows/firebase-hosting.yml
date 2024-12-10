@@ -21,9 +21,8 @@ jobs:
       run: |
         cd apps/lib/
         touch .env
-        echo EXPO_PUBLIC_API_URL=https://10.15.10.157:8443
-        echo EXPO_PUBLIC_REALM_ID=agb
-        cat .env
+        echo EXPO_PUBLIC_API_URL=https://10.15.10.157:8443 >> .env
+        echo EXPO_PUBLIC_REALM_ID=agb >> .env
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -48,5 +47,4 @@ jobs:
         firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_WHITE_LABEL_EXPO_WIDGETS }}
         projectId: white-label-expo-widgets
         entryPoint: ./apps/lib
-        # if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        # channelId: live
+        channelId: ${{github.ref == 'refs/heads/main' && 'live' || null }}
