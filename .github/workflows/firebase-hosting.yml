@@ -17,13 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Create Env file
-      run: |
-        cd apps/lib/
-        touch .env
-        echo EXPO_PUBLIC_API_URL=https://10.15.10.157:8443 >> .env
-        echo EXPO_PUBLIC_REALM_ID=agb >> .env
-
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
