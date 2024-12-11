@@ -6,6 +6,7 @@ import { AvailableStatuse, CardType } from "@aurora/home/src/types/cardType";
 import { CardAvailableStatusCodes } from "./cardStatusCodes";
 import { getTokens } from "@tamagui/core";
 import { CardActivationFlow, CardLimitFlow, ReportCardFlow } from "../../dialog-flows";
+import { SetPinFlow } from "@metroid/card-management";
 
 export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: CardType }) => {
   const [render, setRender] = useState<JSX.Element>();
@@ -52,7 +53,12 @@ export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: Card
       disabled: reportCardDisabled,
     },
     { title: "Replace Card", icon: "replace-card", render: <View />, disabled: false },
-    { title: "Change Pin", icon: "change-pin", render: <View />, disabled: setPinDisabled },
+    {
+      title: "Change Pin",
+      icon: "change-pin",
+      render: <SetPinFlow returnBackHandler={returnBackHandler} selectedCard={selectedCard} />,
+      disabled: setPinDisabled,
+    },
     {
       title: "International Transactions",
       icon: "arrow-swap-horizontal",
@@ -60,6 +66,7 @@ export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: Card
       disabled: false,
     },
   ];
+
   return (
     <>
       {render ?? (

@@ -10,6 +10,7 @@ const screenWidth = Dimensions.get("window").width;
 export const dialogWidth = screenWidth > 700 ? 600 - 48 : screenWidth - 48;
 
 type Props = { returnBackHandler: () => void; selectedCard: CardType };
+
 export const ReportCardFlow = ({ returnBackHandler, selectedCard }: Props) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
@@ -65,7 +66,7 @@ export const ReportCardFlow = ({ returnBackHandler, selectedCard }: Props) => {
         <Verification
           onSubmit={onReportCard}
           type={data?.data.email ? "email" : "mobile"}
-          crediential={data?.data.email ?? data?.data.phoneNumber}
+          credential={data?.data.email ?? data?.data.phoneNumber}
           isPending={reportCardIspending}
         />
       ),

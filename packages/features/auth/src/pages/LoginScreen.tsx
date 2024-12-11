@@ -39,7 +39,6 @@ export function LoginScreen() {
       console.log("error", error);
     },
     async onSuccess(data) {
-      console.log("data", data);
       await protectedStore.setValue(StoreKey.AccessToken, data.access_token);
       router.navigate("/dashboard");
     },

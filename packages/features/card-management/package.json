@@ -1,0 +1,14 @@
+{
+  "name": "@metroid/card-management",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@aurora/blocks": "*"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-webview": "*"
+  }
+}

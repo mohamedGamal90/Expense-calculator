@@ -8,11 +8,11 @@ const CELL_COUNT = 4;
 export const Verification = ({
   onSubmit,
   type = "mobile",
-  crediential,
+  credential,
   isPending,
 }: {
   onSubmit: (otp: string) => void;
-  crediential: string | undefined;
+  credential: string | undefined;
   type?: "mobile" | "email";
   isPending: boolean;
 }) => {
@@ -95,7 +95,7 @@ export const Verification = ({
             We sent a 4 digit code to:
           </StyledText>
           <StyledText variant="BodymL" color="$neutral800" marginBottom="$l">
-            {crediential}
+            {credential}
           </StyledText>
           <OTPInput
             maxLength={CELL_COUNT}

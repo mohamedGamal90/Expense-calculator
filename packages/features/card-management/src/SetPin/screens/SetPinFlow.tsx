@@ -1,12 +1,14 @@
 import { CardType } from "@aurora/home/src/types/cardType";
-import { DialogFlow } from "../DialogFlow";
 import { FlatList } from "react-native";
-import { useRef, useState } from "react";
-import { CardLimit, StatusView, Verification } from "../dialog-screens";
-import { useRequestOtpMutation } from "./hooks/useRequestOtpMutation";
+import { useEffect, useRef, useState } from "react";
+import { DialogFlow, StatusView, Verification } from "@aurora/blocks";
+import { useRequestOtpMutation } from "@aurora/blocks/src/dialog-flows/hooks/useRequestOtpMutation";
+import { SetPinScreen } from "./SetPinScreen/index.web";
+import { useSetPinMutation } from "../hooks/useSetPinMutation";
 
 type Props = { returnBackHandler: () => void; selectedCard: CardType };
-export const CardLimitFlow = ({ returnBackHandler, selectedCard }: Props) => {
+
+export function SetPinFlow({ returnBackHandler, selectedCard }: Props) {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
 
@@ -28,39 +30,52 @@ export const CardLimitFlow = ({ returnBackHandler, selectedCard }: Props) => {
     isPending: requestOtpPending,
     data,
   } = useRequestOtpMutation({
-    onSuccess: () => {
-      onNextScreen();
-    },
     onError: error => console.log("error", error),
   });
 
-  const CardLimitFlowScreens = [
-    {
-      title: "Card Limit",
-      render: (
-        <CardLimit
-          cardNumber={selectedCard.cardNumber.slice(-4)}
-          onSubmit={requestOTP}
-          isPending={requestOtpPending}
-        />
-      ),
+  const {
+    mutateAsync: setPin,
+    data: setPinUrl,
+    isPending: setPinIsPending,
+  } = useSetPinMutation({
+    onSuccess(data) {
+      onNextScreen();
     },
+  });
+
+  const onSetPin = (otp: string) => {
+    setPin({
+      cardId: selectedCard.id,
+      otp,
+    });
+  };
+
+  useEffect(() => {
+    requestOTP();
+  }, []);
+
+  const CardLimitFlowScreens = [
     {
       title: "Verification",
       render: (
         <Verification
-          onSubmit={onNextScreen}
+          onSubmit={onSetPin}
           type={data?.data.email ? "email" : "mobile"}
           credential={data?.data.email ?? data?.data.phoneNumber}
-          isPending={false}
+          isPending={setPinIsPending}
         />
       ),
+    },
+    {
+      title: "",
+      render: <SetPinScreen src={setPinUrl?.data.url} />,
     },
     {
       title: "StatusView",
       render: <StatusView onSubmit={onNextScreen} statusTitle={`Limit set Successfully`} />,
     },
   ];
+
   return (
     <DialogFlow
       returnBackHandler={returnBackHandler}
@@ -70,4 +85,4 @@ export const CardLimitFlow = ({ returnBackHandler, selectedCard }: Props) => {
       setCurrentScreenIndex={setCurrentScreenIndex}
     />
   );
-};
+}
