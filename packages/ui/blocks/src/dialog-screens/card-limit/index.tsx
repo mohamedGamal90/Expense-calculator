@@ -1,7 +1,8 @@
-import { Progress, StyledButton, StyledText, TextInput, View } from "@aurora/components";
+import { Progress, StyledButton, StyledText, View } from "@aurora/components";
 import { useState } from "react";
 import { DateSelection } from "./components/DateSelectionBtn";
 import { SelectedCardHeader } from "../components/SelectedCardHeader";
+import { FieldGroup } from "../../Form";
 
 export const CardLimit = ({
   cardNumber,
@@ -31,7 +32,7 @@ export const CardLimit = ({
         <StyledText variant="Bodysm" color={"$neutral800"} marginTop="$ml" marginBottom="$xs">
           Enter Amount
         </StyledText>
-        <TextInput keyboardType="numeric" />
+        <FieldGroup />
       </View>
       <StyledButton variant="primary" onPress={onSubmit} isLoading={isPending} disabled={isPending}>
         Next
