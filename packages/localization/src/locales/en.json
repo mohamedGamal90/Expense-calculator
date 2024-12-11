@@ -3,13 +3,15 @@
     "email": "Email",
     "password": "Password",
     "newPassword": "New Password",
-    "confirmNewPassword": "Confirm New Password"
+    "confirmNewPassword": "Confirm New Password",
+    "username": "Username"
   },
   "placeholders": {
     "email": "Enter your email",
     "password": "Enter Password",
     "newPassword": "Enter your new password",
-    "confirmNewPassword": "Confirm your new password"
+    "confirmNewPassword": "Confirm your new password",
+    "username": "Enter your username"
   },
   "buttons": {
     "login": "Login",
@@ -30,6 +32,7 @@
     "required": "This field is required",
     "email": "Please enter a valid email address",
     "password": "Please enter a valid password",
-    "newPassword": "Please enter a valid new password"
+    "newPassword": "Please enter a valid new password",
+    "confirmPassword": "Password must match"
   }
 }

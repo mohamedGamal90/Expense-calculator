@@ -7,13 +7,13 @@ const CELL_COUNT = 4;
 
 export const Verification = ({
   onSubmit,
-  type,
+  type = "mobile",
   crediential,
   isPending,
 }: {
   onSubmit: (otp: string) => void;
-  type: "mobile" | "email";
   crediential: string | undefined;
+  type?: "mobile" | "email";
   isPending: boolean;
 }) => {
   const [value, setValue] = useState("");

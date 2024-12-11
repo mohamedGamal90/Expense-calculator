@@ -8,16 +8,21 @@ import { ControlledField } from "@aurora/blocks";
 import * as yup from "yup";
 import { FormProvider, useForm } from "react-hook-form";
 import i18n from "i18next";
+import { useValidateUsernameMutation } from "../hooks";
 
 enum FormFields {
-  Email = "email",
+  Username = "username",
+  Password = "password",
+  PasswordConfirm = "passwordConfirm",
 }
 
 const forgetPasswordFormResolver = yup.object().shape({
-  [FormFields.Email]: yup
+  [FormFields.Username]: yup.string().required(i18n.t("validation.required")),
+  [FormFields.Password]: yup.string().required(i18n.t("validation.required")),
+  [FormFields.PasswordConfirm]: yup
     .string()
-    .email(i18n.t("validation.email"))
-    .required(i18n.t("validation.required")),
+    .required(i18n.t("Validation.required"))
+    .oneOf([yup.ref("password")], i18n.t("Validation.confirmPassword")),
 });
 
 type FormValues = yup.InferType<typeof forgetPasswordFormResolver>;
@@ -28,12 +33,27 @@ export const ForgotPasswordScreen = () => {
   const form = useForm({
     resolver: yupResolver(forgetPasswordFormResolver),
     defaultValues: {
-      [FormFields.Email]: "",
+      [FormFields.Username]: "",
+      [FormFields.Password]: "",
+      [FormFields.PasswordConfirm]: "",
+    },
+  });
+
+  const { isPending, mutate: validateUsername } = useValidateUsernameMutation({
+    onSuccess: (mobileNumber, { username, password }) => {
+      router.push({
+        pathname: "auth/forget-password-verification",
+        params: {
+          mobileNumber,
+          username,
+          password,
+        },
+      });
     },
   });
 
   function handleSubmit(data: FormValues) {
-    router.push("auth/new-password");
+    validateUsername(data);
   }
 
   return (
@@ -55,15 +75,32 @@ export const ForgotPasswordScreen = () => {
           </StyledText>
 
           <ControlledField
-            fieldName={FormFields.Email}
+            fieldName={FormFields.Username}
             type="textInput"
             placeholder={t("placeholders.email")}
             label={t("inputs.email")}
             iconLeft="email"
           />
 
+          <ControlledField
+            fieldName={FormFields.Password}
+            type="textInput"
+            placeholder={t("placeholders.newPassword")}
+            label={t("inputs.newPassword")}
+            iconLeft="password"
+            secureTextEntry
+          />
+          <ControlledField
+            fieldName={FormFields.PasswordConfirm}
+            type="textInput"
+            placeholder={t("placeholders.confirmNewPassword")}
+            label={t("inputs.confirmNewPassword")}
+            iconLeft="password"
+            secureTextEntry
+          />
+
           <Form.Trigger mt="$auto" asChild>
-            <StyledButton>{t("buttons.submit")}</StyledButton>
+            <StyledButton isLoading={isPending}>{t("buttons.submit")}</StyledButton>
           </Form.Trigger>
         </View>
       </FormProvider>
