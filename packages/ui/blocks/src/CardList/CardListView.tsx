@@ -1,11 +1,11 @@
 import { config, StyledDialog, StyledText, View } from "@aurora/components";
-import { CardList } from "../CardList";
 import { CardCurrencyDetails } from "../card-currency-details";
 import { Icon } from "@aurora/icons";
 import { CardMangementDialogScreen } from "../dialog-screens/card-mangement";
 import { Dispatch, SetStateAction } from "react";
 import { Dimensions } from "react-native";
 import { CardType } from "@aurora/home/src/types/cardType";
+import { CardList } from "./CardList";
 
 const { width: screenWidth } = Dimensions.get("window");
 type Props = {

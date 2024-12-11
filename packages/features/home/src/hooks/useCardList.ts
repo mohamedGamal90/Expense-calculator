@@ -14,7 +14,5 @@ const getCardsList = async () => {
 export const useGetCardsQuery = () =>
   useQuery<CardType[], ErrorType>({
     queryKey: ["cardList"],
-    queryFn: async () => {
-      return await getCardsList();
-    },
+    queryFn: async () => await getCardsList(),
   });

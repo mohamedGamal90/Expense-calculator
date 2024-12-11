@@ -29,13 +29,14 @@ type Override<Type, NewType extends { [key in keyof Type]?: NewType[key] }> = Om
 > &
   NewType;
 
+export type PillVariant = "success" | "warning" | "negative";
 function PillText({
   variant,
   ...props
 }: Override<
   StyledTextProps,
   {
-    variant?: "success" | "warning" | "negative";
+    variant?: PillVariant;
   }
 >) {
   const color = (() => {

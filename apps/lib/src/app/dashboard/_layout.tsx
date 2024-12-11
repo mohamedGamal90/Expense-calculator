@@ -17,7 +17,7 @@ const buttons: SidebarButton[] = [
   {
     icon: "arrow-swap-horizontal",
     title: "Transactions",
-    href: "",
+    href: "/dashboard/transaction",
   },
   {
     icon: "group",
