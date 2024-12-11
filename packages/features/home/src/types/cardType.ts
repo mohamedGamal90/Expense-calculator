@@ -1,3 +1,4 @@
+export type CurrencyType = "USD" | "EGP" | "GHS";
 export interface CardType {
   id: string;
   cardMask: string;
@@ -5,7 +6,7 @@ export interface CardType {
   cardNumber: string;
   availableBalance: number;
   holdBalance: number;
-  currencyName: string;
+  currencyName: CurrencyType;
   backOfficeStatus: string;
   status: string;
   statusCode: string;

@@ -1,11 +1,11 @@
 import { StyledText, View } from "@aurora/components";
-import { Card } from "../types";
 import { CardInfoBlock } from "./components/cardInfoBlock";
-import { getCurrencySymbol } from "./helper/getCurrencySymbol";
 import { Dimensions } from "react-native";
+import { CardType } from "@aurora/home/src/types/cardType";
+import { getCurrencyFullName, getCurrencySymbol } from "@aurora/utils";
 
 const { width: screenWidth } = Dimensions.get("window");
-export const CardCurrencyDetails = ({ card }: { card: Card }) => {
+export const CardCurrencyDetails = ({ card }: { card: CardType }) => {
   const cardStatus = card.statusName === "VALID CARD" ? "Active" : "UnActive";
   return (
     <View flexDirection="row" justifyContent="center" margin={screenWidth > 600 ? "$ml" : "$sm"}>
@@ -37,7 +37,7 @@ export const CardCurrencyDetails = ({ card }: { card: Card }) => {
           paddingVertical={"$xs"}
           variant={screenWidth > 600 ? "BodySemiBoldml" : "BodySemiBolds"}
           color={"$secondary900"}>
-          {card.currencyName.toUpperCase()}
+          {getCurrencyFullName(card.currencyName)}
         </StyledText>
       </CardInfoBlock>
     </View>
