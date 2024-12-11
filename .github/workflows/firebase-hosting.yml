@@ -1,10 +1,15 @@
 name: Deploy to Firebase Hosting on PR
 on:
-  pull_request:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+
   push:
     branches:
       - main
-      
+
 permissions:
   checks: write
   contents: read
@@ -15,29 +20,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
 
-    - name: install yarn
-      run: npm install -g yarn
+      - name: install yarn
+        run: npm install -g yarn
 
-    - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
-    - name: Build for web
-      run: |
-        cd apps/lib/
-        npx expo export --platform web
+      - name: Build for web
+        run: |
+          cd apps/lib/
+          npx expo export --platform web
 
-    - name: Deploy to Firebase Hosting
-      uses: FirebaseExtended/action-hosting-deploy@v0
-      with:
-        repoToken: ${{ secrets.GITHUB_TOKEN }}
-        firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_WHITE_LABEL_EXPO_WIDGETS }}
-        projectId: white-label-expo-widgets
-        entryPoint: ./apps/lib
-        channelId: ${{github.ref == 'refs/heads/main' && 'live' || null }}
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_WHITE_LABEL_EXPO_WIDGETS }}
+          projectId: white-label-expo-widgets
+          entryPoint: ./apps/lib
+          channelId: ${{github.ref == 'refs/heads/main' && 'live' || null }}

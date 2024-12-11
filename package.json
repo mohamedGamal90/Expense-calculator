@@ -20,7 +20,7 @@
   },
   "packageManager": "yarn@1.22.22",
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,json}": "yarn prettier --write"
+    "*.{js,jsx,ts,tsx,json,yml}": "yarn prettier --write"
   },
   "workspaces": [
     "apps/*",
