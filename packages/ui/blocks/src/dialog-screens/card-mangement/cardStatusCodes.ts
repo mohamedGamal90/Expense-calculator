@@ -10,4 +10,5 @@ export enum CardStatusCodes {
 export enum CardAvailableStatusCodes {
   ReportLostOrStolen = "ReportLostOrStolen",
   SetPin = "SetPin",
+  Activate = "Activate",
 }

@@ -25,8 +25,10 @@ import LayoutDashboard from "./layout-dashboard.svg";
 import Setting from "./setting.svg";
 import Mobile from "./mobile.svg";
 import TickCircle from "./tick-circle.svg";
+import DetailsIcon from "./details-icon.svg";
 
 const svgs = {
+  "details-icon": DetailsIcon,
   "arrow-circle-left": ArrowCircleLeft,
   "arrow-circle-right": ArrowCircleRight,
   "arrow-left": ArrowLeft,

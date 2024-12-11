@@ -16,7 +16,9 @@
   "buttons": {
     "login": "Login",
     "forgotPassword": "Forgot your password?",
-    "submit": "Submit"
+    "submit": "Submit",
+    "deactivate": "Deactivate",
+    "activate": "Activate"
   },
   "titles": {
     "login": "Log In",
@@ -26,7 +28,22 @@
     "noAccount": "Don't have an account?",
     "signUp": "Sign Up",
     "newPassword": "New Password",
-    "forgotPassword": "Forgot Password"
+    "forgotPassword": "Forgot Password",
+    "selectCard": "Select a card to Active or Deactivate",
+    "details": "Details",
+    "receiverName": "Receiver Name",
+    "status": "Status",
+    "cardNumber": "Card number",
+    "expiryDate": "Expiry date",
+    "cvv": "CVV"
+  },
+  "cardManagement": {
+    "cardSelected": "Card selected",
+    "cardEnding": "Card end with ****",
+    "cardActivation": {
+      "activate-success-txt": "Card Activate Successfully",
+      "deactivate-success-txt": "Card Deactivate Successfully"
+    }
   },
   "validation": {
     "required": "This field is required",

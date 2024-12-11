@@ -5,7 +5,7 @@ import { FlatList, Pressable } from "react-native";
 import { AvailableStatuse, CardType } from "@aurora/home/src/types/cardType";
 import { CardAvailableStatusCodes } from "./cardStatusCodes";
 import { getTokens } from "@tamagui/core";
-import { CardLimitFlow, ReportCardFlow } from "../../dialog-flows";
+import { CardActivationFlow, CardLimitFlow, ReportCardFlow } from "../../dialog-flows";
 
 export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: CardType }) => {
   const [render, setRender] = useState<JSX.Element>();
@@ -21,6 +21,7 @@ export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: Card
   const setPinDisabled: boolean = !selectedCard?.availableStatuses.some(
     (item: AvailableStatuse) => item.statusCode === CardAvailableStatusCodes.SetPin,
   );
+  const activationDisabled: boolean = selectedCard.statusName !== "VALID CARD";
 
   const cardMangementList: {
     title: string;
@@ -28,7 +29,14 @@ export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: Card
     render: JSX.Element;
     disabled: boolean;
   }[] = [
-    { title: "Card Activation", icon: "freeze-card", render: <View />, disabled: false },
+    {
+      title: "Card Activation",
+      icon: "freeze-card",
+      render: (
+        <CardActivationFlow returnBackHandler={returnBackHandler} selectedCard={selectedCard} />
+      ),
+      disabled: activationDisabled,
+    },
     {
       title: "Card Limits",
       icon: "card-limit",

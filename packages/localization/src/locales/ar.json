@@ -14,7 +14,9 @@
   "buttons": {
     "login": "تسجيل الدخول",
     "forgotPassword": "هل نسيت كلمة المرور؟",
-    "submit": "إرسال"
+    "submit": "إرسال",
+    "deactivate": "إلغاء التفعيل",
+    "activate": "تفعيل"
   },
   "titles": {
     "login": "تسجيل الدخول",
@@ -24,7 +26,22 @@
     "noAccount": "ليس لديك حساب؟",
     "signUp": "سجل",
     "newPassword": "كلمة المرور الجديدة",
-    "forgotPassword": "نسيت كلمة المرور"
+    "forgotPassword": "نسيت كلمة المرور",
+    "selectCard": "اختر بطاقة لتفعيلها أو إلغاء تفعيلها",
+    "details": "تفاصيل",
+    "receiverName": "اسم المستلم",
+    "status": "الحالة",
+    "cardNumber": "رقم البطاقة",
+    "expiryDate": "تاريخ انتهاء الصلاحية",
+    "cvv": "رمز التحقق"
+  },
+  "cardManagement": {
+    "cardSelected": "تم اختيار البطاقة",
+    "cardEnding": "تنتهي البطاقة بـ ****",
+    "cardActivation": {
+      "activate-success-txt": "تم تفعيل البطاقة بنجاح",
+      "deactivate-success-txt": "تم إلغاء تفعيل البطاقة بنجاح"
+    }
   },
   "validation": {
     "required": "هذا الحقل مطلوب",

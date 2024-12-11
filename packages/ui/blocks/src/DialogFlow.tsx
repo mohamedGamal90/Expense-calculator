@@ -40,11 +40,9 @@ export const DialogFlow = ({
     <View flex={1}>
       {currentScreenIndex !== screensFlow.length - 1 && (
         <>
-          <Dialog.Title alignSelf="center">
-            <StyledText textAlign="center" variant="Heading2xl" color={"$secondary800"}>
-              {screensFlow[currentScreenIndex].title}
-            </StyledText>
-          </Dialog.Title>
+          <StyledText textAlign="center" variant="Heading2xl" color={"$secondary800"}>
+            {screensFlow[currentScreenIndex].title}
+          </StyledText>
           <StyledButton
             position="absolute"
             variant="iconBtn"
