@@ -21,8 +21,10 @@ export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: Card
   const setPinDisabled: boolean = !selectedCard?.availableStatuses.some(
     (item: AvailableStatuse) => item.statusCode === CardAvailableStatusCodes.SetPin,
   );
-  const activationDisabled: boolean = selectedCard.statusName !== "VALID CARD";
-
+  const canbeDeactivated = selectedCard?.availableStatuses.some(
+    (item: AvailableStatuse) => item.statusCode === CardAvailableStatusCodes.Activate,
+  );
+  const activationDisabled: boolean = !canbeDeactivated && selectedCard.statusName !== "VALID CARD";
   const cardMangementList: {
     title: string;
     icon: IconKeys;
