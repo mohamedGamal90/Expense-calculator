@@ -8,11 +8,12 @@ const screenWidth = Dimensions.get("window").width;
 const dialogWidth = screenWidth > 700 ? 600 - 48 : screenWidth - 48;
 
 type Props = {
-  returnBackHandler: () => void;
+  returnBackHandler?: () => void;
   currentScreenIndex: number;
   setCurrentScreenIndex: Dispatch<SetStateAction<number>>;
   screensFlow: { title: string; render: JSX.Element }[];
   flatListRef: React.RefObject<FlatList>;
+  showCloseButton?: boolean;
 };
 export const DialogFlow = ({
   returnBackHandler,
@@ -20,11 +21,12 @@ export const DialogFlow = ({
   setCurrentScreenIndex,
   screensFlow,
   flatListRef,
+  showCloseButton,
 }: Props) => {
   const { color } = getTokens();
 
   const onPrevScreen = () => {
-    if (currentScreenIndex === 0) {
+    if (currentScreenIndex === 0 && returnBackHandler) {
       returnBackHandler();
       return;
     }
@@ -40,9 +42,6 @@ export const DialogFlow = ({
     <View flex={1}>
       {currentScreenIndex !== screensFlow.length - 1 && (
         <>
-          <StyledText textAlign="center" variant="Heading2xl" color={"$secondary800"}>
-            {screensFlow[currentScreenIndex].title}
-          </StyledText>
           <StyledButton
             position="absolute"
             variant="iconBtn"
@@ -52,9 +51,29 @@ export const DialogFlow = ({
             height={26}
             onPress={onPrevScreen}
             left={0}
-            top={-4}>
+            top={7}>
             <Icon name={"arrow-left"} width={26} height={26} color={color.$black.val} />
           </StyledButton>
+          <Dialog.Title textAlign="center">
+            <StyledText variant="Heading2xl" color={"$secondary800"}>
+              {screensFlow[currentScreenIndex].title}
+            </StyledText>
+          </Dialog.Title>
+          {showCloseButton && (
+            <Dialog.Close asChild>
+              <StyledButton
+                position="absolute"
+                variant="iconBtn"
+                width={40}
+                height={40}
+                backgroundColor={"$white"}
+                icon={<Icon name={"close-circle"} color={color.error600.val} />}
+                borderWidth={0}
+                right={0}
+                top={5}
+              />
+            </Dialog.Close>
+          )}
         </>
       )}
       <FlatList

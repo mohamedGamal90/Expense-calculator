@@ -39,7 +39,7 @@ export const StyledDialog = ({ title, icon, children }: Props) => (
         elevate
         key="content"
         width={screenWidth > 700 ? 600 : "100%"}
-        paddingVertical={"$l"}
+        paddingBottom={"$l"}
         paddingHorizontal={"$ml"}
         height={screenWidth > 700 ? "100%" : screenHeight}
         marginHorizontal={screenWidth > 700 ? "$l" : 0}
