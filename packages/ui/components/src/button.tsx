@@ -1,5 +1,14 @@
-import { GetProps, View, Text, createStyledContext, styled, withStaticProperties } from "tamagui";
+import {
+  GetProps,
+  View,
+  Text,
+  createStyledContext,
+  styled,
+  withStaticProperties,
+  TamaguiElement,
+} from "tamagui";
 import { ActivityIndicator } from "react-native";
+import { forwardRef, LegacyRef } from "react";
 
 const ButtonContext = createStyledContext({
   variant: "primary",
@@ -84,11 +93,18 @@ type StyledButtonProps = ButtonProps & {
   icon?: React.ReactNode;
 };
 
-export function StyledButton({ children, icon, isLoading, ...props }: StyledButtonProps) {
-  return (
-    <Button {...props} disabled={props.disabled || isLoading}>
-      {icon}
-      {isLoading ? <ActivityIndicator /> : <Button.Text>{children}</Button.Text>}
-    </Button>
-  );
-}
+export const StyledButton = forwardRef<typeof View, StyledButtonProps>(
+  ({ children, icon, isLoading, ...props }, ref) => {
+    return (
+      <Button
+        {...props}
+        ref={ref as LegacyRef<TamaguiElement> | undefined}
+        disabled={props.disabled || isLoading}>
+        {icon}
+        {isLoading ? <ActivityIndicator /> : <Button.Text>{children}</Button.Text>}
+      </Button>
+    );
+  },
+);
+
+StyledButton.displayName = "StyledButton";
