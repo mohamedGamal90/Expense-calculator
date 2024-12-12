@@ -1,4 +1,4 @@
-import { StatusView } from "@aurora/blocks/src/dialog-screens";
+import { StatusView } from "@aurora/blocks";
 import { View } from "@aurora/components";
 import { useRouter } from "expo-router";
 
@@ -10,7 +10,7 @@ export const ForgotPasswordStatusScreen = () => {
   };
   return (
     <View flex={1}>
-      <StatusView onSubmit={handleOnSubmit} statusTitle="" />
+      <StatusView onSubmit={handleOnSubmit} />
     </View>
   );
 };

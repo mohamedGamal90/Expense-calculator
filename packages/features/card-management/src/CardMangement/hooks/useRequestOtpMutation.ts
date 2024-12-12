@@ -7,11 +7,10 @@ export type sendOtpResponse = {
   email: string;
   status: string;
 };
-const requestOtp = async () => {
-  return await authApiClient.get<sendOtpResponse>(
+const requestOtp = async () =>
+  await authApiClient.get<sendOtpResponse>(
     `/general-service/api/v1/${process.env.EXPO_PUBLIC_REALM_ID}/otp/request-otp`,
   );
-};
 
 export const useRequestOtpMutation = ({
   onError,

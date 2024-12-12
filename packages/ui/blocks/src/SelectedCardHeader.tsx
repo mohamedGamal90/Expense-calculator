@@ -10,7 +10,7 @@ export const SelectedCardHeader = ({ cardNumber }: { cardNumber: string }) => {
         {t("cardManagement.cardSelected")}
       </StyledText>
       <View flexDirection="row" alignItems="center" gap="$s" marginVertical="$m">
-        <Image style={{ width: 80, height: 50 }} source={require("../../cardImage.png")} />
+        <Image style={{ width: 80, height: 50 }} source={require("./cardImage.png")} />
         <StyledText
           variant="Bodym"
           color={"$neutral800"}>{`${t("cardManagement.cardEnding")} ${cardNumber}`}</StyledText>

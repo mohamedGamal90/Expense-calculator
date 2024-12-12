@@ -2,9 +2,9 @@ import { CardType } from "@aurora/home/src/types/cardType";
 import { FlatList } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { DialogFlow, StatusView, Verification } from "@aurora/blocks";
-import { useRequestOtpMutation } from "@aurora/blocks/src/dialog-flows/hooks/useRequestOtpMutation";
 import { SetPinScreen } from "./SetPinScreen/index.web";
 import { useSetPinMutation } from "../hooks/useSetPinMutation";
+import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 
 type Props = { returnBackHandler: () => void; selectedCard: CardType };
 
@@ -25,11 +25,7 @@ export function SetPinFlow({ returnBackHandler, selectedCard }: Props) {
     setCurrentScreenIndex(nextIndex);
   };
 
-  const {
-    mutateAsync: requestOTP,
-    isPending: requestOtpPending,
-    data,
-  } = useRequestOtpMutation({
+  const { mutateAsync: requestOTP, data } = useRequestOtpMutation({
     onError: error => console.log("error", error),
   });
 

@@ -3,10 +3,14 @@ import { Icon, IconKeys } from "@aurora/icons";
 import { useState } from "react";
 import { FlatList, Pressable } from "react-native";
 import { AvailableStatuse, CardType } from "@aurora/home/src/types/cardType";
-import { CardAvailableStatusCodes } from "./cardStatusCodes";
 import { getTokens } from "@tamagui/core";
-import { CardActivationFlow, CardLimitFlow, ReportCardFlow } from "../../dialog-flows";
-import { SetPinFlow } from "@metroid/card-management";
+import {
+  CardActivationFlow,
+  CardLimitFlow,
+  ReportCardFlow,
+  SetPinFlow,
+} from "@metroid/card-management";
+import { CardAvailableStatusCodes } from "../cardStatusCodes";
 
 export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: CardType }) => {
   const [render, setRender] = useState<JSX.Element>();

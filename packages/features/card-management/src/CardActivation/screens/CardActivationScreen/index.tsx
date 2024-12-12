@@ -1,9 +1,9 @@
+import { SelectedCardHeader } from "@aurora/blocks";
 import { MappingList, StyledButton, StyledText, View } from "@aurora/components";
 import { CardType } from "@aurora/home/src/types/cardType";
 import { Icon } from "@aurora/icons";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { SelectedCardHeader } from "../components/SelectedCardHeader";
 
 type Props = {
   selectedCard: CardType;

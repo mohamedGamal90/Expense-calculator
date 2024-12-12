@@ -1,8 +1,8 @@
 import { Progress, StyledButton, StyledText, View } from "@aurora/components";
 import { useState } from "react";
 import { DateSelection } from "./components/DateSelectionBtn";
-import { SelectedCardHeader } from "../components/SelectedCardHeader";
-import { FieldGroup } from "../../Form";
+import { SelectedCardHeader } from "@aurora/blocks";
+import { FieldGroup } from "@aurora/blocks/src/Form/FieldGroup";
 
 export const CardLimit = ({
   cardNumber,

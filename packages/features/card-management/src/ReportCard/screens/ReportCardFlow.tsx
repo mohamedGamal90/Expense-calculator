@@ -1,10 +1,11 @@
 import { Dimensions, FlatList } from "react-native";
 import { useRef, useState } from "react";
-import { DialogFlow } from "../DialogFlow";
+import { DialogFlow } from "@aurora/blocks/src/DialogFlow";
 import { CardType } from "@aurora/home/src/types/cardType";
-import { useRequestOtpMutation } from "./hooks/useRequestOtpMutation";
-import { useReportCardMutation } from "./hooks/useReportCardMutation";
-import { ReportCard, StatusView, Verification } from "../dialog-screens";
+import { useReportCardMutation } from "@metroid/card-management/src/ReportCard/hooks/useReportCardMutation";
+import { StatusView, Verification } from "@aurora/blocks";
+import { ReportCard } from "./ReportCardScreen";
+import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 
 const screenWidth = Dimensions.get("window").width;
 export const dialogWidth = screenWidth > 700 ? 600 - 48 : screenWidth - 48;

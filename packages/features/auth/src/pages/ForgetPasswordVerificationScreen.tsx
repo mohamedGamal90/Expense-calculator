@@ -1,7 +1,7 @@
-import { Verification } from "@aurora/blocks/src/dialog-screens";
 import { View } from "@aurora/components";
 import { useForgetPasswordMutation } from "../hooks";
 import { useRouter, useLocalSearchParams } from "expo-router";
+import { Verification } from "@aurora/blocks";
 
 export const ForgetPasswordVerificationScreen = () => {
   const router = useRouter();
@@ -33,7 +33,7 @@ export const ForgetPasswordVerificationScreen = () => {
       <Verification
         onSubmit={otp => handleOnSubmit(otp)}
         isPending={isPending}
-        crediential={mobileNumber}
+        credential={mobileNumber}
       />
     </View>
   );

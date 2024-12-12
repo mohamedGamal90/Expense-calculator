@@ -1,14 +1,13 @@
 import { useRef, useState } from "react";
 import { FlatList } from "react-native";
-import { CardActivation, StatusView, Verification } from "../dialog-screens";
-import { DialogFlow } from "../DialogFlow";
 import { AvailableStatuse, CardType } from "@aurora/home/src/types/cardType";
-import { useRequestOtpMutation } from "./hooks/useRequestOtpMutation";
-import { CardAvailableStatusCodes } from "../dialog-screens/card-mangement/cardStatusCodes";
-import { useActivateCardMutation } from "./hooks/useActivateCardMutation";
-import { useDeactivateCardMutation } from "./hooks/useDeactivateCardMutation";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { CardActivation } from "./CardActivationScreen";
+import { DialogFlow, StatusView, Verification } from "@aurora/blocks";
+import { useActivateCardMutation, useDeactivateCardMutation } from "../hooks";
+import { CardAvailableStatusCodes } from "../../CardMangement/cardStatusCodes";
+import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 
 type Props = { returnBackHandler: () => void; selectedCard: CardType };
 
@@ -81,7 +80,7 @@ export const CardActivationFlow = ({ returnBackHandler, selectedCard }: Props) =
         <Verification
           onSubmit={onCardActivation}
           type={data?.data.email ? "email" : "mobile"}
-          crediential={data?.data.email ?? data?.data.phoneNumber}
+          credential={data?.data.email ?? data?.data.phoneNumber}
           isPending={false}
         />
       ),

@@ -1,3 +1,4 @@
+import { SelectedCardHeader } from "@aurora/blocks";
 import {
   View,
   StyledText,
@@ -8,7 +9,6 @@ import {
 } from "@aurora/components";
 import { useState } from "react";
 import { GestureResponderEvent } from "react-native";
-import { SelectedCardHeader } from "../components/SelectedCardHeader";
 
 export const ReportCard = ({
   onSubmit,

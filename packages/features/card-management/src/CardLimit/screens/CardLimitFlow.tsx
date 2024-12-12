@@ -1,9 +1,10 @@
 import { CardType } from "@aurora/home/src/types/cardType";
-import { DialogFlow } from "../DialogFlow";
 import { FlatList } from "react-native";
 import { useRef, useState } from "react";
-import { CardLimit, StatusView, Verification } from "../dialog-screens";
-import { useRequestOtpMutation } from "./hooks/useRequestOtpMutation";
+import { CardLimit } from "./CardLimitScreen";
+import { DialogFlow } from "@aurora/blocks/src/DialogFlow";
+import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
+import { StatusView, Verification } from "@aurora/blocks";
 
 type Props = { returnBackHandler: () => void; selectedCard: CardType };
 export const CardLimitFlow = ({ returnBackHandler, selectedCard }: Props) => {
