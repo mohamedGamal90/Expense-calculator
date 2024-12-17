@@ -9,6 +9,7 @@ export * from "./RootView";
 export * from "./RadioGroupItemWithLabel";
 export * from "./StyledDialog";
 export * from "./MappingList";
+export * from "./styledSelect";
 
 import type { config } from "./tamagui.config";
 
