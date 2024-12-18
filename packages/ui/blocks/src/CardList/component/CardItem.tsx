@@ -8,35 +8,33 @@ type Props = {
   width: number;
 };
 
-export const CardItem = memo(({ card, width }: Props) => {
-  return (
-    <View
-      width={width}
-      height={200}
-      alignItems="center"
-      justifyContent="center"
-      paddingHorizontal="$xl"
-      alignSelf="center"
-      marginHorizontal="$auto">
-      <RNImageBackground
-        source={require("../../cardImage.png")}
-        style={styles.imageBackground}
-        resizeMode="contain">
-        <View
-          backgroundColor="black"
-          alignSelf="center"
-          borderRadius={5}
-          padding={5}
-          right={50}
-          top={148}>
-          <StyledText variant="Headingl" color={"white"}>
-            {card.cardMask}
-          </StyledText>
-        </View>
-      </RNImageBackground>
-    </View>
-  );
-});
+export const CardItem = memo(({ card, width }: Props) => (
+  <View
+    width={width}
+    height={200}
+    alignItems="center"
+    justifyContent="center"
+    paddingHorizontal="$xl"
+    alignSelf="center"
+    marginHorizontal="$auto">
+    <RNImageBackground
+      source={require("../../cardImage.png")}
+      style={styles.imageBackground}
+      resizeMode="contain">
+      <View
+        backgroundColor="black"
+        alignSelf="center"
+        borderRadius={5}
+        padding={5}
+        right={50}
+        top={148}>
+        <StyledText variant="Headingl" color={"white"}>
+          {card.cardMask}
+        </StyledText>
+      </View>
+    </RNImageBackground>
+  </View>
+));
 
 const styles = StyleSheet.create({
   imageBackground: {

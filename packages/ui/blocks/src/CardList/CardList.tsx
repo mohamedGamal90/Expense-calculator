@@ -8,7 +8,7 @@ import {
   NativeSyntheticEvent,
   Pressable,
 } from "react-native";
-import { Dispatch, SetStateAction, useRef } from "react";
+import { useRef } from "react";
 import { ControlIndexBtn } from "./component/ControlIndexBtn";
 import { Icon } from "@aurora/icons";
 import { getTokens } from "@tamagui/core";
@@ -37,7 +37,7 @@ export const CardList = () => {
   }, [cards]);
 
   if (!cards) {
-    return <CardListLoading width={width} />;
+    return <CardListLoading />;
   }
 
   const onNext = () => {
