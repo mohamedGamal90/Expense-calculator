@@ -1,12 +1,38 @@
 import { StyledText, View } from "@aurora/components";
 import { CardInfoBlock } from "./components/cardInfoBlock";
 import { Dimensions } from "react-native";
-import { CardType } from "@aurora/home/src/types/cardType";
 import { getCurrencyFullName, getCurrencySymbol } from "@aurora/utils";
+import { useSelectedCard } from "@metroid/store";
 
 const { width: screenWidth } = Dimensions.get("window");
-export const CardCurrencyDetails = ({ card }: { card: CardType }) => {
-  const cardStatus = card.statusName === "VALID CARD" ? "Active" : "UnActive";
+
+function CardCurrencyDetailsLoading() {
+  return (
+    <View flexDirection="row" justifyContent="center" margin={screenWidth > 600 ? "$ml" : "$sm"}>
+      <CardInfoBlock title={"Your Balance"}>
+        <View width={80} height={24} backgroundColor="$secondary100" borderRadius="$sm" />
+      </CardInfoBlock>
+      <View width={1} height={68} backgroundColor={"$secondary100"} marginHorizontal={"$base"} />
+      <CardInfoBlock title={"Status"}>
+        <View width={60} height={24} backgroundColor="$secondary100" borderRadius="$sm" />
+      </CardInfoBlock>
+      <View width={1} height={68} backgroundColor={"$secondary100"} marginHorizontal={"$base"} />
+      <CardInfoBlock title={"Card Currency"}>
+        <View width={70} height={24} backgroundColor="$secondary100" borderRadius="$sm" />
+      </CardInfoBlock>
+    </View>
+  );
+}
+
+export const CardCurrencyDetails = () => {
+  const selectedCard = useSelectedCard();
+
+  if (!selectedCard) {
+    return <CardCurrencyDetailsLoading />;
+  }
+
+  const cardStatus = selectedCard.statusName === "VALID CARD" ? "Active" : "UnActive";
+
   return (
     <View flexDirection="row" justifyContent="center" margin={screenWidth > 600 ? "$ml" : "$sm"}>
       <CardInfoBlock title={"Your Balance"}>
@@ -14,19 +40,19 @@ export const CardCurrencyDetails = ({ card }: { card: CardType }) => {
           variant={screenWidth > 600 ? "BodySemiBoldml" : "BodySemiBoldsm"}
           paddingVertical={"$xs"}
           color={"$secondary900"}>
-          {`${getCurrencySymbol(card.currencyName)} ${card.availableBalance}`}
+          {`${getCurrencySymbol(selectedCard.currencyName)} ${selectedCard.availableBalance}`}
         </StyledText>
       </CardInfoBlock>
       <View width={1} height={68} backgroundColor={"$secondary100"} marginHorizontal={"$base"} />
       <CardInfoBlock title={"Status"}>
         <View
-          backgroundColor={card.statusName === "VALID CARD" ? "$success50" : "$error100"}
+          backgroundColor={selectedCard.statusName === "VALID CARD" ? "$success50" : "$error100"}
           paddingHorizontal={"$sm"}
           paddingVertical={"$s"}
           borderRadius={"$sm"}>
           <StyledText
             variant={screenWidth > 600 ? "Bodym" : "Bodys"}
-            color={card.statusName === "VALID CARD" ? "$success600" : "$error500"}>
+            color={selectedCard.statusName === "VALID CARD" ? "$success600" : "$error500"}>
             {cardStatus}
           </StyledText>
         </View>
@@ -37,7 +63,7 @@ export const CardCurrencyDetails = ({ card }: { card: CardType }) => {
           paddingVertical={"$xs"}
           variant={screenWidth > 600 ? "BodySemiBoldml" : "BodySemiBolds"}
           color={"$secondary900"}>
-          {getCurrencyFullName(card.currencyName)}
+          {getCurrencyFullName(selectedCard.currencyName)}
         </StyledText>
       </CardInfoBlock>
     </View>

@@ -1,16 +1,22 @@
-import { CardType } from "@aurora/home/src/types/cardType";
 import { FlatList } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { DialogFlow, StatusView, Verification } from "@aurora/blocks";
 import { SetPinScreen } from "./SetPinScreen/index.web";
 import { useSetPinMutation } from "../hooks/useSetPinMutation";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
+import { useSelectedCard } from "@metroid/store";
 
-type Props = { returnBackHandler: () => void; selectedCard: CardType };
+type Props = { returnBackHandler: () => void };
 
-export function SetPinFlow({ returnBackHandler, selectedCard }: Props) {
+export function SetPinFlow({ returnBackHandler }: Props) {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+
+  const selectedCard = useSelectedCard();
+
+  if (!selectedCard) {
+    return null;
+  }
 
   const onNextScreen = () => {
     if (currentScreenIndex === CardLimitFlowScreens.length - 1) {

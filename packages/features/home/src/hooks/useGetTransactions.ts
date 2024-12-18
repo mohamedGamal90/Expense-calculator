@@ -79,5 +79,6 @@ export const useGetTransactionsQuery = ({
         pageIndex,
         pageSize,
       }),
+    enabled: !!cardId,
   });
 };

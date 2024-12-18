@@ -1,20 +1,26 @@
 import { Dimensions, FlatList } from "react-native";
 import { useRef, useState } from "react";
 import { DialogFlow } from "@aurora/blocks/src/DialogFlow";
-import { CardType } from "@aurora/home/src/types/cardType";
 import { useReportCardMutation } from "@metroid/card-management/src/ReportCard/hooks/useReportCardMutation";
 import { StatusView, Verification } from "@aurora/blocks";
 import { ReportCard } from "./ReportCardScreen";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
+import { useSelectedCard } from "@metroid/store";
 
 const screenWidth = Dimensions.get("window").width;
 export const dialogWidth = screenWidth > 700 ? 600 - 48 : screenWidth - 48;
 
-type Props = { returnBackHandler: () => void; selectedCard: CardType };
+type Props = { returnBackHandler: () => void };
 
-export const ReportCardFlow = ({ returnBackHandler, selectedCard }: Props) => {
+export const ReportCardFlow = ({ returnBackHandler }: Props) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+
+  const selectedCard = useSelectedCard();
+
+  if (!selectedCard) {
+    return null;
+  }
 
   const onNextScreen = () => {
     if (currentScreenIndex === ReportCardFlowScreens.length - 1) {

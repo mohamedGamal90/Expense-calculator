@@ -4,6 +4,7 @@
   "main": "src/index.ts",
   "license": "MIT",
   "dependencies": {
+    "@metroid/store": "*",
     "@aurora/blocks": "*"
   },
   "peerDependencies": {

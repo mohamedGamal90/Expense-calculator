@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { View } from "tamagui";
 import { CardItem } from "./component/CardItem";
 import {
@@ -7,24 +8,37 @@ import {
   NativeSyntheticEvent,
   Pressable,
 } from "react-native";
-import { CardType } from "@aurora/home/src/types/cardType";
 import { Dispatch, SetStateAction, useRef } from "react";
 import { ControlIndexBtn } from "./component/ControlIndexBtn";
 import { Icon } from "@aurora/icons";
 import { getTokens } from "@tamagui/core";
+import { useSelectedCardActions } from "@metroid/store";
+import { useWindowDimensions } from "@aurora/components";
+import { useGetCardsQuery } from "@metroid/hooks";
+import { CardListLoading } from "./component/CardListLoading";
 
-type CardListProps = {
-  onChange?: (index: number) => void;
-  isVertical?: boolean;
-  cards: CardType[];
-  width: number;
-  currentIndex: number;
-  setCurrentIndex: Dispatch<SetStateAction<number>>;
-};
-
-export const CardList = ({ cards, width, currentIndex, setCurrentIndex }: CardListProps) => {
+export const CardList = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
-  const { color } = getTokens();
+
+  const { width: screenWidth } = useWindowDimensions();
+  const { color, space } = getTokens();
+
+  const { setSelectedCard } = useSelectedCardActions();
+
+  const { data: cards } = useGetCardsQuery();
+
+  const width = screenWidth - space.base.val * 2 - 255;
+
+  useEffect(() => {
+    if (cards) {
+      setSelectedCard(cards[0]);
+    }
+  }, [cards]);
+
+  if (!cards) {
+    return <CardListLoading width={width} />;
+  }
 
   const onNext = () => {
     const nextIndex = Math.min(currentIndex + 1, cards.length - 1);
@@ -33,6 +47,7 @@ export const CardList = ({ cards, width, currentIndex, setCurrentIndex }: CardLi
       index: nextIndex,
     });
     setCurrentIndex(nextIndex);
+    setSelectedCard(cards[nextIndex]);
   };
 
   const onPrev = () => {
@@ -42,10 +57,12 @@ export const CardList = ({ cards, width, currentIndex, setCurrentIndex }: CardLi
       index: prevIndex,
     });
     setCurrentIndex(prevIndex);
+    setSelectedCard(cards[prevIndex]);
   };
   const handleMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const newIndex = Math.round(event.nativeEvent.contentOffset.x / width);
     setCurrentIndex(newIndex);
+    setSelectedCard(cards[newIndex]);
   };
 
   let touchStartX = 0;
@@ -70,6 +87,7 @@ export const CardList = ({ cards, width, currentIndex, setCurrentIndex }: CardLi
       index: index,
     });
     setCurrentIndex(index);
+    setSelectedCard(cards[index]);
   };
   return (
     <View position="relative" justifyContent="center">

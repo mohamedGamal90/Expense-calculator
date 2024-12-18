@@ -7,6 +7,9 @@
   "dependencies": {
     "@aurora/icons": "*",
     "@metroid/card-management": "*",
+    "@metroid/store": "*",
+    "@metroid/types": "*",
+    "@metroid/hooks": "*",
     "@hookform/resolvers": "^3.9.1",
     "expo-image": "~2.0.0",
     "react-hook-form": "^7.53.2",

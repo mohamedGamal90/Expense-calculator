@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { FlatList } from "react-native";
-import { AvailableStatuse, CardType } from "@aurora/home/src/types/cardType";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { CardActivation } from "./CardActivationScreen";
@@ -8,17 +7,27 @@ import { DialogFlow, StatusView, Verification } from "@aurora/blocks";
 import { useActivateCardMutation, useDeactivateCardMutation } from "../hooks";
 import { CardAvailableStatusCodes } from "../../CardMangement/cardStatusCodes";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
+import { useSelectedCard } from "@metroid/store";
+import { AvailableStatuses } from "@metroid/types";
 
-type Props = { returnBackHandler: () => void; selectedCard: CardType };
+type Props = { returnBackHandler: () => void };
 
-export const CardActivationFlow = ({ returnBackHandler, selectedCard }: Props) => {
+export const CardActivationFlow = ({ returnBackHandler }: Props) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+
+  const selectedCard = useSelectedCard();
+
+  if (!selectedCard) {
+    return null;
+  }
+
   const queryClient = useQueryClient();
+
   const { t } = useTranslation();
 
-  const activationEnabled: boolean = selectedCard?.availableStatuses.some(
-    (item: AvailableStatuse) => item.statusCode === CardAvailableStatusCodes.Activate,
+  const activationEnabled: boolean = selectedCard.availableStatuses.some(
+    (item: AvailableStatuses) => item.statusCode === CardAvailableStatusCodes.Activate,
   );
   const statusTxt = activationEnabled
     ? t("cardManagement.cardActivation.activate-success-txt")
@@ -51,12 +60,13 @@ export const CardActivationFlow = ({ returnBackHandler, selectedCard }: Props) =
   const { mutateAsync: activateCard } = useActivateCardMutation({
     onError: error => console.log("error", error),
   });
+
   const { mutateAsync: deactivateCard } = useDeactivateCardMutation({
     onError: error => console.log("error", error),
   });
 
   const onCardActivation = (otp: string) => {
-    if (activationEnabled) activateCard({ cardId: selectedCard?.id, otp });
+    if (activationEnabled) activateCard({ cardId: selectedCard.id, otp });
     else deactivateCard({ cardId: selectedCard?.id, otp });
     onNextScreen();
     queryClient.refetchQueries({ queryKey: ["cardList"] });

@@ -1,19 +1,13 @@
-import { config, StyledDialog, StyledText, View } from "@aurora/components";
+import { StyledDialog, StyledText, View } from "@aurora/components";
 import { CardCurrencyDetails } from "../card-currency-details";
 import { Icon } from "@aurora/icons";
-import { Dispatch, SetStateAction } from "react";
 import { Dimensions } from "react-native";
-import { CardType } from "@aurora/home/src/types/cardType";
 import { CardList } from "./CardList";
 import { CardMangementDialogScreen } from "@metroid/card-management";
 
 const { width: screenWidth } = Dimensions.get("window");
-type Props = {
-  currentIndex: number;
-  setCurrentIndex: Dispatch<SetStateAction<number>>;
-  cards: CardType[];
-};
-export const CardListView = ({ currentIndex, setCurrentIndex, cards }: Props) => {
+
+export const CardListView = () => {
   return (
     <View
       width={"100%"}
@@ -24,13 +18,8 @@ export const CardListView = ({ currentIndex, setCurrentIndex, cards }: Props) =>
       <StyledText marginLeft={"$m"} variant="Headingxl" color={"$secondary900"}>
         Overview
       </StyledText>
-      <CardList
-        cards={cards}
-        width={screenWidth - config.tokens.space.base.val * 2 - 255}
-        currentIndex={currentIndex}
-        setCurrentIndex={setCurrentIndex}
-      />
-      <CardCurrencyDetails card={cards[currentIndex]} />
+      <CardList />
+      <CardCurrencyDetails />
       <View
         flexDirection="row"
         alignSelf="center"
@@ -41,7 +30,7 @@ export const CardListView = ({ currentIndex, setCurrentIndex, cards }: Props) =>
         <StyledDialog
           title={"Manage"}
           icon={<Icon name={"manage"} width={24} height={24} />}
-          children={<CardMangementDialogScreen selectedCard={cards[currentIndex]} />}
+          children={<CardMangementDialogScreen />}
         />
       </View>
     </View>

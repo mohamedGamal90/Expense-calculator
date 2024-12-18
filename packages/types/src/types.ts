@@ -1,4 +1,5 @@
 export type CurrencyType = "USD" | "EGP" | "GHS";
+
 export interface CardType {
   id: string;
   cardMask: string;
@@ -12,14 +13,14 @@ export interface CardType {
   statusCode: string;
   statusName: string;
   state: string;
-  availableStatuses: AvailableStatuse[];
+  availableStatuses: AvailableStatuses[];
   cardholderName: string;
   expirationDate: string;
   expirDate: string;
   seqNumber: string;
   nickname: string | null;
 }
-export interface AvailableStatuse {
+export interface AvailableStatuses {
   statusCode: string;
   name: string;
 }

@@ -2,7 +2,6 @@ import { Dialog, StyledButton, StyledText, View } from "@aurora/components";
 import { Icon, IconKeys } from "@aurora/icons";
 import { useState } from "react";
 import { FlatList, Pressable } from "react-native";
-import { AvailableStatuse, CardType } from "@aurora/home/src/types/cardType";
 import { getTokens } from "@tamagui/core";
 import {
   CardActivationFlow,
@@ -11,25 +10,32 @@ import {
   SetPinFlow,
 } from "@metroid/card-management";
 import { CardAvailableStatusCodes } from "../cardStatusCodes";
+import { useSelectedCard } from "@metroid/store";
+import { AvailableStatuses } from "@metroid/types";
 
-export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: CardType }) => {
+export const CardMangementDialogScreen = () => {
   const [render, setRender] = useState<JSX.Element>();
+
+  const selectedCard = useSelectedCard();
+
   const { color } = getTokens();
 
   const returnBackHandler = () => {
     setRender(undefined);
   };
-  const reportCardDisabled: boolean = !selectedCard?.availableStatuses.some(
-    (item: AvailableStatuse) => item.statusCode === CardAvailableStatusCodes.ReportLostOrStolen,
-  );
 
+  const reportCardDisabled: boolean = !selectedCard?.availableStatuses.some(
+    (item: AvailableStatuses) => item.statusCode === CardAvailableStatusCodes.ReportLostOrStolen,
+  );
   const setPinDisabled: boolean = !selectedCard?.availableStatuses.some(
-    (item: AvailableStatuse) => item.statusCode === CardAvailableStatusCodes.SetPin,
+    (item: AvailableStatuses) => item.statusCode === CardAvailableStatusCodes.SetPin,
   );
   const canbeDeactivated = selectedCard?.availableStatuses.some(
-    (item: AvailableStatuse) => item.statusCode === CardAvailableStatusCodes.Activate,
+    (item: AvailableStatuses) => item.statusCode === CardAvailableStatusCodes.Activate,
   );
-  const activationDisabled: boolean = !canbeDeactivated && selectedCard.statusName !== "VALID CARD";
+  const activationDisabled: boolean =
+    !canbeDeactivated && selectedCard?.statusName !== "VALID CARD";
+
   const cardMangementList: {
     title: string;
     icon: IconKeys;
@@ -39,28 +45,26 @@ export const CardMangementDialogScreen = ({ selectedCard }: { selectedCard: Card
     {
       title: "Card Activation",
       icon: "freeze-card",
-      render: (
-        <CardActivationFlow returnBackHandler={returnBackHandler} selectedCard={selectedCard} />
-      ),
+      render: <CardActivationFlow returnBackHandler={returnBackHandler} />,
       disabled: activationDisabled,
     },
     {
       title: "Card Limits",
       icon: "card-limit",
-      render: <CardLimitFlow returnBackHandler={returnBackHandler} selectedCard={selectedCard} />,
+      render: <CardLimitFlow returnBackHandler={returnBackHandler} />,
       disabled: false,
     },
     {
       title: "Report Card",
       icon: "report-card",
-      render: <ReportCardFlow returnBackHandler={returnBackHandler} selectedCard={selectedCard} />,
+      render: <ReportCardFlow returnBackHandler={returnBackHandler} />,
       disabled: reportCardDisabled,
     },
     { title: "Replace Card", icon: "replace-card", render: <View />, disabled: false },
     {
       title: "Change Pin",
       icon: "change-pin",
-      render: <SetPinFlow returnBackHandler={returnBackHandler} selectedCard={selectedCard} />,
+      render: <SetPinFlow returnBackHandler={returnBackHandler} />,
       disabled: setPinDisabled,
     },
     {

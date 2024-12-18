@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { StyleSheet, ImageBackground as RNImageBackground } from "react-native";
 import { StyledText, View } from "@aurora/components";
-import { CardType } from "@aurora/home/src/types/cardType";
+import { CardType } from "@metroid/types";
 
 type Props = {
   card: CardType;

@@ -2,13 +2,21 @@ import { StyledText, View } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { TransactionHistoryItem } from "./components/TransactionHistoryItem";
 import { Link } from "expo-router";
-import { TransactionType } from "@aurora/home/src/hooks/useGetTransactions";
+import { useGetTransactionsQuery } from "@aurora/home/src/hooks/useGetTransactions";
+import { useSelectedCard } from "@metroid/store";
+import { getLastWeek, getTodayDate } from "@aurora/utils";
 
-export const TransactionHistory = ({
-  transactions,
-}: {
-  transactions: TransactionType[] | undefined;
-}) => {
+export const TransactionHistory = () => {
+  const selectedCard = useSelectedCard();
+
+  const { data: transactions, isLoading: transactionsIsLoading } = useGetTransactionsQuery({
+    cardId: selectedCard?.id,
+    transactionDateFrom: getLastWeek(),
+    transactionDateTo: getTodayDate(),
+    pageIndex: 1,
+    pageSize: 5,
+  });
+
   return (
     <View
       borderWidth={1}
@@ -37,7 +45,7 @@ export const TransactionHistory = ({
       </View>
       <View>
         {transactions &&
-          transactions
+          transactions.transaction
             .slice(0, 3)
             .map((transaction, index) => (
               <TransactionHistoryItem key={index} transaction={transaction} />

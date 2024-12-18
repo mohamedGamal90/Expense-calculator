@@ -1,4 +1,4 @@
-import { CurrencyType } from "@aurora/home/src/types/cardType";
+import { CurrencyType } from "@metroid/types";
 
 const CURRENCYOBJ = {
   USD: { currencyName: "United States Dollar", symbol: "$" },

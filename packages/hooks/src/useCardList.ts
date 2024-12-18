@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { authApiClient, ErrorType } from "@metroid/api";
 
-import { CardType } from "../types/cardType";
+import { CardType } from "@metroid/types";
 
 const getCardsList = async () => {
   const { data } = await authApiClient.get(
