@@ -14,6 +14,7 @@ type Props = {
   screensFlow: { title: string; render: JSX.Element }[];
   flatListRef: React.RefObject<FlatList>;
   showCloseButton?: boolean;
+  singleFlow?: boolean;
 };
 export const DialogFlow = ({
   returnBackHandler,
@@ -22,6 +23,7 @@ export const DialogFlow = ({
   screensFlow,
   flatListRef,
   showCloseButton,
+  singleFlow,
 }: Props) => {
   const { color } = getTokens();
 
@@ -38,22 +40,29 @@ export const DialogFlow = ({
     setCurrentScreenIndex(prevIndex);
   };
 
+  const showBackArrow: boolean = (() => {
+    if (singleFlow && currentScreenIndex === 0) return false;
+    return true;
+  })();
+
   return (
     <View flex={1}>
       {currentScreenIndex !== screensFlow.length - 1 && (
         <>
-          <StyledButton
-            position="absolute"
-            variant="iconBtn"
-            backgroundColor={"$white"}
-            borderColor={"$white"}
-            width={40}
-            height={26}
-            onPress={onPrevScreen}
-            left={0}
-            top={7}>
-            <Icon name={"arrow-left"} width={26} height={26} color={color.$black.val} />
-          </StyledButton>
+          {showBackArrow && (
+            <StyledButton
+              position="absolute"
+              variant="iconBtn"
+              backgroundColor={"$white"}
+              borderColor={"$white"}
+              width={40}
+              height={26}
+              onPress={onPrevScreen}
+              left={0}
+              top={7}>
+              <Icon name={"arrow-left"} width={26} height={26} color={color.$black.val} />
+            </StyledButton>
+          )}
           <Dialog.Title textAlign="center">
             <StyledText variant="Heading2xl" color={"$secondary800"}>
               {screensFlow[currentScreenIndex].title}

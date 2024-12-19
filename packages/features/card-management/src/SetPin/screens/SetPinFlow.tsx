@@ -19,7 +19,7 @@ export function SetPinFlow({ returnBackHandler }: Props) {
   }
 
   const onNextScreen = () => {
-    if (currentScreenIndex === CardLimitFlowScreens.length - 1) {
+    if (currentScreenIndex === SetPinFlowScreens.length - 1) {
       returnBackHandler();
       return;
     }
@@ -56,7 +56,7 @@ export function SetPinFlow({ returnBackHandler }: Props) {
     requestOTP();
   }, []);
 
-  const CardLimitFlowScreens = [
+  const SetPinFlowScreens = [
     {
       title: "Verification",
       render: (
@@ -81,7 +81,7 @@ export function SetPinFlow({ returnBackHandler }: Props) {
   return (
     <DialogFlow
       returnBackHandler={returnBackHandler}
-      screensFlow={CardLimitFlowScreens}
+      screensFlow={SetPinFlowScreens}
       flatListRef={flatListRef}
       currentScreenIndex={currentScreenIndex}
       setCurrentScreenIndex={setCurrentScreenIndex}

@@ -1,7 +1,9 @@
 import ArrowCircleLeft from "./arrow-circle-left.svg";
 import ArrowCircleRight from "./arrow-circle-right.svg";
+import ArrowUp from "./arrow-up.svg";
 import ArrowLeft from "./arrow-left.svg";
 import ArrowRight from "./arrow-right.svg";
+import ArrowDown from "./arrow-down.svg";
 import CardAdd from "./card-add.svg";
 import CardLimit from "./card-limits.svg";
 import ChangePin from "./change-pin.svg";
@@ -26,8 +28,13 @@ import Setting from "./setting.svg";
 import Mobile from "./mobile.svg";
 import TickCircle from "./tick-circle.svg";
 import DetailsIcon from "./details-icon.svg";
+import Card from "./card.svg";
+import ArrowFullDown from "./arrow-full-down.svg";
 
 const svgs = {
+  "arrow-up": ArrowUp,
+  "arrow-down": ArrowDown,
+  "arrow-full-down": ArrowFullDown,
   "details-icon": DetailsIcon,
   "arrow-circle-left": ArrowCircleLeft,
   "arrow-circle-right": ArrowCircleRight,
@@ -36,6 +43,7 @@ const svgs = {
   "arrow-swap-horizontal": ArrowSwapHorizontal,
   "card-add": CardAdd,
   "card-limit": CardLimit,
+  card: Card,
   cards: Cards,
   "change-pin": ChangePin,
   "close-circle": CloseCircle,
