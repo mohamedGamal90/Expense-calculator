@@ -1,7 +1,43 @@
-import { StyledText, View } from "@aurora/components";
+import { getTokens, StyledText, View } from "@aurora/components";
+import { ActivityIndicator, FlatList } from "react-native";
 import { TransactionHistoryItem } from "@aurora/blocks";
+import { useGetTransactionsQuery } from "../hooks";
+import { useSelectedCard } from "@metroid/store";
+import { getLastMonth, getTodayDate } from "@aurora/utils";
+import { Icon } from "@aurora/icons";
+import { useTranslation } from "react-i18next";
 
 export const TransactionScreen = () => {
+  const selectedCard = useSelectedCard();
+  const { color } = getTokens();
+  const { t } = useTranslation();
+
+  const { data: transactions, isLoading: transactionsIsLoading } = useGetTransactionsQuery({
+    cardId: selectedCard?.id,
+    transactionDateFrom: getLastMonth(),
+    transactionDateTo: getTodayDate(),
+    pageIndex: 1,
+    pageSize: 20,
+  });
+
+  const emptyTransactionsList = () => (
+    <View flex={1} alignItems="center" justifyContent="center">
+      <View
+        width={50}
+        height={50}
+        backgroundColor={"$primary600"}
+        borderRadius="$full"
+        justifyContent="center"
+        alignItems="center"
+        marginBottom="$base">
+        <Icon name={"arrow-swap-horizontal"} />
+      </View>
+      <StyledText variant="Heading2xl" color="secondary800">
+        {t("transaction.empty-txt")}
+      </StyledText>
+    </View>
+  );
+
   return (
     <View
       flex={1}
@@ -12,27 +48,22 @@ export const TransactionScreen = () => {
       borderColor={"$secondary100"}
       padding={"$ml"}>
       <StyledText color={"$secondary900"} variant="Headingxl">
-        Transaction History
+        {t("transaction.header-title")}
       </StyledText>
       <View flex={1}>
-        <TransactionHistoryItem
-          transaction={{
-            billingAmount: "1.0",
-            billingCurrency: "USD",
-            cardNumber: "442441******5711",
-            country: "0",
-            isReverse: "false",
-            mcc: "6010",
-            merchantName: "MERCHANT SVIP ES",
-            status: "1",
-            transactionAmount: "1.0",
-            transactionCurrency: "USD",
-            transactionDate: "09-12-2024 09:42:55",
-            transactionDescription: "P2P Credit part",
-            transactionId: "89622553",
-            transactionType: "MONEY_IN",
-          }}
-        />
+        {transactionsIsLoading ? (
+          <View flex={1} alignItems="center" justifyContent="center">
+            <ActivityIndicator color={color.$primary800.val} />
+          </View>
+        ) : (
+          <FlatList
+            data={transactions?.transaction}
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyExtractor={item => item.transactionId}
+            renderItem={({ item }) => <TransactionHistoryItem transaction={item} />}
+            ListEmptyComponent={emptyTransactionsList}
+          />
+        )}
       </View>
     </View>
   );

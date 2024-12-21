@@ -47,17 +47,16 @@ const getTransactionList = async ({
   pageIndex: number;
   pageSize: number;
 }) => {
-  const bodyParameters = {
-    pageIndex,
-    pageSize,
-    transactionAmountFrom: 1,
-    transactionAmountTo: 99999,
-    transactionDateFrom,
-    transactionDateTo,
-  };
   const { data } = await authApiClient.post(
     `/transactions-service/api/v1/${process.env.EXPO_PUBLIC_REALM_ID}/cards/transactions/${cardId}`,
-    bodyParameters,
+    {
+      pageIndex,
+      pageSize,
+      transactionAmountFrom: 1,
+      transactionAmountTo: 99999,
+      transactionDateFrom,
+      transactionDateTo,
+    },
   );
   return data;
 };

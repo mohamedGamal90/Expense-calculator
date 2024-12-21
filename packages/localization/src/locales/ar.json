@@ -43,6 +43,10 @@
       "deactivate-success-txt": "تم إلغاء تفعيل البطاقة بنجاح"
     }
   },
+  "transaction": {
+    "header-title": "سجل المعاملات",
+    "empty-txt": "لم يتم العثور على أي معاملة"
+  },
   "validation": {
     "required": "هذا الحقل مطلوب",
     "email": "يرجى إدخال عنوان بريد إلكتروني صالح",

@@ -45,6 +45,10 @@
       "deactivate-success-txt": "Card Deactivate Successfully"
     }
   },
+  "transaction": {
+    "header-title": "Transaction History",
+    "empty-txt": "No transaction found"
+  },
   "validation": {
     "required": "This field is required",
     "email": "Please enter a valid email address",
