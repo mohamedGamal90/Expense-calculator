@@ -5,7 +5,8 @@ import { Image } from "react-native";
 
 type Props = {
   cardholderName?: string;
-  onSubmit: (values: {}) => void;
+  onSubmit: () => void;
+  isPending?: boolean;
 };
 export function SelectedCardPreview({ cardholderName, onSubmit }: Props) {
   const [amount, setAmount] = useState("");

@@ -46,7 +46,6 @@ const svgs = {
   "card-limit": CardLimit,
   card: Card,
   cards: Cards,
-  card: CardIcon,
   "change-pin": ChangePin,
   "close-circle": CloseCircle,
   email: Email,

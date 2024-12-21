@@ -1,6 +1,6 @@
 import { FieldGroup, SelectedCardHeader } from "@aurora/blocks";
 import { StyledSelect, StyledButton, StyledText, View } from "@aurora/components";
-import { CardType } from "@aurora/home/src/types/cardType";
+import { CardType } from "@metroid/types";
 import { useState } from "react";
 
 export const TopUp = ({

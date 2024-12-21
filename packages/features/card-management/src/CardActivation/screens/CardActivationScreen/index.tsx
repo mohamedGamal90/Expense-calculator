@@ -1,6 +1,6 @@
 import { SelectedCardHeader } from "@aurora/blocks";
 import { MappingList, StyledButton, StyledText, View } from "@aurora/components";
-import { CardType } from "@aurora/home/src/types/cardType";
+import { CardType } from "@metroid/types";
 import { Icon } from "@aurora/icons";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";

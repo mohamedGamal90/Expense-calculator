@@ -80,7 +80,15 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
         <Verification
           type={requestOtpData?.data.email ? "email" : "mobile"}
           credential={requestOtpData?.data.email ?? requestOtpData?.data.phoneNumber}
-          onSubmit={sendMoney}
+          onSubmit={otp =>
+            sendMoney({
+              beneficiaryCardNumber: "",
+              currencyCode: "",
+              otp,
+              payerCardId: "",
+              paymentAmount: "",
+            })
+          }
           isPending={sendMoneyIsPending}
         />
       ),

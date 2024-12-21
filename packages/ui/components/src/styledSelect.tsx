@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useMemo } from "react";
 import { SelectProps, Select, YStack } from "tamagui";
 import { Icon } from "@aurora/icons";
-import { CardType } from "@aurora/home/src/types/cardType";
+import { CardType } from "@metroid/types";
 
 import { Adapt, Sheet } from "tamagui";
 import { LinearGradient } from "tamagui/linear-gradient";
