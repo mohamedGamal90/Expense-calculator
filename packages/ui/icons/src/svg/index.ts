@@ -30,6 +30,7 @@ import TickCircle from "./tick-circle.svg";
 import DetailsIcon from "./details-icon.svg";
 import Card from "./card.svg";
 import ArrowFullDown from "./arrow-full-down.svg";
+import CardIcon from "./card.svg";
 
 const svgs = {
   "arrow-up": ArrowUp,
@@ -45,6 +46,7 @@ const svgs = {
   "card-limit": CardLimit,
   card: Card,
   cards: Cards,
+  card: CardIcon,
   "change-pin": ChangePin,
   "close-circle": CloseCircle,
   email: Email,
