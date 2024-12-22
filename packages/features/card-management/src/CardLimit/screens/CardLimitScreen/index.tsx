@@ -1,4 +1,4 @@
-import { Progress, StyledButton, StyledText, View } from "@aurora/components";
+import { SimpleSlider, StyledButton, StyledText, View } from "@aurora/components";
 import { useState } from "react";
 import { DateSelection } from "./components/DateSelectionBtn";
 import { SelectedCardHeader } from "@aurora/blocks";
@@ -6,14 +6,16 @@ import { FieldGroup } from "@aurora/blocks/src/Form/FieldGroup";
 
 export const CardLimit = ({
   cardNumber,
+  cardCurrency,
   onSubmit,
   isPending,
 }: {
   cardNumber: string;
-  onSubmit: () => void;
+  cardCurrency: string;
+  onSubmit: (value: number) => void;
   isPending: boolean;
 }) => {
-  const [progress, setProgress] = useState(20);
+  const [sliderValue, setSliderValue] = useState(100);
 
   return (
     <View flex={1} justifyContent="space-between">
@@ -26,15 +28,41 @@ export const CardLimit = ({
           How do you want to limit your money?
         </StyledText>
         <DateSelection />
-        <Progress size={"$6"} value={progress}>
-          <Progress.Indicator animation="medium" backgroundColor={"$primary800"} />
-        </Progress>
+        <View flexDirection="row" justifyContent="space-between" alignItems="center" marginTop="$m">
+          <View flex={5 / 6} marginHorizontal="$xs" alignItems="center">
+            <SimpleSlider
+              alignSelf="center"
+              width="100%"
+              value={[sliderValue]}
+              max={1000}
+              size="$6"
+              onValueChange={value => setSliderValue(value[0])}
+            />
+          </View>
+          <View flex={1 / 6} position="absolute" right={0} top={-33}>
+            <StyledText
+              variant="BodySemiBoldml"
+              color={"$neutral800"}
+              marginTop="$ml"
+              marginBottom="$xs">
+              {sliderValue} {cardCurrency}
+            </StyledText>
+          </View>
+        </View>
         <StyledText variant="Bodysm" color={"$neutral800"} marginTop="$ml" marginBottom="$xs">
           Enter Amount
         </StyledText>
-        <FieldGroup />
+        <FieldGroup
+          onChange={value => {
+            if (!isNaN(Number(value))) setSliderValue(Number(value));
+          }}
+        />
       </View>
-      <StyledButton variant="primary" onPress={onSubmit} isLoading={isPending} disabled={isPending}>
+      <StyledButton
+        variant="primary"
+        onPress={() => onSubmit(sliderValue)}
+        isLoading={isPending}
+        disabled={isPending}>
         Next
       </StyledButton>
     </View>

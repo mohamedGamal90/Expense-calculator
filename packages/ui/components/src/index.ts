@@ -10,6 +10,7 @@ export * from "./RadioGroupItemWithLabel";
 export * from "./StyledDialog";
 export * from "./MappingList";
 export * from "./styledSelect";
+export * from "./slider";
 
 import type { config } from "./tamagui.config";
 

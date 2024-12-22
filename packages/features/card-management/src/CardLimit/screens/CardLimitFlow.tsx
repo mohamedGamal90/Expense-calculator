@@ -5,11 +5,13 @@ import { DialogFlow } from "@aurora/blocks/src/DialogFlow";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 import { StatusView, Verification } from "@aurora/blocks";
 import { useSelectedCard } from "@metroid/store";
+import { useSetCardLimitMutation } from "../hooks/useSetCardLimit";
 
 type Props = { returnBackHandler: () => void };
 export const CardLimitFlow = ({ returnBackHandler }: Props) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+  const newLimitValue = useRef<number>(0);
 
   const selectedCard = useSelectedCard();
 
@@ -35,11 +37,24 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
     isPending: requestOtpPending,
     data,
   } = useRequestOtpMutation({
-    onSuccess: () => {
-      onNextScreen();
-    },
+    onSuccess: () => onNextScreen(),
     onError: error => console.log("error", error),
   });
+
+  const { mutateAsync: setLimit, isPending: setLimitPending } = useSetCardLimitMutation({
+    onSuccess: () => onNextScreen(),
+  });
+
+  const firstStep = (value: number) => {
+    newLimitValue.current = value;
+    requestOTP();
+  };
+
+  const secondStep = () => {
+    setLimit({ cardId: selectedCard.id, newLimit: newLimitValue.current.toString() }).catch(error =>
+      console.log(error),
+    );
+  };
 
   const CardLimitFlowScreens = [
     {
@@ -47,7 +62,8 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
       render: (
         <CardLimit
           cardNumber={selectedCard.cardNumber.slice(-4)}
-          onSubmit={requestOTP}
+          cardCurrency={selectedCard.currencyName}
+          onSubmit={firstStep}
           isPending={requestOtpPending}
         />
       ),
@@ -56,7 +72,7 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
       title: "Verification",
       render: (
         <Verification
-          onSubmit={onNextScreen}
+          onSubmit={secondStep}
           type={data?.data.email ? "email" : "mobile"}
           credential={data?.data.email ?? data?.data.phoneNumber}
           isPending={false}
