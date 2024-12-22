@@ -21,7 +21,7 @@ export function Sidebar({ buttons }: { buttons: SidebarButton[] }) {
         borderBottomWidth={1}
         borderColor="$secondary100"
         paddingHorizontal="$2xl">
-        <Icon name="lib-wordmark" width={100} />
+        <Icon name="mdp-wordmark" />
       </View>
       <View gap="$3xl" alignItems="center" justifyContent="center" paddingVertical="$l">
         {buttons.map((button, index) => (

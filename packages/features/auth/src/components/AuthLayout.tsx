@@ -9,7 +9,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
       <View w={"50%"} alignItems="center" paddingHorizontal={"$3xl"} paddingVertical={"$base"}>
         <View mb={"$xl"} width={"100%"} paddingVertical={"$base"}>
           <Link href={"/"}>
-            <Icon name="lib-wordmark" />
+            <Icon name="mdp-wordmark" />
           </Link>
         </View>
         <View flex={1} w={"100%"} gap={"$5xl"} justifyContent="center">
