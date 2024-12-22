@@ -31,6 +31,7 @@ import DetailsIcon from "./details-icon.svg";
 import Card from "./card.svg";
 import ArrowFullDown from "./arrow-full-down.svg";
 import CardIcon from "./card.svg";
+import LIBWordmark from "./lib-bank-header-logo.svg";
 
 const svgs = {
   "arrow-up": ArrowUp,
@@ -54,6 +55,7 @@ const svgs = {
   "freeze-card": FreezeCard,
   group: Group,
   "layout-dashboard": LayoutDashboard,
+  "lib-wordmark": LIBWordmark,
   manage: Manage,
   mobile: Mobile,
   "more-circle": MoreCircle,
