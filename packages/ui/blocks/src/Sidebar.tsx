@@ -1,4 +1,4 @@
-import { StyledText, View } from "@aurora/components";
+import { getTokens, StyledText, View } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { Link, usePathname } from "expo-router";
 
@@ -12,6 +12,7 @@ export type SidebarButton = {
 
 export function Sidebar({ buttons }: { buttons: SidebarButton[] }) {
   const pathName = usePathname();
+  const { color } = getTokens();
 
   return (
     <View borderColor="$secondary100" borderWidth={1} borderRadius="$l" margin="$base">
@@ -42,8 +43,13 @@ export function Sidebar({ buttons }: { buttons: SidebarButton[] }) {
             )}
             <Link key={index} href={button.href}>
               <View key={index} gap="$s" alignItems="center">
-                <Icon name={button.icon} color="black" />
-                <StyledText>{button.title}</StyledText>
+                <Icon
+                  name={button.icon}
+                  color={button.href === pathName ? color.$primary800.val : color.$secondary900.val}
+                />
+                <StyledText color={button.href === pathName ? "$primary800" : "$secondary900"}>
+                  {button.title}
+                </StyledText>
               </View>
             </Link>
           </View>
