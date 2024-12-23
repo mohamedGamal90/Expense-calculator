@@ -98,12 +98,12 @@ export function LoginScreen() {
               <StyledButton isLoading={isPending}>{t("buttons.login")}</StyledButton>
             </Form.Trigger>
             <View w={"100%"} alignItems="center">
-              <View flexDirection="row" paddingBottom={"$xl"} gap={"$space.sm"} alignItems="center">
+              <View flexDirection="row" paddingBottom={"$m"} gap={"$space.sm"} alignItems="center">
                 <View h={"1px"} w={"100px"} backgroundColor={"$neutral900"}></View>
                 <StyledText>{t("titles.or")}</StyledText>
                 <View h={"1px"} w={"100px"} backgroundColor={"$neutral900"}></View>
               </View>
-              <StyledText mb={"$s"} color={"$secondary900"} variant="BodySemiBoldsm">
+              <StyledText mb={"$m"} color={"$secondary900"} variant="BodySemiBoldsm">
                 {t("titles.noAccount")}{" "}
                 <StyledText variant="BodySemiBoldsm" color={"$primary800"}>
                   {t("titles.signUp")}

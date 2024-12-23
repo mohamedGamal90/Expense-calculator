@@ -18,11 +18,38 @@ enum FormFields {
 
 const forgetPasswordFormResolver = yup.object().shape({
   [FormFields.Username]: yup.string().required(i18n.t("validation.required")),
-  [FormFields.Password]: yup.string().required(i18n.t("validation.required")),
+  [FormFields.Password]: yup
+    .string()
+    .required(i18n.t("validation.required"))
+    .test({
+      name: "lowercaseErr",
+      message: i18n.t("validation.lowercaseErr"),
+      test: value => /[a-z]/.test(value ?? ""),
+    })
+    .test({
+      name: "uppercaseErr",
+      message: i18n.t("validation.uppercaseErr"),
+      test: value => /[A-Z]/.test(value ?? ""),
+    })
+    .test({
+      name: "numberErr",
+      message: i18n.t("validation.numberErr"),
+      test: value => /\d/.test(value ?? ""),
+    })
+    .test({
+      name: "specialErr",
+      message: i18n.t("validation.specialErr"),
+      test: value => /[@$!%*?&]/.test(value ?? ""),
+    })
+    .test({
+      name: "minErr",
+      message: i18n.t("Validation.minErr"),
+      test: value => (value?.length ?? 0) >= 8,
+    }),
   [FormFields.PasswordConfirm]: yup
     .string()
-    .required(i18n.t("Validation.required"))
-    .oneOf([yup.ref("password")], i18n.t("Validation.confirmPassword")),
+    .required(i18n.t("validation.required"))
+    .oneOf([yup.ref("password")], i18n.t("validation.confirm-password")),
 });
 
 type FormValues = yup.InferType<typeof forgetPasswordFormResolver>;
@@ -40,11 +67,14 @@ export const ForgotPasswordScreen = () => {
   });
 
   const { isPending, mutate: validateUsername } = useValidateUsernameMutation({
-    onSuccess: (mobileNumber, { username, password }) => {
+    onSuccess: (data, { username, password }) => {
+      console.log("mobileNumber", data);
+
       router.push({
         pathname: "auth/forget-password-verification",
         params: {
-          mobileNumber,
+          email: data.email,
+          phoneNumber: data.phoneNumber,
           username,
           password,
         },
@@ -70,13 +100,13 @@ export const ForgotPasswordScreen = () => {
             variant="outlined"
             borderColor={"$gray9"}
             paddingVertical={"$xs"}
-            marginBottom={"$m"}
+            marginBottom={"$s"}
             width={50}
             icon={<Icon name="arrow-left" color="black" />}
             onPress={() => router.push("auth/login")}
           />
 
-          <StyledText mt={"$4xl"} variant="Heading4xl" color={"$secondary900"} marginBottom="$xl">
+          <StyledText mt={"$2xl"} variant="Heading4xl" color={"$secondary900"} marginBottom="$xl">
             {t("titles.forgotPassword")} {/* Translated title */}
           </StyledText>
 

@@ -54,6 +54,14 @@
     "email": "Please enter a valid email address",
     "password": "Please enter a valid password",
     "newPassword": "Please enter a valid new password",
-    "confirmPassword": "Password must match"
+    "confirmPassword": "Password must match",
+    "minErr": "Must be at least 8 characters",
+    "lowercaseErr": "Contains 1 lowercase",
+    "uppercaseErr": "Contains 1 uppercase",
+    "numberErr": "Contains 1 number",
+    "specialErr": "Contains 1 special character",
+    "spaceErr": "Do not include spaces",
+    "number": "Must be a number",
+    "confirm-password": "Password must match"
   }
 }

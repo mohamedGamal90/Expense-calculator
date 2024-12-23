@@ -7,6 +7,12 @@ type validateUserMutationParams = {
   passwordConfirm: string;
 };
 
+type validateUserResponse = {
+  email: string;
+  phoneNumber: string;
+  status: string;
+};
+
 const validateUsernameApi = async ({ username }: validateUserMutationParams) => {
   const { data } = await apiClient.post(
     `authentication-service/api/v1/${process.env.EXPO_PUBLIC_REALM_ID}/forget-password/validate-username`,
@@ -22,7 +28,7 @@ export const useValidateUsernameMutation = ({
   onSuccess,
 }: {
   onError?: (error: ErrorType) => void;
-  onSuccess?: (mobileNumber: string, variables: validateUserMutationParams) => void;
+  onSuccess?: (data: validateUserResponse, variables: validateUserMutationParams) => void;
 } = {}) =>
   useMutation({
     mutationFn: (params: validateUserMutationParams) => validateUsernameApi(params),

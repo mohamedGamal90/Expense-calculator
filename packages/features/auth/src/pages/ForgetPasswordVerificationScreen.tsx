@@ -7,13 +7,12 @@ export const ForgetPasswordVerificationScreen = () => {
   const router = useRouter();
   const params = useLocalSearchParams();
 
-  const { password, username, mobileNumber } = params as {
+  const { password, username, email, phoneNumber } = params as {
     username: string;
     password: string;
-    mobileNumber: string;
+    email: string;
+    phoneNumber: string;
   };
-
-  console.log("password, username, mobileNumber", password, username, mobileNumber);
 
   const { isPending, mutate: forgetPassword } = useForgetPasswordMutation({
     onSuccess: () => {
@@ -39,7 +38,7 @@ export const ForgetPasswordVerificationScreen = () => {
       <Verification
         onSubmit={otp => handleOnSubmit(otp)}
         isPending={isPending}
-        credential={mobileNumber}
+        credential={email}
       />
     </View>
   );
