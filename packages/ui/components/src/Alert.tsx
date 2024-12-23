@@ -78,6 +78,7 @@ export const Alert = () => {
           width={500}
           elevate
           key="content"
+          borderRadius="$m"
           animation={[
             "quick",
             {

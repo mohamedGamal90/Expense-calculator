@@ -6,6 +6,7 @@ import {
   styled,
   withStaticProperties,
   TamaguiElement,
+  getTokens,
 } from "tamagui";
 import { ActivityIndicator } from "react-native";
 import { forwardRef, LegacyRef } from "react";
@@ -95,13 +96,19 @@ type StyledButtonProps = ButtonProps & {
 
 export const StyledButton = forwardRef<typeof View, StyledButtonProps>(
   ({ children, icon, isLoading, ...props }, ref) => {
+    const { color } = getTokens();
+
     return (
       <Button
         {...props}
         ref={ref as LegacyRef<TamaguiElement> | undefined}
         disabled={props.disabled || isLoading}>
         {icon}
-        {isLoading ? <ActivityIndicator /> : <Button.Text>{children}</Button.Text>}
+        {isLoading ? (
+          <ActivityIndicator color={color.$primary800.val} />
+        ) : (
+          <Button.Text>{children}</Button.Text>
+        )}
       </Button>
     );
   },
