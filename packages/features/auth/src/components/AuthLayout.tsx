@@ -8,9 +8,16 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
     <View paddingHorizontal={"$6xl"} flex={1} backgroundColor={"white"} flexDirection="row">
       <View w={"50%"} alignItems="center" paddingHorizontal={"$3xl"} paddingVertical={"$base"}>
         <View mb={"$xl"} width={"100%"} paddingVertical={"$base"}>
-          <Link href={"/"}>
-            <Icon name="mdp-wordmark" />
-          </Link>
+          <View>
+            <Link href={"/"}>
+              <Image
+                source={require("./logo.png")}
+                style={{ width: "100%", height: 50 }}
+                contentFit="contain"
+              />
+              {/* <Icon name="mdp-wordmark" /> */}
+            </Link>
+          </View>
         </View>
         <View flex={1} w={"100%"} gap={"$5xl"} justifyContent="center">
           {children}
