@@ -17,7 +17,7 @@ async function SendMoneyAccount({
   otp,
 }: SendMoneyAccountParams) {
   const response = await authApiClient.post(
-    `/fund-transfer-service/api/v1/${process.env.REALM_ID}/fund-transfer/external-transfer?=`,
+    `/fund-transfer-service/api/v1/${process.env.EXPO_PUBLIC_REALM_ID}/fund-transfer/external-transfer?=`,
     {
       paymentAmount,
       beneficiaryCardNumber,

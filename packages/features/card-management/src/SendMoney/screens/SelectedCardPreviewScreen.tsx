@@ -1,4 +1,5 @@
-import { StyledText, View } from "@aurora/components";
+import { StyledButton, StyledText, View } from "@aurora/components";
+import { Icon } from "@aurora/icons";
 import { useState } from "react";
 import { Image } from "react-native";
 // import { useTranslation } from "react-i18next";
@@ -7,34 +8,94 @@ type Props = {
   cardholderName?: string;
   onSubmit: () => void;
   isPending?: boolean;
+  fromCardNumber: string;
+  toCardNumber: string | null;
+  amount: string;
 };
-export function SelectedCardPreview({ cardholderName, onSubmit }: Props) {
-  const [amount, setAmount] = useState("");
-  // const { t } = useTranslation();
+export function SelectedCardPreview({
+  cardholderName,
+  onSubmit,
+  fromCardNumber,
+  toCardNumber,
+  amount,
+  isPending,
+}: Props) {
   return (
-    <View flex={1}>
-      <StyledText variant="Headingxl" color={"$neutral800"}>
-        {/* {t("cardManagement.cardSelected")} */}
-        Card Selected
-      </StyledText>
-      <View
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
-        gap="$s"
-        marginVertical="$m">
-        <View height={200} width={300} backgroundColor={"$primary500"}></View>
-        {/* <Image style={{ width: 80, height: 50 }} source={require("./cardImage.png")} /> */}
-      </View>
-      <View flexDirection="row">
-        <View>
-          <StyledText variant="Headingl">Details</StyledText>
+    <View flex={1} justifyContent="space-between">
+      <View marginVertical="$l">
+        <View
+          backgroundColor="$secondary100"
+          gap="$ml"
+          padding="$ml"
+          marginBottom="$xl"
+          borderRadius="$sm"
+          paddingBottom="$3xl">
+          <StyledText variant="Headingxl" textAlign="center" color="$secondary800">
+            From:
+          </StyledText>
+          <View flex={1} flexDirection="row" alignItems="center" justifyContent="center" gap="$s">
+            <Icon name={"card"} />
+            <StyledText variant="BodymL" color="$secondary800">
+              Card number
+            </StyledText>
+            <StyledText variant="BodymL" color="$secondary800">
+              {fromCardNumber}
+            </StyledText>
+          </View>
         </View>
-        <View>
-          <StyledText>Cardholder Name:</StyledText>
-          <StyledText>{cardholderName}</StyledText>
+        <View
+          position="absolute"
+          alignItems="center"
+          borderRadius="$full"
+          right={"45%"}
+          top={140}
+          zIndex={20}
+          backgroundColor="$white"
+          shadowColor="$secondary400"
+          shadowRadius={4}
+          padding="$base">
+          <Icon name={"arrow-full-down"} />
+        </View>
+        <View
+          backgroundColor="$secondary100"
+          gap="$ml"
+          padding="$ml"
+          borderRadius="$sm"
+          paddingBottom="$3xl">
+          <StyledText variant="Headingxl" textAlign="center" color="$secondary800">
+            To:
+          </StyledText>
+          <View flex={1} flexDirection="row" alignItems="center" justifyContent="center" gap="$s">
+            <Icon name={"card"} />
+            <StyledText variant="BodymL" color="$secondary800">
+              Card number
+            </StyledText>
+            <StyledText variant="BodymL" color="$secondary800">
+              {toCardNumber}
+            </StyledText>
+          </View>
+        </View>
+        <View marginTop="$xl" flexDirection="row" justifyContent="space-between">
+          <StyledText variant="Headingxl" color="$neutral800">
+            Amount you will send
+          </StyledText>
+          <StyledText variant="Headingxl" color="$neutral800">
+            {amount}
+          </StyledText>
+        </View>
+
+        <View marginTop="$xl" flexDirection="row" justifyContent="space-between">
+          <StyledText variant="Headingxl" color="$neutral800">
+            Cardholder Name
+          </StyledText>
+          <StyledText variant="Headingxl" color="$neutral800">
+            {cardholderName}
+          </StyledText>
         </View>
       </View>
+      <StyledButton isLoading={isPending} onPress={onSubmit} variant="primary">
+        Send
+      </StyledButton>
     </View>
   );
 }

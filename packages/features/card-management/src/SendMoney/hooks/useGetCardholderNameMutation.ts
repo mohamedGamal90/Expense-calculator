@@ -10,6 +10,8 @@ type Response = {
 };
 
 export async function fetchCardAccountName({ cardNumber }: FetchCardAccountNameParams) {
+  console.log("cardNumber", cardNumber);
+
   const response = await authApiClient.post(
     `/cards-service/api/v1/${process.env.EXPO_PUBLIC_REALM_ID}/cards/masked-customer-name`,
     {

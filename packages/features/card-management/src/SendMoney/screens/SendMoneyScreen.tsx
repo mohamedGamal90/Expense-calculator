@@ -1,43 +1,53 @@
-import { FieldGroup } from "@aurora/blocks";
+import { FieldGroup, SelectedCardHeader } from "@aurora/blocks";
 import { Form, Input, StyledButton, StyledText, TextInput, View } from "@aurora/components";
 import { useSelectedCard } from "@metroid/store";
 import { useState } from "react";
 
 type Props = {
+  cardNumber: string;
+  cardCurrency: string;
   isPending: boolean;
-  onSubmit: (values: { cardNumber: string }) => void;
+  onSubmit: (values: { amount: string; cardNumber: string }) => void;
 };
-export function SendMoney({ onSubmit, isPending }: Props) {
+export function SendMoney({ onSubmit, isPending, cardNumber, cardCurrency }: Props) {
   const selectedCard = useSelectedCard();
-  const [cardNumber, setCardNumber] = useState("");
+  const [sendToCardNumber, setSendToCardNumber] = useState("");
+  const [amount, setAmount] = useState<string>("");
 
   return (
     <View flex={1}>
-      <View paddingVertical="$ml" gap="$space.m">
-        <StyledText variant="Headingxl">From:</StyledText>
-        <StyledText variant="BodymL">
-          Card ending in {selectedCard?.cardNumber.slice(-4)}
-        </StyledText>
-      </View>
+      <SelectedCardHeader cardNumber={cardNumber} />
       <View gap="$m">
         <StyledText variant="Headingxl">To:</StyledText>
         <FieldGroup
           defaultValue="4424410044532050"
-          value={cardNumber}
+          value={sendToCardNumber}
           onChange={value => {
-            setCardNumber(value as string);
+            setSendToCardNumber(value as string);
           }}
           maxLength={16}
           iconRight="card"
           placeholder="1234 1234 1234 1234"
         />
       </View>
+      <View gap="$m">
+        <StyledText marginVertical="$m" variant="BodyBoldml" color="$neutral800">
+          Amount you want to send
+        </StyledText>
+        <FieldGroup
+          value={amount}
+          onChange={value => setAmount(value as string)}
+          keyboardType="numeric"
+          placeholder="0,0 USD"
+        />
+      </View>
       <StyledButton
-        disabled={!cardNumber || cardNumber.length < 16}
+        disabled={!sendToCardNumber || sendToCardNumber.length < 16 || !amount}
         isLoading={isPending}
         onPress={() => {
           onSubmit({
-            cardNumber: cardNumber,
+            cardNumber: sendToCardNumber,
+            amount,
           });
         }}
         marginTop="$auto">
