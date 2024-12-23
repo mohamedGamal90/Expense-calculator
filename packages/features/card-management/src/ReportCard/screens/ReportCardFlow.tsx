@@ -15,6 +15,13 @@ type Props = { returnBackHandler: () => void };
 export const ReportCardFlow = ({ returnBackHandler }: Props) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+  const [status, setStatus] = useState<{
+    status: "success" | "error" | "pending";
+    statusTitle: string;
+  }>({
+    status: "success",
+    statusTitle: "Card reported successfully",
+  });
 
   const selectedCard = useSelectedCard();
 
@@ -44,16 +51,16 @@ export const ReportCardFlow = ({ returnBackHandler }: Props) => {
     onError: error => console.log("error", error),
   });
 
-  const { mutateAsync: reportCard, isPending: reportCardIspending } = useReportCardMutation({
-    onSuccess: () => onNextScreen(),
-    onError: error => console.log("error", error),
-  });
+  const { mutateAsync: reportCard, isPending: reportCardIspending } = useReportCardMutation({});
 
-  const onReportCard = (otp: string) => {
-    reportCard({
+  const onReportCard = async (otp: string) => {
+    await reportCard({
       cardId: selectedCard.id,
       otp,
+    }).catch(() => {
+      setStatus({ status: "error", statusTitle: "Card report failed" });
     });
+    onNextScreen();
   };
 
   const ReportCardFlowScreens = [
@@ -80,7 +87,13 @@ export const ReportCardFlow = ({ returnBackHandler }: Props) => {
     },
     {
       title: "StatusView",
-      render: <StatusView onSubmit={onNextScreen} statusTitle={`Card Reported Successfully`} />,
+      render: (
+        <StatusView
+          onSubmit={onNextScreen}
+          status={status.status}
+          statusTitle={status.statusTitle}
+        />
+      ),
     },
   ];
 

@@ -17,6 +17,13 @@ export function TopUpFlow() {
   const amountRef = useRef<string>("");
   const { data: cards } = useGetCardsQuery();
   const selectedCard = useSelectedCard();
+  const [status, setStatus] = useState<{
+    status: "success" | "error" | "pending";
+    statusTitle: string;
+  }>({
+    status: "success",
+    statusTitle: "Top up successfully",
+  });
 
   if (!selectedCard) {
     return null;
@@ -43,10 +50,7 @@ export function TopUpFlow() {
     onError: error => console.log("error", error),
   });
 
-  const { mutateAsync: topUp, isPending: topupPending } = useTopUpMutation({
-    onSuccess: () => onNextScreen(),
-    onError: error => console.log("error", error),
-  });
+  const { mutateAsync: topUp, isPending: topupPending } = useTopUpMutation({});
 
   const firstStep = (toCardId: string, amount: string) => {
     amountRef.current = amount;
@@ -60,7 +64,10 @@ export function TopUpFlow() {
       currencyCode: getCurrencyCode(selectedCard.currencyName),
       beneficiaryCardId: selectedCard.id,
       payerCardId: toCardRef.current?.id as string,
+    }).catch(() => {
+      setStatus({ status: "error", statusTitle: "Top up failed" });
     });
+    onNextScreen();
   };
 
   const topUpFlowScreens = [
@@ -99,7 +106,13 @@ export function TopUpFlow() {
     },
     {
       title: "StatusView",
-      render: <StatusView onSubmit={onNextScreen} statusTitle={`Top up Successfully`} />,
+      render: (
+        <StatusView
+          onSubmit={onNextScreen}
+          status={status.status}
+          statusTitle={status.statusTitle}
+        />
+      ),
     },
   ];
 

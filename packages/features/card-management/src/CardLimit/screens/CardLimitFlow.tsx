@@ -12,6 +12,13 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
   const newLimitValue = useRef<number>(0);
+  const [status, setStatus] = useState<{
+    status: "success" | "error" | "pending";
+    statusTitle: string;
+  }>({
+    status: "success",
+    statusTitle: "Limit set Successfully",
+  });
 
   const selectedCard = useSelectedCard();
 
@@ -41,19 +48,20 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
     onError: error => console.log("error", error),
   });
 
-  const { mutateAsync: setLimit, isPending: setLimitPending } = useSetCardLimitMutation({
-    onSuccess: () => onNextScreen(),
-  });
+  const { mutateAsync: setLimit, isPending: setLimitPending } = useSetCardLimitMutation({});
 
   const firstStep = (value: number) => {
     newLimitValue.current = value;
     requestOTP();
   };
 
-  const secondStep = () => {
-    setLimit({ cardId: selectedCard.id, newLimit: newLimitValue.current.toString() }).catch(error =>
-      console.log(error),
+  const secondStep = async () => {
+    await setLimit({ cardId: selectedCard.id, newLimit: newLimitValue.current.toString() }).catch(
+      () => {
+        setStatus({ status: "error", statusTitle: "Limit set failed" });
+      },
     );
+    onNextScreen();
   };
 
   const CardLimitFlowScreens = [
@@ -75,13 +83,19 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
           onSubmit={secondStep}
           type={data?.data.email ? "email" : "mobile"}
           credential={data?.data.email ?? data?.data.phoneNumber}
-          isPending={false}
+          isPending={setLimitPending}
         />
       ),
     },
     {
       title: "StatusView",
-      render: <StatusView onSubmit={onNextScreen} statusTitle={`Limit set Successfully`} />,
+      render: (
+        <StatusView
+          onSubmit={onNextScreen}
+          statusTitle={status.statusTitle}
+          status={status.status}
+        />
+      ),
     },
   ];
   return (

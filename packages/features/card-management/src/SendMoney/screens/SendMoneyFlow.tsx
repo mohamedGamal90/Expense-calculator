@@ -11,6 +11,7 @@ import { SelectedCardPreview } from "./SelectedCardPreviewScreen";
 import { CardType } from "@metroid/types";
 import { useGetCardsQuery } from "@metroid/hooks";
 import { getCurrencyCode } from "@aurora/utils";
+import { showAlert } from "@aurora/components";
 
 type Props = { returnBackHandler?: () => void };
 
@@ -20,10 +21,15 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
   const toCardRef = useRef<CardType | null>(null);
   const amountRef = useRef<string>("");
   const toCardNumber = useRef<string>("");
+  const [status, setStatus] = useState<{
+    status: "success" | "error" | "pending";
+    statusTitle: string;
+  }>({
+    status: "success",
+    statusTitle: "Top up successfully",
+  });
 
-  const { data: cards } = useGetCardsQuery();
   const selectedCard = useSelectedCard();
-  console.log("selectedCard", selectedCard);
 
   if (!selectedCard) {
     return null;
@@ -48,12 +54,21 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
     data: requestOtpData,
   } = useRequestOtpMutation({
     onSuccess: () => onNextScreen(),
-    onError: error => console.log("error", error),
+    onError(error) {
+      showAlert({
+        title: "An error has occurred.",
+        message: error.response?.data.message as string,
+      });
+    },
   });
 
   const { mutate: sendMoney, isPending: sendMoneyIsPending } = useSendMoneyMutation({
-    onSuccess: () => onNextScreen(),
-    onError: error => console.log("error", error),
+    onError(error) {
+      showAlert({
+        title: "An error has occurred.",
+        message: error.response?.data.message as string,
+      });
+    },
   });
 
   const {
@@ -64,7 +79,12 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
     onSuccess: () => {
       onNextScreen();
     },
-    onError(error) {},
+    onError(error) {
+      showAlert({
+        title: "An error has occurred.",
+        message: error.response?.data.message as string,
+      });
+    },
   });
 
   const firstStep = async ({ amount, cardNumber }: { amount: string; cardNumber: string }) => {
@@ -128,7 +148,13 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
     },
     {
       title: "StatusView",
-      render: <StatusView onSubmit={onNextScreen} statusTitle={`Card Reported Successfully`} />,
+      render: (
+        <StatusView
+          onSubmit={onNextScreen}
+          status={status.status}
+          statusTitle={status.statusTitle}
+        />
+      ),
     },
   ];
 
@@ -139,6 +165,8 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
       flatListRef={flatListRef}
       currentScreenIndex={currentScreenIndex}
       setCurrentScreenIndex={setCurrentScreenIndex}
+      showCloseButton={true}
+      singleFlow={true}
     />
   );
 };

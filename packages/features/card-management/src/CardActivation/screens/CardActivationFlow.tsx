@@ -15,23 +15,27 @@ type Props = { returnBackHandler: () => void };
 export const CardActivationFlow = ({ returnBackHandler }: Props) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
-
   const selectedCard = useSelectedCard();
+  const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   if (!selectedCard) {
     return null;
   }
 
-  const queryClient = useQueryClient();
-
-  const { t } = useTranslation();
-
   const activationEnabled: boolean = selectedCard.availableStatuses.some(
     (item: AvailableStatuses) => item.statusCode === CardAvailableStatusCodes.Activate,
   );
-  const statusTxt = activationEnabled
-    ? t("cardManagement.cardActivation.activate-success-txt")
-    : t("cardManagement.cardActivation.deactivate-success-txt");
+
+  const [status, setStatus] = useState<{
+    status: "success" | "error" | "pending";
+    statusTitle: string;
+  }>({
+    status: "success",
+    statusTitle: activationEnabled
+      ? t("cardManagement.cardActivation.activate-success-txt")
+      : t("cardManagement.cardActivation.deactivate-success-txt"),
+  });
 
   const onNextScreen = () => {
     if (currentScreenIndex === CardLimitFlowScreens.length - 1) {
@@ -57,19 +61,20 @@ export const CardActivationFlow = ({ returnBackHandler }: Props) => {
     onError: error => console.log("error", error),
   });
 
-  const { mutateAsync: activateCard } = useActivateCardMutation({
-    onError: error => console.log("error", error),
-  });
+  const { mutateAsync: activateCard, isPending: activePending } = useActivateCardMutation({});
+  const { mutateAsync: deactivateCard, isPending: deactivePending } = useDeactivateCardMutation({});
 
-  const { mutateAsync: deactivateCard } = useDeactivateCardMutation({
-    onError: error => console.log("error", error),
-  });
-
-  const onCardActivation = (otp: string) => {
-    if (activationEnabled) activateCard({ cardId: selectedCard.id, otp });
-    else deactivateCard({ cardId: selectedCard?.id, otp });
-    onNextScreen();
+  const onCardActivation = async (otp: string) => {
+    if (activationEnabled)
+      await activateCard({ cardId: selectedCard.id, otp }).catch(() =>
+        setStatus({ status: "error", statusTitle: "Activation failed" }),
+      );
+    else
+      await deactivateCard({ cardId: selectedCard?.id, otp }).catch(() =>
+        setStatus({ status: "error", statusTitle: "Deactivation failed" }),
+      );
     queryClient.refetchQueries({ queryKey: ["cardList"] });
+    onNextScreen();
   };
 
   const CardLimitFlowScreens = [
@@ -91,13 +96,19 @@ export const CardActivationFlow = ({ returnBackHandler }: Props) => {
           onSubmit={onCardActivation}
           type={data?.data.email ? "email" : "mobile"}
           credential={data?.data.email ?? data?.data.phoneNumber}
-          isPending={false}
+          isPending={activePending || deactivePending}
         />
       ),
     },
     {
       title: "StatusView",
-      render: <StatusView onSubmit={onNextScreen} statusTitle={statusTxt} />,
+      render: (
+        <StatusView
+          onSubmit={onNextScreen}
+          statusTitle={status.statusTitle}
+          status={status.status}
+        />
+      ),
     },
   ];
   return (

@@ -1,6 +1,6 @@
 import { View, Form } from "tamagui";
 import { useRouter } from "expo-router";
-import { StyledButton, StyledText } from "@aurora/components";
+import { StyledButton, StyledText, showAlert } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -48,6 +48,12 @@ export const ForgotPasswordScreen = () => {
           username,
           password,
         },
+      });
+    },
+    onError(error) {
+      showAlert({
+        title: "An error has occurred.",
+        message: error.response?.data.message as string,
       });
     },
   });

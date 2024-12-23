@@ -12,6 +12,14 @@ export function SetPinFlow({ returnBackHandler }: Props) {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
 
+  const [status, setStatus] = useState<{
+    status: "success" | "error" | "pending";
+    statusTitle: string;
+  }>({
+    status: "success",
+    statusTitle: "Pin set successfully",
+  });
+
   const selectedCard = useSelectedCard();
 
   if (!selectedCard) {
@@ -39,17 +47,16 @@ export function SetPinFlow({ returnBackHandler }: Props) {
     mutateAsync: setPin,
     data: setPinUrl,
     isPending: setPinIsPending,
-  } = useSetPinMutation({
-    onSuccess(data) {
-      onNextScreen();
-    },
-  });
+  } = useSetPinMutation({});
 
-  const onSetPin = (otp: string) => {
-    setPin({
+  const onSetPin = async (otp: string) => {
+    await setPin({
       cardId: selectedCard.id,
       otp,
+    }).catch(() => {
+      setStatus({ status: "error", statusTitle: "Error setting pin" });
     });
+    onNextScreen();
   };
 
   useEffect(() => {
@@ -74,7 +81,13 @@ export function SetPinFlow({ returnBackHandler }: Props) {
     },
     {
       title: "StatusView",
-      render: <StatusView onSubmit={onNextScreen} statusTitle={`Limit set Successfully`} />,
+      render: (
+        <StatusView
+          onSubmit={onNextScreen}
+          status={status.status}
+          statusTitle={status.statusTitle}
+        />
+      ),
     },
   ];
 

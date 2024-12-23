@@ -35,14 +35,14 @@ export const useSendMoneyMutation = ({
   onSuccess,
 }: {
   onError?: (error: ErrorType) => void;
-  onSuccess?: (data: unknown) => void;
+  onSuccess?: () => void;
 } = {}) =>
   useMutation({
     mutationFn: (params: SendMoneyAccountParams) => SendMoneyAccount(params),
     onError(error) {
       onError?.(error as ErrorType);
     },
-    onSuccess(data) {
-      onSuccess?.(data.data);
+    onSuccess() {
+      onSuccess?.();
     },
   });

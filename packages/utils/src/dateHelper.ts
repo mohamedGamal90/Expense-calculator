@@ -9,8 +9,10 @@ const formatDate = (date: Date | string | number) =>
     })
     .replace(/\//g, "-");
 
+const getNextWeek = () => formatDate(new Date().getTime() + 7 * day);
+const getTommorowDate = () => formatDate(new Date().getTime() + day);
 const getTodayDate = () => formatDate(new Date());
 const getLastWeek = () => formatDate(new Date().getTime() - 7 * day);
 const getLastMonth = () => formatDate(new Date().getTime() - 31 * day);
 
-export { formatDate, getLastMonth, getLastWeek, getTodayDate };
+export { formatDate, getLastMonth, getLastWeek, getNextWeek, getTommorowDate, getTodayDate };
