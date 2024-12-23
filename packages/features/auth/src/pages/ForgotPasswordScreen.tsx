@@ -68,8 +68,6 @@ export const ForgotPasswordScreen = () => {
 
   const { isPending, mutate: validateUsername } = useValidateUsernameMutation({
     onSuccess: (data, { username, password }) => {
-      console.log("mobileNumber", data);
-
       router.push({
         pathname: "auth/forget-password-verification",
         params: {

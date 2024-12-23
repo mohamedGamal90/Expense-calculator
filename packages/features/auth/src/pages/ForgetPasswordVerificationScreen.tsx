@@ -1,4 +1,4 @@
-import { View, showAlert } from "@aurora/components";
+import { View } from "@aurora/components";
 import { useForgetPasswordMutation } from "../hooks";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { Verification } from "@aurora/blocks";
@@ -15,15 +15,20 @@ export const ForgetPasswordVerificationScreen = () => {
   };
 
   const { isPending, mutate: forgetPassword } = useForgetPasswordMutation({
-    onSuccess: () => {
-      router.push("auth/forgot-password-status");
-    },
-    onError(error) {
-      showAlert({
-        title: "An error has occurred.",
-        message: error.response?.data.message as string,
-      });
-    },
+    onSuccess: () =>
+      router.push({
+        pathname: "auth/forgot-password-status",
+        params: {
+          status: "success",
+        },
+      }),
+    onError: () =>
+      router.push({
+        pathname: "auth/forgot-password-status",
+        params: {
+          status: "error",
+        },
+      }),
   });
 
   const handleOnSubmit = (otp: string) => {
