@@ -1,4 +1,4 @@
-import { TamaguiProvider } from "@aurora/components";
+import { TamaguiProvider, Alert } from "@aurora/components";
 import { Slot } from "expo-router";
 import { config } from "../theme";
 import { useLoadAssets } from "@aurora/utils";
@@ -33,6 +33,7 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <TamaguiProvider config={config}>
+        <Alert />
         <Slot />
       </TamaguiProvider>
     </QueryClientProvider>

@@ -1,4 +1,4 @@
-import { Form, StyledButton, StyledText, View } from "@aurora/components";
+import { Alert, Form, StyledButton, StyledText, View, showAlert } from "@aurora/components";
 import { Link } from "expo-router";
 import { useLoginMutation } from "../hooks/useLoginMutation";
 import { FormProvider, useForm } from "react-hook-form";
@@ -36,7 +36,10 @@ export function LoginScreen() {
 
   const { mutate, isPending } = useLoginMutation({
     onError(error) {
-      console.log("error", error);
+      showAlert({
+        title: "An error has occurred.",
+        message: error.response?.data.message as string,
+      });
     },
     async onSuccess(data) {
       await protectedStore.setValue(StoreKey.AccessToken, data.access_token);
@@ -50,6 +53,7 @@ export function LoginScreen() {
 
   return (
     <Form flex={1} onSubmit={form.handleSubmit(handleLogin)}>
+      <Alert />
       <FormProvider {...form}>
         <View gap="$xl">
           <StyledText variant="Heading4xl">{t("titles.login")}</StyledText>

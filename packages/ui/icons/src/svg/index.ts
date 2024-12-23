@@ -30,9 +30,10 @@ import TickCircle from "./tick-circle.svg";
 import DetailsIcon from "./details-icon.svg";
 import Card from "./card.svg";
 import ArrowFullDown from "./arrow-full-down.svg";
-import CardIcon from "./card.svg";
+import Error from "./error.svg";
 
 const svgs = {
+  error: Error,
   "arrow-up": ArrowUp,
   "arrow-down": ArrowDown,
   "arrow-full-down": ArrowFullDown,

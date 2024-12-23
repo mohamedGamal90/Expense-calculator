@@ -11,7 +11,7 @@ export * from "./StyledDialog";
 export * from "./MappingList";
 export * from "./styledSelect";
 export * from "./slider";
-
+export * from "./Alert";
 import type { config } from "./tamagui.config";
 
 export type AppConfig = typeof config;
