@@ -1,6 +1,7 @@
 import { getTokens, StyledText, View } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { Link, usePathname } from "expo-router";
+import { Image } from "expo-image";
 
 type IconProps = React.ComponentProps<typeof Icon>;
 
@@ -8,11 +9,18 @@ export type SidebarButton = {
   icon: IconProps["name"];
   title: string;
   href: string;
+  disabled: boolean;
 };
 
 export function Sidebar({ buttons }: { buttons: SidebarButton[] }) {
   const pathName = usePathname();
   const { color } = getTokens();
+
+  const itemColor = (href: string, disabled: boolean) => {
+    if (href === pathName) return color.$primary800.val;
+    else if (disabled) return color.$secondary400.val;
+    else return color.$secondary900.val;
+  };
 
   return (
     <View borderColor="$secondary100" borderWidth={1} borderRadius="$l" margin="$base">
@@ -21,17 +29,21 @@ export function Sidebar({ buttons }: { buttons: SidebarButton[] }) {
         borderBottomWidth={1}
         borderColor="$secondary100"
         paddingHorizontal="$2xl">
-        <Icon name="mdp-wordmark" />
+        <Image
+          source={require("../../../features/auth/src/components/logo.png")}
+          style={{ width: 120, height: 70 }}
+          contentFit="contain"
+        />
       </View>
       <View gap="$3xl" alignItems="center" justifyContent="center" paddingVertical="$l">
-        {buttons.map((button, index) => (
+        {buttons.map((item, index) => (
           <View
             width={"100%"}
             alignItems="center"
             justifyContent="center"
             flexDirection="row"
             key={index}>
-            {button.href === pathName && (
+            {item.href === pathName && (
               <View
                 position="absolute"
                 left={0}
@@ -41,17 +53,19 @@ export function Sidebar({ buttons }: { buttons: SidebarButton[] }) {
                 backgroundColor="$primary800"
               />
             )}
-            <Link key={index} href={button.href}>
+            {item.disabled ? (
               <View key={index} gap="$s" alignItems="center">
-                <Icon
-                  name={button.icon}
-                  color={button.href === pathName ? color.$primary800.val : color.$secondary900.val}
-                />
-                <StyledText color={button.href === pathName ? "$primary800" : "$secondary900"}>
-                  {button.title}
-                </StyledText>
+                <Icon name={item.icon} color={itemColor(item.href, item.disabled)} />
+                <StyledText color={itemColor(item.href, item.disabled)}>{item.title}</StyledText>
               </View>
-            </Link>
+            ) : (
+              <Link key={index} disabled={item.disabled} href={item.href}>
+                <View key={index} gap="$s" alignItems="center">
+                  <Icon name={item.icon} color={itemColor(item.href, item.disabled)} />
+                  <StyledText color={itemColor(item.href, item.disabled)}>{item.title}</StyledText>
+                </View>
+              </Link>
+            )}
           </View>
         ))}
       </View>

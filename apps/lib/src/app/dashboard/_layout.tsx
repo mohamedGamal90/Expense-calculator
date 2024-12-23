@@ -8,26 +8,31 @@ const buttons: SidebarButton[] = [
     icon: "layout-dashboard",
     title: "Home",
     href: "/dashboard",
+    disabled: false,
   },
   {
     icon: "card-add",
     title: "Add Card",
     href: "",
+    disabled: true,
   },
   {
     icon: "arrow-swap-horizontal",
     title: "Transactions",
     href: "/dashboard/transaction",
+    disabled: false,
   },
   {
     icon: "group",
     title: "Transfers",
     href: "",
+    disabled: true,
   },
   {
     icon: "setting",
     title: "Settings",
     href: "",
+    disabled: true,
   },
 ];
 

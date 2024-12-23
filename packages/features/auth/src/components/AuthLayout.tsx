@@ -1,5 +1,4 @@
 import { View } from "@aurora/components";
-import { Icon } from "@aurora/icons";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 
@@ -15,7 +14,6 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
                 style={{ width: "100%", height: 50 }}
                 contentFit="contain"
               />
-              {/* <Icon name="mdp-wordmark" /> */}
             </Link>
           </View>
         </View>
