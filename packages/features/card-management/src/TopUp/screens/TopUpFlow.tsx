@@ -111,6 +111,7 @@ export function TopUpFlow() {
           onSubmit={onNextScreen}
           status={status.status}
           statusTitle={status.statusTitle}
+          singleFlow={true}
         />
       ),
     },

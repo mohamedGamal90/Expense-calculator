@@ -1,16 +1,13 @@
 import { FieldGroup, SelectedCardHeader } from "@aurora/blocks";
-import { Form, Input, StyledButton, StyledText, TextInput, View } from "@aurora/components";
-import { useSelectedCard } from "@metroid/store";
+import { StyledButton, StyledText, View } from "@aurora/components";
 import { useState } from "react";
 
 type Props = {
   cardNumber: string;
-  cardCurrency: string;
   isPending: boolean;
   onSubmit: (values: { amount: string; cardNumber: string }) => void;
 };
-export function SendMoney({ onSubmit, isPending, cardNumber, cardCurrency }: Props) {
-  const selectedCard = useSelectedCard();
+export function SendMoney({ onSubmit, isPending, cardNumber }: Props) {
   const [sendToCardNumber, setSendToCardNumber] = useState("");
   const [amount, setAmount] = useState<string>("");
 

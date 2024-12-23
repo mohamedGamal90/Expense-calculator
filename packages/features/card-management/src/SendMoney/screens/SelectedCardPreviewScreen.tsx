@@ -1,8 +1,5 @@
 import { StyledButton, StyledText, View } from "@aurora/components";
 import { Icon } from "@aurora/icons";
-import { useState } from "react";
-import { Image } from "react-native";
-// import { useTranslation } from "react-i18next";
 
 type Props = {
   cardholderName?: string;

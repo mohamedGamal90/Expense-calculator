@@ -8,8 +8,6 @@ import { SendMoney } from "./SendMoneyScreen";
 import { useSendMoneyMutation } from "../hooks/useSendMoneyMutation";
 import { useCardholderNameMutation } from "../hooks/useGetCardholderNameMutation";
 import { SelectedCardPreview } from "./SelectedCardPreviewScreen";
-import { CardType } from "@metroid/types";
-import { useGetCardsQuery } from "@metroid/hooks";
 import { getCurrencyCode } from "@aurora/utils";
 import { showAlert } from "@aurora/components";
 
@@ -18,7 +16,6 @@ type Props = { returnBackHandler?: () => void };
 export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
-  const toCardRef = useRef<CardType | null>(null);
   const amountRef = useRef<string>("");
   const toCardNumber = useRef<string>("");
   const [status, setStatus] = useState<{
@@ -26,7 +23,7 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
     statusTitle: string;
   }>({
     status: "success",
-    statusTitle: "Top up successfully",
+    statusTitle: "Send money successfully",
   });
 
   const selectedCard = useSelectedCard();
@@ -54,20 +51,21 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
     data: requestOtpData,
   } = useRequestOtpMutation({
     onSuccess: () => onNextScreen(),
-    onError(error) {
+    onError: error =>
       showAlert({
         title: "An error has occurred.",
         message: error.response?.data.message as string,
-      });
-    },
+      }),
   });
 
   const { mutate: sendMoney, isPending: sendMoneyIsPending } = useSendMoneyMutation({
-    onError(error) {
-      showAlert({
-        title: "An error has occurred.",
-        message: error.response?.data.message as string,
+    onSuccess: () => onNextScreen(),
+    onError: error => {
+      setStatus({
+        status: "error",
+        statusTitle: error.response?.data.message ?? "Send money failed.",
       });
+      onNextScreen();
     },
   });
 
@@ -76,15 +74,12 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
     data: cardholderNameData,
     isPending: cardholderNameIsPending,
   } = useCardholderNameMutation({
-    onSuccess: () => {
-      onNextScreen();
-    },
-    onError(error) {
+    onSuccess: () => onNextScreen(),
+    onError: error =>
       showAlert({
         title: "An error has occurred.",
         message: error.response?.data.message as string,
-      });
-    },
+      }),
   });
 
   const firstStep = async ({ amount, cardNumber }: { amount: string; cardNumber: string }) => {
@@ -94,13 +89,22 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
     onNextScreen();
   };
 
+  const onSendMoney = (otp: string) => {
+    sendMoney({
+      paymentAmount: amountRef.current,
+      currencyCode: getCurrencyCode(selectedCard.currencyName),
+      beneficiaryCardNumber: toCardNumber.current,
+      payerCardId: selectedCard?.id as string,
+      otp,
+    });
+  };
+
   const ReportCardFlowScreens = [
     {
       title: "Send Money",
       render: (
         <SendMoney
           cardNumber={selectedCard.cardNumber.slice(-4)}
-          cardCurrency={selectedCard.currencyName}
           onSubmit={firstStep}
           isPending={cardholderNameIsPending}
         />
@@ -111,7 +115,7 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
       render: (
         <SelectedCardPreview
           fromCardNumber={selectedCard.cardNumber}
-          toCardNumber={toCardRef.current && toCardRef.current.cardNumber}
+          toCardNumber={toCardNumber.current && toCardNumber.current}
           amount={amountRef.current}
           cardholderName={cardholderNameData?.customerName}
           onSubmit={requestOTP}
@@ -125,23 +129,7 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
         <Verification
           type={requestOtpData?.data.email ? "email" : "mobile"}
           credential={requestOtpData?.data.email ?? requestOtpData?.data.phoneNumber}
-          onSubmit={otp => {
-            console.log({
-              paymentAmount: amountRef.current,
-              currencyCode: getCurrencyCode(selectedCard.currencyName),
-              beneficiaryCardNumber: toCardNumber.current,
-              payerCardId: toCardRef.current?.id as string,
-              otp,
-            });
-
-            sendMoney({
-              paymentAmount: amountRef.current,
-              currencyCode: getCurrencyCode(selectedCard.currencyName),
-              beneficiaryCardNumber: toCardNumber.current,
-              payerCardId: selectedCard?.id as string,
-              otp,
-            });
-          }}
+          onSubmit={onSendMoney}
           isPending={sendMoneyIsPending}
         />
       ),
@@ -153,6 +141,7 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
           onSubmit={onNextScreen}
           status={status.status}
           statusTitle={status.statusTitle}
+          singleFlow={true}
         />
       ),
     },
