@@ -36,16 +36,16 @@ export const ReportCard = ({
           value={value}
           onPress={(event: GestureResponderEvent) => {
             const target = event.target as unknown as HTMLInputElement;
-            if (target.value) setValue(target.value);
+            setValue(target.value);
           }}
           accentColor={color.primary800.val}>
-          <RadioGroupItemWithLabel value="Lost" label="Card Lost" />
+          <RadioGroupItemWithLabel updateValue={setValue} value="Lost" label="Card Lost" />
           <View height={1} backgroundColor={"$secondary100"} />
 
-          <RadioGroupItemWithLabel value="Stolen" label="Card Stolen" />
+          <RadioGroupItemWithLabel updateValue={setValue} value="Stolen" label="Card Stolen" />
           <View height={1} backgroundColor={"$secondary100"} />
 
-          <RadioGroupItemWithLabel value="ATM" label="ATM took my card" />
+          <RadioGroupItemWithLabel updateValue={setValue} value="ATM" label="ATM took my card" />
         </RadioGroup>
       </View>
       <StyledButton
