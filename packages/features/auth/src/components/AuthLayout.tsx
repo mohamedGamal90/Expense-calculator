@@ -21,14 +21,14 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
           {children}
         </View>
       </View>
-      <View w={"50%"} backgroundColor={"white"}>
+      <View w={"50%"} height={"100%"} backgroundColor={"white"} paddingVertical={"$base"}>
         <Image
           style={{
             flex: 1,
           }}
           priority={"high"}
           source={require("../assets/login-img.png")}
-          contentFit="cover"
+          contentFit="contain"
         />
       </View>
     </View>

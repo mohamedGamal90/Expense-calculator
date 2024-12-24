@@ -12,7 +12,11 @@ export const TransactionScreen = () => {
   const { color } = getTokens();
   const { t } = useTranslation();
 
-  const { data: transactions, isLoading: transactionsIsLoading } = useGetTransactionsQuery({
+  const {
+    data: transactions,
+    isLoading,
+    isFetching,
+  } = useGetTransactionsQuery({
     cardId: selectedCard?.id,
     transactionDateFrom: getLastMonth(),
     transactionDateTo: getTodayDate(),
@@ -51,9 +55,9 @@ export const TransactionScreen = () => {
         {t("transaction.header-title")}
       </StyledText>
       <View flex={1}>
-        {transactionsIsLoading ? (
+        {isFetching || isLoading ? (
           <View flex={1} alignItems="center" justifyContent="center">
-            <ActivityIndicator color={color.$primary800.val} />
+            <ActivityIndicator size="large" color={color.$primary800.val} />
           </View>
         ) : (
           <FlatList
