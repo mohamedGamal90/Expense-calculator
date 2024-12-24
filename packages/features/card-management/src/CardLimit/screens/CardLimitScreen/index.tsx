@@ -25,10 +25,10 @@ export const CardLimit = ({
           Limit Tracker
         </StyledText>
         <StyledText variant="Bodysm" color={"$neutral800"}>
-          How do you want to limit your money?
+          How do you want to limit your monthly limit?
         </StyledText>
-        <DateSelection />
-        <View flexDirection="row" justifyContent="space-between" alignItems="center" marginTop="$m">
+        {/* <DateSelection /> */}
+        {/* <View flexDirection="row" justifyContent="space-between" alignItems="center" marginTop="$m">
           <View flex={5 / 6} marginHorizontal="$xs" alignItems="center">
             <SimpleSlider
               alignSelf="center"
@@ -48,7 +48,7 @@ export const CardLimit = ({
               {sliderValue} {cardCurrency}
             </StyledText>
           </View>
-        </View>
+        </View> */}
         <StyledText variant="Bodysm" color={"$neutral800"} marginTop="$ml" marginBottom="$xs">
           Enter Amount
         </StyledText>
@@ -56,6 +56,7 @@ export const CardLimit = ({
           onChange={value => {
             if (!isNaN(Number(value))) setSliderValue(Number(value));
           }}
+          placeholder="0,0 USD"
         />
       </View>
       <StyledButton
