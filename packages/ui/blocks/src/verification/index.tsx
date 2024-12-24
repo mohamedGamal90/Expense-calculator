@@ -17,6 +17,7 @@ export const Verification = ({
   isPending: boolean;
 }) => {
   const [value, setValue] = useState("");
+  const [error, setError] = useState(false);
   const { color } = getTokens();
   const verifyObject: { icon: "mobile" | "email"; txt: string; iconTxt: JSX.Element } = (() => {
     switch (type) {
@@ -47,6 +48,14 @@ export const Verification = ({
         };
     }
   })();
+
+  const validateOtp = () => {
+    if (/^\d+$/.test(value)) {
+      onSubmit(value);
+      return;
+    }
+    setError(true);
+  };
 
   return (
     <View flex={1} justifyContent="space-between">
@@ -122,12 +131,17 @@ export const Verification = ({
               </View>
             )}
           />
+          {error && (
+            <StyledText variant="Bodysm" color="$error600" marginTop="$sm">
+              OTP only contains characters
+            </StyledText>
+          )}
         </View>
       </View>
       <StyledButton
         isLoading={isPending}
         disabled={value.length < 4}
-        onPress={() => onSubmit(value)}
+        onPress={validateOtp}
         variant="primary">
         Next
       </StyledButton>
