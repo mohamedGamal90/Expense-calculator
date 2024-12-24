@@ -25,7 +25,7 @@ export const CardListView = () => (
       alignSelf="center"
       gap={screenWidth > 600 ? "$5xl" : "$l"}
       marginTop="$base">
-      <StyledDialog title={"Send"} icon={<Icon name={"send"} />} children={<SendMoneyFlow />} />
+      {/* <StyledDialog title={"Send"} icon={<Icon name={"send"} />} children={<SendMoneyFlow />} /> */}
       <StyledDialog title={"Top Up"} icon={<Icon name="topup" />} children={<TopUpFlow />} />
       <StyledDialog
         title="Manage"
