@@ -25,7 +25,7 @@ export const CardActivation = ({ selectedCard, onSubmit, isPending, activationEn
     {
       id: 2,
       title: "Status",
-      value: selectedCard.statusName === "VALID CARD" ? "Active" : "UnActive",
+      value: selectedCard.statusName === "VALID CARD" ? "Active" : "Inactive",
     },
     {
       id: 3,
@@ -62,7 +62,7 @@ export const CardActivation = ({ selectedCard, onSubmit, isPending, activationEn
         <StyledText variant="Headingl">{t("titles.details")}</StyledText>
       </View>
 
-      <View flex={1} gap="$l">
+      <View flex={1} gap="$l" marginTop="$s">
         <MappingList data={details} renderItem={renderItem} />
       </View>
 

@@ -1,4 +1,4 @@
-import { AlertDialog, Button, StyledButton, View, XStack, YStack } from "@aurora/components";
+import { AlertDialog, StyledButton, YStack } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { useState, useImperativeHandle, useRef, useEffect } from "react";
 

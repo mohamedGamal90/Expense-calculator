@@ -2,6 +2,10 @@ import axios from "axios";
 import { protectedStore, StoreKey } from "@aurora/utils";
 import { router } from "expo-router";
 import { deleteValue } from "@aurora/utils/src/protectedStore";
+import { showAlert } from "@aurora/components";
+import { QueryClient } from "@tanstack/react-query";
+
+export const queryClient = new QueryClient();
 
 export const getApiUrl = (url: string) => {
   return `${process.env.EXPO_PUBLIC_API_URL}${url}`;
@@ -29,6 +33,11 @@ authApiClient.interceptors.response.use(undefined, error => {
   if (error?.response?.status) {
     switch (error.response.status) {
       case 401:
+        showAlert({
+          title: "User session expired",
+          message: "Please login again",
+        });
+        queryClient.removeQueries({ queryKey: ["cardList", "cardTransactions"] });
         deleteValue(StoreKey.AccessToken);
         router.push("auth/login");
         break;

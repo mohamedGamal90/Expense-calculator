@@ -75,18 +75,17 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
     isPending: cardholderNameIsPending,
   } = useCardholderNameMutation({
     onSuccess: () => onNextScreen(),
-    onError: error =>
-      showAlert({
-        title: "An error has occurred.",
-        message: error.response?.data.message as string,
-      }),
   });
 
   const firstStep = async ({ amount, cardNumber }: { amount: string; cardNumber: string }) => {
     amountRef.current = amount;
     toCardNumber.current = cardNumber;
-    await fetchCardHolderName({ cardNumber });
-    onNextScreen();
+    await fetchCardHolderName({ cardNumber }).catch(error => {
+      showAlert({
+        title: "An error has occurred.",
+        message: error.response?.data.message as string,
+      });
+    });
   };
 
   const onSendMoney = (otp: string) => {
