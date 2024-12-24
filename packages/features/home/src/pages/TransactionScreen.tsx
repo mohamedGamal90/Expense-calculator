@@ -30,7 +30,7 @@ export const TransactionScreen = () => {
         justifyContent="center"
         alignItems="center"
         marginBottom="$base">
-        <Icon name={"arrow-swap-horizontal"} />
+        <Icon name={"arrow-swap-horizontal"} color={color.$white.val} />
       </View>
       <StyledText variant="Heading2xl" color="secondary800">
         {t("transaction.empty-txt")}
