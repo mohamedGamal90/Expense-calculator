@@ -81,7 +81,7 @@ export const FieldGroup = forwardRef<any, FieldGroupProps>(
       <View {...containerStyle} marginBottom="$m">
         {renderBefore?.()}
         {label && (
-          <StyledText variant="Bodym" color={"$secondary500"} marginBottom="$s">
+          <StyledText variant="BodyBoldm" marginBottom="$s">
             {label}
           </StyledText>
         )}
