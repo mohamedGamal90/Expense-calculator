@@ -24,7 +24,7 @@ export const CardMangementDialogScreen = () => {
     setRender(undefined);
   };
 
-  const reportCardDisabled: boolean = !selectedCard?.availableStatuses.some(
+  const cardIsValid: boolean = !selectedCard?.availableStatuses.some(
     (item: AvailableStatuses) => item.statusCode === CardAvailableStatusCodes.ReportLostOrStolen,
   );
   const setPinDisabled: boolean = !selectedCard?.availableStatuses.some(
@@ -52,13 +52,13 @@ export const CardMangementDialogScreen = () => {
       title: "Card Limits",
       icon: "card-limit",
       render: <CardLimitFlow returnBackHandler={returnBackHandler} />,
-      disabled: false,
+      disabled: cardIsValid,
     },
     {
       title: "Report Card",
       icon: "report-card",
       render: <ReportCardFlow returnBackHandler={returnBackHandler} />,
-      disabled: reportCardDisabled,
+      disabled: cardIsValid,
     },
     { title: "Replace Card", icon: "replace-card", render: <View />, disabled: true }, //untill it is implemented
     {
