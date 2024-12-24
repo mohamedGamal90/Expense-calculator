@@ -60,7 +60,7 @@ export const CardMangementDialogScreen = () => {
       render: <ReportCardFlow returnBackHandler={returnBackHandler} />,
       disabled: reportCardDisabled,
     },
-    { title: "Replace Card", icon: "replace-card", render: <View />, disabled: false },
+    { title: "Replace Card", icon: "replace-card", render: <View />, disabled: true }, //untill it is implemented
     {
       title: "Change Pin",
       icon: "change-pin",
@@ -71,7 +71,7 @@ export const CardMangementDialogScreen = () => {
       title: "International Transactions",
       icon: "arrow-swap-horizontal",
       render: <View />,
-      disabled: false,
+      disabled: true, //untill it is implemented
     },
   ];
 
