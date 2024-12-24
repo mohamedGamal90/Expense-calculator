@@ -104,7 +104,7 @@ export const ForgotPasswordScreen = () => {
             onPress={() => router.push("auth/login")}
           />
 
-          <StyledText mt={"$2xl"} variant="Heading4xl" color={"$secondary900"} marginBottom="$xl">
+          <StyledText mt={"$l"} variant="Heading4xl" color={"$secondary900"} marginBottom="$l">
             {t("titles.forgotPassword")} {/* Translated title */}
           </StyledText>
 
@@ -133,7 +133,7 @@ export const ForgotPasswordScreen = () => {
             secureTextEntry
           />
 
-          <Form.Trigger mt="$auto" asChild>
+          <Form.Trigger mt="$m" asChild>
             <StyledButton isLoading={isPending}>{t("buttons.submit")}</StyledButton>
           </Form.Trigger>
         </View>

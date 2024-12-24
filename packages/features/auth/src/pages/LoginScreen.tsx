@@ -56,13 +56,13 @@ export function LoginScreen() {
       <Alert />
       <FormProvider {...form}>
         <View gap="$xl">
-          <StyledText variant="Heading4xl">{t("titles.login")}</StyledText>
+          <StyledText variant="Heading5xl">{t("titles.login")}</StyledText>
           <View>
-            <StyledText mb="$s" variant="Heading6xl">
+            <StyledText mb="$s" variant="Heading5xl">
               {t("titles.welcome")}
             </StyledText>
 
-            <StyledText mb="$xl" variant="Bodysm">
+            <StyledText mb="$xl" variant="BodySemiBoldm">
               {t("titles.instruction")}
             </StyledText>
 
@@ -94,7 +94,7 @@ export function LoginScreen() {
                 {t("buttons.forgotPassword")}
               </StyledText>
             </Link>
-            <Form.Trigger mb="$xl" asChild>
+            <Form.Trigger mt="$m" asChild>
               <StyledButton isLoading={isPending}>{t("buttons.login")}</StyledButton>
             </Form.Trigger>
             <View w={"100%"} alignItems="center">

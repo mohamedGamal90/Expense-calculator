@@ -78,7 +78,7 @@ export const FieldGroup = forwardRef<any, FieldGroupProps>(
     }, []);
 
     return (
-      <View {...containerStyle} marginBottom="$l">
+      <View {...containerStyle} marginBottom="$m">
         {renderBefore?.()}
         {label && (
           <StyledText variant="Bodym" color={"$secondary500"} marginBottom="$s">
@@ -97,7 +97,7 @@ export const FieldGroup = forwardRef<any, FieldGroupProps>(
           backgroundColor="white"
           paddingVertical="$s"
           marginBottom="$s">
-          {iconLeft && <IconField name={iconLeft} />}
+          {iconLeft && <Icon name={iconLeft} />}
           <Field
             placeholder={placeholder}
             onChange={onChange}

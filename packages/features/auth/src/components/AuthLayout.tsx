@@ -4,7 +4,7 @@ import { Link } from "expo-router";
 
 export function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <View paddingHorizontal={"$6xl"} flex={1} backgroundColor={"white"} flexDirection="row">
+    <View paddingHorizontal={"$4xl"} flex={1} backgroundColor={"white"} flexDirection="row">
       <View w={"50%"} alignItems="center" paddingHorizontal={"$3xl"} paddingVertical={"$base"}>
         <View mb={"$xl"} width={"100%"} paddingVertical={"$base"}>
           <View>

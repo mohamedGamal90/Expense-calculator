@@ -3,13 +3,14 @@ import { Slot } from "expo-router";
 import { config } from "../theme";
 import { useLoadAssets } from "@aurora/utils";
 import {
-  Inter_400Regular,
-  Inter_900Black,
-  Inter_300Light,
-  Inter_500Medium,
-  Inter_600SemiBold,
-  Inter_700Bold,
-} from "@expo-google-fonts/inter";
+  Tajawal_200ExtraLight,
+  Tajawal_300Light,
+  Tajawal_400Regular,
+  Tajawal_500Medium,
+  Tajawal_700Bold,
+  Tajawal_800ExtraBold,
+  Tajawal_900Black,
+} from "@expo-google-fonts/tajawal";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "@aurora/localization";
 
@@ -18,12 +19,13 @@ const queryClient = new QueryClient();
 export default function RootLayout() {
   const { isLoaded } = useLoadAssets({
     fonts: {
-      Inter_400Regular,
-      Inter_900Black,
-      Inter_300Light,
-      Inter_500Medium,
-      Inter_600SemiBold,
-      Inter_700Bold,
+      Tajawal_200ExtraLight,
+      Tajawal_300Light,
+      Tajawal_400Regular,
+      Tajawal_500Medium,
+      Tajawal_700Bold,
+      Tajawal_800ExtraBold,
+      Tajawal_900Black,
     },
   });
 
