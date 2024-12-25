@@ -98,7 +98,7 @@ export const CardList = () => {
           left={20}
           icon={
             <Icon
-              style={{ transform: [{ scaleX: isRtl ? 1 : -1 }] }}
+              // style={{ transform: [{ scaleX: isRtl ? 1 : -1 }] }}
               name={"arrow-left"}
               color={color.$white.val}
               width={24}
