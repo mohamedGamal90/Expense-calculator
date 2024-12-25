@@ -7,7 +7,7 @@ export const ForgetPasswordVerificationScreen = () => {
   const router = useRouter();
   const params = useLocalSearchParams();
 
-  const { password, username, email, phoneNumber } = params as {
+  const { password, username, email } = params as {
     username: string;
     password: string;
     email: string;

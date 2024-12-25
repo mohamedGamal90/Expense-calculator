@@ -7,7 +7,7 @@ export const SelectedCardHeader = ({ cardNumber }: { cardNumber: string }) => {
   return (
     <>
       <StyledText variant="Headingxl" color={"$neutral800"}>
-        {t("cardManagement.cardSelected")}
+        {t("titles.cardSelected")}
       </StyledText>
       <View flexDirection="row" alignItems="center" gap="$s" marginVertical="$m">
         <Image style={{ width: 80, height: 50 }} source={require("./cardImage.png")} />

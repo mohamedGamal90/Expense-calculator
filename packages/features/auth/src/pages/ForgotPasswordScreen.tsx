@@ -111,8 +111,8 @@ export const ForgotPasswordScreen = () => {
           <ControlledField
             fieldName={FormFields.Username}
             type="textInput"
-            placeholder={t("placeholders.email")}
-            label={t("inputs.email")}
+            placeholder={t("placeholders.username")}
+            label={t("inputs.username")}
             iconLeft="email"
           />
 

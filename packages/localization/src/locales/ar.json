@@ -3,20 +3,27 @@
     "email": "البريد الإلكتروني",
     "password": "كلمة المرور",
     "newPassword": "كلمة المرور الجديدة",
-    "confirmNewPassword": "تأكيد كلمة المرور الجديدة"
+    "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+    "username": "اسم المستخدم",
+    "amount-to-add": "المبلغ الذي تريد إضافته"
   },
   "placeholders": {
     "email": "أدخل بريدك الإلكتروني",
     "password": "أدخل كلمة المرور",
     "newPassword": "أدخل كلمة المرور الجديدة",
-    "confirmNewPassword": "تأكيد كلمة المرور الجديدة"
+    "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+    "username": "أدخل اسم المستخدم",
+    "select-card": "اختر بطاقة"
   },
   "buttons": {
     "login": "تسجيل الدخول",
     "forgotPassword": "هل نسيت كلمة المرور؟",
     "submit": "إرسال",
     "deactivate": "إلغاء التفعيل",
-    "activate": "تفعيل"
+    "activate": "تفعيل",
+    "showAll": "عرض الكل",
+    "logout": "تسجيل الخروج",
+    "next": "التالي"
   },
   "titles": {
     "login": "تسجيل الدخول",
@@ -33,7 +40,34 @@
     "status": "الحالة",
     "cardNumber": "رقم البطاقة",
     "expiryDate": "تاريخ انتهاء الصلاحية",
-    "cvv": "رمز التحقق"
+    "cvv": "رمز التحقق",
+    "transactions-history": "تاريخ المعاملات",
+    "overview": "نظرة عامة",
+    "topUp": "إعادة شحن",
+    "manage": "إدارة",
+    "home": "الرئيسية",
+    "add_card": "إضافة بطاقة",
+    "transfers": "التحويلات",
+    "settings": "الإعدادات",
+    "card-activation": "تفعيل البطاقة",
+    "card-limits": "حدود البطاقة",
+    "report-card": "تقرير البطاقة",
+    "replace-card": "استبدال البطاقة",
+    "change-pin": "تغيير الرقم السري",
+    "international-transactions": "المعاملات الدولية",
+    "card-management": "إدارة البطاقة",
+    "add-money": "إضافة أموال",
+    "review-payment": "مراجعة الدفع",
+    "verification": "التحقق",
+    "status-view": "عرض الحالة",
+    "cardSelected": "تم اختيار البطاقة"
+  },
+  "cardDetails": {
+    "yourBalance": "رصيدك",
+    "status": "الحالة",
+    "cardCurrency": "عملة البطاقة",
+    "active": "نشط",
+    "inactive": "غير نشط"
   },
   "cardManagement": {
     "cardSelected": "تم اختيار البطاقة",
@@ -49,9 +83,30 @@
   },
   "validation": {
     "required": "هذا الحقل مطلوب",
-    "email": "يرجى إدخال عنوان بريد إلكتروني صالح",
+    "email": "يرجى إدخال بريد إلكتروني صالح",
     "password": "يرجى إدخال كلمة مرور صالحة",
-    "newPassword": "يرجى إدخال كلمة مرور جديدة صحيحة",
-    "confirmPassword": "يجب أن تتطابق كلمة المرور."
+    "newPassword": "يرجى إدخال كلمة مرور جديدة صالحة",
+    "confirmPassword": "يجب أن تتطابق كلمة المرور",
+    "minErr": "يجب أن يكون على الأقل 8 أحرف",
+    "lowercaseErr": "يجب أن يحتوي على حرف صغير واحد",
+    "uppercaseErr": "يجب أن يحتوي على حرف كبير واحد",
+    "numberErr": "يجب أن يحتوي على رقم واحد",
+    "specialErr": "يجب أن يحتوي على حرف خاص واحد",
+    "spaceErr": "لا يجب تضمين المسافات",
+    "number": "يجب أن يكون رقمًا",
+    "confirm-password": "يجب أن تتطابق كلمة المرور"
+  },
+  "currencies": {
+    "USD": "دولار أمريكي",
+    "EGP": "جنيه مصري",
+    "GHS": "سيدي غاني",
+    "LYD": "دينار ليبي",
+    "SDG": "جنيه سوداني"
+  },
+  "status": {
+    "send": "إرسال",
+    "added": "تم الإضافة",
+    "success": "نجاح",
+    "cancelled": "ملغى"
   }
 }

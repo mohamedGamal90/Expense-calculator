@@ -4,21 +4,26 @@
     "password": "Password",
     "newPassword": "New Password",
     "confirmNewPassword": "Confirm New Password",
-    "username": "Username"
+    "username": "Username",
+    "amount-to-add": "Amount you want to add"
   },
   "placeholders": {
     "email": "Enter your email",
     "password": "Enter Password",
     "newPassword": "Enter your new password",
     "confirmNewPassword": "Confirm your new password",
-    "username": "Enter your username"
+    "username": "Enter your username",
+    "select-card": "Select a card"
   },
   "buttons": {
     "login": "Login",
     "forgotPassword": "Forgot your password?",
     "submit": "Submit",
     "deactivate": "Deactivate",
-    "activate": "Activate"
+    "activate": "Activate",
+    "showAll": "Show All",
+    "logout": "Logout",
+    "next": "Next"
   },
   "titles": {
     "login": "Log In",
@@ -35,7 +40,34 @@
     "status": "Status",
     "cardNumber": "Card number",
     "expiryDate": "Expiry date",
-    "cvv": "CVV"
+    "cvv": "CVV",
+    "transactions-history": "Transactions History",
+    "overview": "Overview",
+    "topUp": "Top Up",
+    "manage": "Manage",
+    "home": "Home",
+    "add_card": "Add Card",
+    "transfers": "Transfers",
+    "settings": "Settings",
+    "card-activation": "Card Activation",
+    "card-limits": "Card Limits",
+    "report-card": "Report Card",
+    "replace-card": "Replace Card",
+    "change-pin": "Change Pin",
+    "international-transactions": "International Transactions",
+    "card-management": "Card Management",
+    "add-money": "Add Money",
+    "review-payment": "Review Payment",
+    "verification": "Verification",
+    "status-view": "StatusView",
+    "cardSelected": "Card selected"
+  },
+  "cardDetails": {
+    "yourBalance": "Your Balance",
+    "status": "Status",
+    "cardCurrency": "Card Currency",
+    "active": "Active",
+    "inactive": "Inactive"
   },
   "cardManagement": {
     "cardSelected": "Card selected",
@@ -63,5 +95,18 @@
     "spaceErr": "Do not include spaces",
     "number": "Must be a number",
     "confirm-password": "Password must match"
+  },
+  "currencies": {
+    "USD": "United States Dollar",
+    "EGP": "Egyptian Pound",
+    "GHS": "Ghanaian Cedi",
+    "LYD": "Libyan Dinar",
+    "SDG": "Sudanese Pound"
+  },
+  "status": {
+    "send": "Send",
+    "added": "Added",
+    "success": "Success",
+    "cancelled": "Cancelled"
   }
 }

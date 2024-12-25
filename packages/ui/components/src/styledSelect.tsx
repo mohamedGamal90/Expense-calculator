@@ -1,26 +1,41 @@
-import { Dispatch, SetStateAction, useMemo } from "react";
+import { useCallback } from "react";
 import { SelectProps, Select, YStack } from "tamagui";
 import { Icon } from "@aurora/icons";
-import { CardType } from "@metroid/types";
 
 import { Adapt, Sheet } from "tamagui";
 import { LinearGradient } from "tamagui/linear-gradient";
+import { MappingList } from "./MappingList";
+
+type Item = { label: string; value: string };
 
 export const StyledSelect = ({
   items,
   placeHolderText,
   value,
-  setValue,
+  onSelect,
   ...props
 }: SelectProps & {
-  items: CardType[] | undefined;
-  placeHolderText: string;
-  value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  items: Item[];
+  value?: string;
+  placeHolderText?: string;
+  onSelect: (value: string) => void;
 }) => {
+  const renderOption = useCallback(
+    (item: Item, index: number) => {
+      return (
+        <Select.Item padding={"$m"} index={index} value={item.value}>
+          <Select.ItemText color={"$black"}>{item.label}</Select.ItemText>
+          <Select.ItemIndicator marginLeft="auto">
+            <Icon name={"arrow-circle-right"} />
+          </Select.ItemIndicator>
+        </Select.Item>
+      );
+    },
+    [items],
+  );
   return (
-    <Select value={value} onValueChange={setValue} disablePreventBodyScroll {...props}>
-      <Select.Trigger padding={"$ml"} borderRadius={"$m"} iconAfter={<Icon name={"cards"} />}>
+    <Select value={value} onValueChange={onSelect} disablePreventBodyScroll {...props}>
+      <Select.Trigger padding={"$ml"} borderRadius={"$m"} iconAfter={<Icon name={"arrow-down"} />}>
         <Select.Value placeholder={placeHolderText} />
       </Select.Trigger>
 
@@ -55,19 +70,7 @@ export const StyledSelect = ({
           minWidth={200}>
           <Select.Group>
             {/* <Select.Label>Fruits</Select.Label> */}
-            {items &&
-              useMemo(
-                () =>
-                  items.map((item, index) => (
-                    <Select.Item padding={"$m"} index={index} key={item.id} value={item.id}>
-                      <Select.ItemText>{item.cardNumber}</Select.ItemText>
-                      <Select.ItemIndicator marginLeft="auto">
-                        <Icon name={"arrow-circle-right"} />
-                      </Select.ItemIndicator>
-                    </Select.Item>
-                  )),
-                [items],
-              )}
+            <MappingList data={items} renderItem={renderOption} />
           </Select.Group>
           {/* Native gets an extra icon */}
           {props.native && (

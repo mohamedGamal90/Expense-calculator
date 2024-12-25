@@ -1,7 +1,6 @@
 import { TamaguiProvider, Alert } from "@aurora/components";
 import { Slot } from "expo-router";
 import { config } from "../theme";
-import { useLoadAssets } from "@aurora/utils";
 import {
   Tajawal_200ExtraLight,
   Tajawal_300Light,
@@ -12,7 +11,10 @@ import {
   Tajawal_900Black,
 } from "@expo-google-fonts/tajawal";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import "@aurora/localization";
+import "@metroid/localization";
+import { useLoadAssets } from "@metroid/hooks";
+import "dayjs/locale/ar"; // Import Arabic locale
+import "dayjs/locale/en"; // Import English locale
 
 const queryClient = new QueryClient();
 

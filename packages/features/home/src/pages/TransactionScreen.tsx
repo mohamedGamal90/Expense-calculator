@@ -2,13 +2,18 @@ import { getTokens, StyledText, View } from "@aurora/components";
 import { ActivityIndicator, FlatList } from "react-native";
 import { TransactionHistoryItem } from "@aurora/blocks";
 import { useGetTransactionsQuery } from "../hooks";
-import { useSelectedCard } from "@metroid/store";
 import { getLastMonth, getTodayDate } from "@aurora/utils";
 import { Icon } from "@aurora/icons";
 import { useTranslation } from "react-i18next";
+import { useLocalSearchParams } from "expo-router";
 
 export const TransactionScreen = () => {
-  const selectedCard = useSelectedCard();
+  const params = useLocalSearchParams();
+
+  const { id } = params as {
+    id: string;
+  };
+
   const { color } = getTokens();
   const { t } = useTranslation();
 
@@ -17,7 +22,7 @@ export const TransactionScreen = () => {
     isLoading,
     isFetching,
   } = useGetTransactionsQuery({
-    cardId: selectedCard?.id,
+    cardId: id,
     transactionDateFrom: getLastMonth(),
     transactionDateTo: getTodayDate(),
     pageIndex: 1,
@@ -63,8 +68,13 @@ export const TransactionScreen = () => {
           <FlatList
             data={transactions?.transaction}
             contentContainerStyle={{ flexGrow: 1 }}
-            keyExtractor={item => item.transactionId}
-            renderItem={({ item }) => <TransactionHistoryItem transaction={item} />}
+            keyExtractor={(_item, index) => `item-${index}`}
+            renderItem={({ item }) => (
+              <TransactionHistoryItem
+                timeZone={transactions?.timeZone as string}
+                transaction={item}
+              />
+            )}
             ListEmptyComponent={emptyTransactionsList}
           />
         )}

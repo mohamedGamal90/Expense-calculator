@@ -3,21 +3,22 @@ import { CardInfoBlock } from "./components/cardInfoBlock";
 import { Dimensions } from "react-native";
 import { getCurrencyFullName, getCurrencySymbol } from "@aurora/utils";
 import { useSelectedCard } from "@metroid/store";
+import { t } from "i18next";
 
 const { width: screenWidth } = Dimensions.get("window");
 
 function CardCurrencyDetailsLoading() {
   return (
     <View flexDirection="row" justifyContent="center" margin={screenWidth > 600 ? "$ml" : "$sm"}>
-      <CardInfoBlock title={"Your Balance"}>
+      <CardInfoBlock title={t("cardDetails.yourBalance")}>
         <View width={80} height={24} backgroundColor="$secondary100" borderRadius="$sm" />
       </CardInfoBlock>
       <View width={1} height={68} backgroundColor={"$secondary100"} marginHorizontal={"$base"} />
-      <CardInfoBlock title={"Status"}>
+      <CardInfoBlock title={t("cardDetails.status")}>
         <View width={60} height={24} backgroundColor="$secondary100" borderRadius="$sm" />
       </CardInfoBlock>
       <View width={1} height={68} backgroundColor={"$secondary100"} marginHorizontal={"$base"} />
-      <CardInfoBlock title={"Card Currency"}>
+      <CardInfoBlock title={t("cardDetails.cardCurrency")}>
         <View width={70} height={24} backgroundColor="$secondary100" borderRadius="$sm" />
       </CardInfoBlock>
     </View>
@@ -31,11 +32,12 @@ export const CardCurrencyDetails = () => {
     return <CardCurrencyDetailsLoading />;
   }
 
-  const cardStatus = selectedCard.statusName === "VALID CARD" ? "Active" : "Inactive";
+  const cardStatus =
+    selectedCard.statusName === "VALID CARD" ? t("cardDetails.active") : t("cardDetails.inactive");
 
   return (
     <View flexDirection="row" justifyContent="center" margin={screenWidth > 600 ? "$ml" : "$sm"}>
-      <CardInfoBlock title={"Your Balance"}>
+      <CardInfoBlock title={t("cardDetails.yourBalance")}>
         <StyledText
           variant={screenWidth > 600 ? "BodySemiBoldml" : "BodySemiBoldsm"}
           paddingVertical={"$xs"}
@@ -44,7 +46,7 @@ export const CardCurrencyDetails = () => {
         </StyledText>
       </CardInfoBlock>
       <View width={1} height={68} backgroundColor={"$secondary100"} marginHorizontal={"$base"} />
-      <CardInfoBlock title={"Status"}>
+      <CardInfoBlock title={t("cardDetails.status")}>
         <View
           backgroundColor={selectedCard.statusName === "VALID CARD" ? "$success50" : "$error100"}
           paddingHorizontal={"$sm"}
@@ -58,12 +60,12 @@ export const CardCurrencyDetails = () => {
         </View>
       </CardInfoBlock>
       <View width={1} height={68} backgroundColor={"$secondary100"} marginHorizontal={"$base"} />
-      <CardInfoBlock title={"Card Currency"}>
+      <CardInfoBlock title={t("cardDetails.cardCurrency")}>
         <StyledText
           paddingVertical={"$xs"}
           variant={screenWidth > 600 ? "BodySemiBoldml" : "BodySemiBolds"}
           color={"$secondary900"}>
-          {getCurrencyFullName(selectedCard.currencyName)}
+          {t("currencies." + selectedCard.currencyName)}
         </StyledText>
       </CardInfoBlock>
     </View>

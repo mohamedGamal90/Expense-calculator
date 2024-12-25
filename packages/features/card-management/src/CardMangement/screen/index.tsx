@@ -12,9 +12,11 @@ import {
 import { CardAvailableStatusCodes } from "../cardStatusCodes";
 import { useSelectedCard } from "@metroid/store";
 import { AvailableStatuses } from "@metroid/types";
+import { useTranslation } from "react-i18next";
 
 export const CardMangementDialogScreen = () => {
   const [render, setRender] = useState<JSX.Element>();
+  const { t } = useTranslation();
 
   const selectedCard = useSelectedCard();
 
@@ -43,32 +45,32 @@ export const CardMangementDialogScreen = () => {
     disabled: boolean;
   }[] = [
     {
-      title: "Card Activation",
+      title: t("titles.card-activation"),
       icon: "freeze-card",
       render: <CardActivationFlow returnBackHandler={returnBackHandler} />,
       disabled: activationDisabled,
     },
     {
-      title: "Card Limits",
+      title: t("titles.card-limits"),
       icon: "card-limit",
       render: <CardLimitFlow returnBackHandler={returnBackHandler} />,
       disabled: cardIsValid,
     },
     {
-      title: "Report Card",
+      title: t("titles.report-card"),
       icon: "report-card",
       render: <ReportCardFlow returnBackHandler={returnBackHandler} />,
       disabled: cardIsValid,
     },
-    { title: "Replace Card", icon: "replace-card", render: <View />, disabled: true }, //untill it is implemented
+    { title: t("titles.replace-card"), icon: "replace-card", render: <View />, disabled: true }, //untill it is implemented
     {
-      title: "Change Pin",
+      title: t("titles.change-pin"),
       icon: "change-pin",
       render: <SetPinFlow returnBackHandler={returnBackHandler} />,
       disabled: setPinDisabled,
     },
     {
-      title: "International Transactions",
+      title: t("titles.international-transactions"),
       icon: "arrow-swap-horizontal",
       render: <View />,
       disabled: true, //untill it is implemented
@@ -86,7 +88,7 @@ export const CardMangementDialogScreen = () => {
             marginBottom={"$m"}>
             <Dialog.Title>
               <StyledText variant="Heading2xl" color={"$secondary800"}>
-                Card Management
+                {t("titles.card-management")}
               </StyledText>
             </Dialog.Title>
             <Dialog.Close asChild>

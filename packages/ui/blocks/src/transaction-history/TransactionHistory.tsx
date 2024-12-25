@@ -1,14 +1,17 @@
 import { getTokens, StyledText, View } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { TransactionHistoryItem } from "./components/TransactionHistoryItem";
-import { Link } from "expo-router";
 import { useGetTransactionsQuery } from "@aurora/home/src/hooks/useGetTransactions";
 import { useSelectedCard } from "@metroid/store";
 import { getLastWeek, getTodayDate } from "@aurora/utils";
+import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 
 export const TransactionHistory = () => {
   const selectedCard = useSelectedCard();
   const { color } = getTokens();
+  const router = useRouter();
+  const { t } = useTranslation();
 
   const { data: transactions, isLoading: transactionsIsLoading } = useGetTransactionsQuery({
     cardId: selectedCard?.id,
@@ -30,18 +33,24 @@ export const TransactionHistory = () => {
       padding={"$ml"}
       width={"100%"}>
       <View flexDirection="row" justifyContent="space-between" alignItems="center">
-        <StyledText color={"$secondary900"} variant="Headingxl">
-          Transaction History
-        </StyledText>
-        <View flexDirection="row" alignItems="center" gap={"$xs"}>
-          <Link href={"/dashboard/transaction"}>
-            <View flexDirection="row" alignItems="center" gap="$xs">
-              <StyledText color={"$secondary900"} variant="BodySemiBoldm">
-                Show All
-              </StyledText>
-              <Icon name={"arrow-right"} color="#3C3C3D" />
-            </View>
-          </Link>
+        <View>
+          <StyledText color={"$secondary900"} variant="Headingxl">
+            {t("titles.transactions-history")}
+          </StyledText>
+        </View>
+
+        <View
+          cursor="pointer"
+          flexDirection={"row"}
+          alignItems="center"
+          gap="$s"
+          onPress={() =>
+            router.push({ pathname: "/dashboard/transaction", params: { id: selectedCard?.id } })
+          }>
+          <StyledText color={"$secondary900"} variant="BodySemiBoldm">
+            {t("buttons.showAll")}
+          </StyledText>
+          <Icon name={"arrow-right"} color="#3C3C3D" />
         </View>
       </View>
       <View>
@@ -49,7 +58,11 @@ export const TransactionHistory = () => {
           transactions.transaction
             .slice(0, 3)
             .map((transaction, index) => (
-              <TransactionHistoryItem key={index} transaction={transaction} />
+              <TransactionHistoryItem
+                key={index}
+                transaction={transaction}
+                timeZone={transactions.timeZone}
+              />
             ))}
         {transactions && transactions.transaction.length === 0 && (
           <View flex={1} alignItems="center" justifyContent="center">

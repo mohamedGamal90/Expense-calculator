@@ -1,5 +1,5 @@
 import axios from "axios";
-import { protectedStore, StoreKey } from "@aurora/utils";
+import { StoreKey, getValue } from "@aurora/utils";
 import { router } from "expo-router";
 import { deleteValue } from "@aurora/utils/src/protectedStore";
 import { showAlert } from "@aurora/components";
@@ -20,7 +20,7 @@ const authApiClient = axios.create({
 });
 
 authApiClient.interceptors.request.use(async config => {
-  const token = await protectedStore.getValue(StoreKey.AccessToken);
+  const token = await getValue(StoreKey.AccessToken);
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

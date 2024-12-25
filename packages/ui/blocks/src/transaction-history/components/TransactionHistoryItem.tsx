@@ -1,28 +1,50 @@
 import { StyledText, Pill, View, PillVariant } from "@aurora/components";
 import { Icon, IconKeys } from "@aurora/icons";
 import { TransactionType } from "@aurora/home/src/hooks/useGetTransactions";
-import { formatDate } from "@aurora/utils";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import { useSettingStore } from "@metroid/store";
+import { useTranslation } from "react-i18next";
 
-export const TransactionHistoryItem = ({ transaction }: { transaction: TransactionType }) => {
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(customParseFormat);
+
+export const TransactionHistoryItem = ({
+  transaction,
+  timeZone,
+}: {
+  transaction: TransactionType;
+  timeZone: string;
+}) => {
   const { transactionType, transactionDate, billingAmount, billingCurrency, status } = transaction;
+
+  const { lang } = useSettingStore();
+  const { t } = useTranslation();
 
   const getTypeObj: { icon: IconKeys; type: string } = (() => {
     switch (transactionType) {
       case "MONEY_OUT":
-        return { icon: "send", type: "Send" };
+        return { icon: "send", type: t("status.send") }; // "Send" or "إرسال"
       default:
-        return { icon: "topup", type: "Added" };
+        return { icon: "topup", type: t("status.added") }; // "Added" or "تم الإضافة"
     }
   })();
 
   const pillVariant: { pillVariant: PillVariant; PillTxt: string } = (() => {
     switch (status) {
       case "1":
-        return { pillVariant: "success", PillTxt: "Success" };
+        return { pillVariant: "success", PillTxt: t("status.success") }; // "Success" or "نجاح"
       default:
-        return { pillVariant: "negative", PillTxt: "cancelled" };
+        return { pillVariant: "negative", PillTxt: t("status.cancelled") }; // "Cancelled" or "ملغى"
     }
   })();
+  const parsedDate = dayjs(transactionDate, "DD-MM-YYYY HH:mm:ss", true)
+    .locale(lang as string)
+    .tz(timeZone);
+  const formattedDate = parsedDate.format("dddd, D MMMM YYYY, h:mm A"); // User-friendly format
 
   return (
     <View
@@ -39,14 +61,14 @@ export const TransactionHistoryItem = ({ transaction }: { transaction: Transacti
         </StyledText>
       </View>
       <StyledText color={"$secondary400"} variant="BodySemiBoldml">
-        {formatDate(transactionDate)}
+        {formattedDate}
       </StyledText>
       <View width={100}>
         <Pill marginHorizontal={"$auto"} width={80} height={25} variant={pillVariant.pillVariant}>
           {pillVariant.PillTxt}
         </Pill>
       </View>
-      <StyledText variant="BodyBoldm">{`${getTypeObj.type === "Send" ? "-" : ""}${billingAmount} ${billingCurrency}`}</StyledText>
+      <StyledText variant="BodyBoldm">{`${getTypeObj.type === "Send" ? "-" : ""}${billingAmount} ${t("currencies." + billingCurrency)}`}</StyledText>
     </View>
   );
 };

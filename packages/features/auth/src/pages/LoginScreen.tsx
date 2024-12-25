@@ -5,7 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "expo-router";
-import { protectedStore, StoreKey } from "@aurora/utils";
+import { setValue, StoreKey } from "@aurora/utils";
 import { ControlledField } from "@aurora/blocks";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
@@ -42,7 +42,7 @@ export function LoginScreen() {
       });
     },
     async onSuccess(data) {
-      await protectedStore.setValue(StoreKey.AccessToken, data.access_token);
+      await setValue(StoreKey.AccessToken, data.access_token);
       router.navigate("/dashboard");
     },
   });

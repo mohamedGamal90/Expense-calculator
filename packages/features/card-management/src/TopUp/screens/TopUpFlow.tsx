@@ -9,9 +9,12 @@ import { useTopUpMutation } from "../hooks/useTopUpMutation";
 import { getCurrencyCode } from "@aurora/utils";
 import { useGetCardsQuery } from "@metroid/hooks";
 import { useSelectedCard } from "@metroid/store";
+import { useTranslation } from "react-i18next";
 
 export function TopUpFlow() {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
+  const { t } = useTranslation();
+
   const flatListRef = useRef<FlatList>(null);
   const toCardRef = useRef<CardType | null>(null);
   const amountRef = useRef<string>("");
@@ -72,7 +75,7 @@ export function TopUpFlow() {
 
   const topUpFlowScreens = [
     {
-      title: "Add Money",
+      title: t("titles.add-money"),
       render: (
         <TopUp
           cards={cards?.filter(item => item.id !== selectedCard.id)}
@@ -82,7 +85,7 @@ export function TopUpFlow() {
       ),
     },
     {
-      title: "Review Payment",
+      title: t("titles.review-payment"),
       render: (
         <TopUpConfirmation
           fromCardNumber={selectedCard.cardNumber}
@@ -94,7 +97,7 @@ export function TopUpFlow() {
       ),
     },
     {
-      title: "Verification",
+      title: t("titles.verification"),
       render: (
         <Verification
           onSubmit={callApi}
@@ -105,7 +108,7 @@ export function TopUpFlow() {
       ),
     },
     {
-      title: "StatusView",
+      title: t("titles.status-view"),
       render: (
         <StatusView
           onSubmit={onNextScreen}
@@ -116,7 +119,6 @@ export function TopUpFlow() {
       ),
     },
   ];
-
   return (
     <DialogFlow
       screensFlow={topUpFlowScreens}

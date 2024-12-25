@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "@metroid/types": "*",
+    "@metroid/localization": "*",
     "zustand": "^5.0.2"
   }
 }

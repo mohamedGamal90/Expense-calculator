@@ -1,11 +1,16 @@
 import { PropsWithChildren } from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View, ViewProps } from "tamagui";
+import { useIsRtl } from "@metroid/hooks";
 
-export const RootView = ({ children, ...props }: PropsWithChildren & ViewProps) => {
-  const { top } = useSafeAreaInsets();
+interface RootViewProps extends ViewProps {
+  dir?: "rtl" | "ltr";
+}
+
+export const RootView = ({ children, ...props }: PropsWithChildren<RootViewProps>) => {
+  const isRtl = useIsRtl();
+
   return (
-    <View marginTop={top} {...props}>
+    <View flex={1} dir={isRtl ? "rtl" : "ltr"} {...props}>
       {children}
     </View>
   );

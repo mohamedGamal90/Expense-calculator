@@ -11,6 +11,7 @@
     "@metroid/types": "*",
     "@metroid/hooks": "*",
     "@hookform/resolvers": "^3.9.1",
+    "@metroid/localization": "*",
     "expo-image": "~2.0.0",
     "react-hook-form": "^7.53.2",
     "yup": "^1.4.0"
