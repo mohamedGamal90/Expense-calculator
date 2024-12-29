@@ -1,15 +1,17 @@
 import { FlatList } from "react-native";
 import { CardType } from "@metroid/types";
 import { useRef, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { DialogFlow, StatusView, Verification } from "@aurora/blocks";
-import { TopUp } from "./TopUpScreen";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 import { TopUpConfirmation } from "./TopUpConfirmationScreen";
 import { useTopUpMutation } from "../hooks/useTopUpMutation";
-import { getCurrencyCode } from "@aurora/utils";
 import { useGetCardsQuery } from "@metroid/hooks";
 import { useSelectedCard } from "@metroid/store";
+import { getCurrencyCode } from "@aurora/utils";
 import { useTranslation } from "react-i18next";
+import { showAlert } from "@aurora/components";
+import { TopUp } from "./TopUpScreen";
 
 export function TopUpFlow() {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
@@ -17,6 +19,7 @@ export function TopUpFlow() {
 
   const flatListRef = useRef<FlatList>(null);
   const toCardRef = useRef<CardType | null>(null);
+  const queryClient = useQueryClient();
   const amountRef = useRef<string>("");
   const { data: cards } = useGetCardsQuery();
   const selectedCard = useSelectedCard();
@@ -50,7 +53,6 @@ export function TopUpFlow() {
     data,
   } = useRequestOtpMutation({
     onSuccess: () => onNextScreen(),
-    onError: error => console.log("error", error),
   });
 
   const { mutateAsync: topUp, isPending: topupPending } = useTopUpMutation({});
@@ -61,7 +63,16 @@ export function TopUpFlow() {
     onNextScreen();
   };
 
-  const callApi = async () => {
+  const callOtpApi = async () => {
+    await requestOTP().catch(error => {
+      showAlert({
+        title: "An error has occurred.",
+        message: error.response?.data.message as string,
+      });
+    });
+  };
+
+  const callTopUpApi = async () => {
     await topUp({
       paymentAmount: amountRef.current,
       currencyCode: getCurrencyCode(selectedCard.currencyName),
@@ -70,6 +81,7 @@ export function TopUpFlow() {
     }).catch(() => {
       setStatus({ status: "error", statusTitle: "Top up failed" });
     });
+    queryClient.refetchQueries({ queryKey: ["cardList"] });
     onNextScreen();
   };
 
@@ -91,7 +103,7 @@ export function TopUpFlow() {
           fromCardNumber={selectedCard.cardNumber}
           toCardNumber={toCardRef.current && toCardRef.current.cardNumber}
           amount={amountRef.current}
-          onSubmit={requestOTP}
+          onSubmit={callOtpApi}
           isPending={requestOtpPending}
         />
       ),
@@ -100,7 +112,7 @@ export function TopUpFlow() {
       title: t("titles.verification"),
       render: (
         <Verification
-          onSubmit={callApi}
+          onSubmit={callTopUpApi}
           type={data?.data.email ? "email" : "mobile"}
           credential={data?.data.email ?? data?.data.phoneNumber}
           isPending={topupPending}

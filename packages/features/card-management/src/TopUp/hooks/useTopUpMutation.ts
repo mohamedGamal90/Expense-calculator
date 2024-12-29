@@ -35,10 +35,6 @@ export const useTopUpMutation = ({
 } = {}) =>
   useMutation({
     mutationFn: (params: TopUpAccountParams) => topUpAccount(params),
-    onError(error) {
-      onError?.(error as ErrorType);
-    },
-    onSuccess(data) {
-      onSuccess?.(data.data);
-    },
+    onError: error => onError?.(error as ErrorType),
+    onSuccess: data => onSuccess?.(data.data),
   });
