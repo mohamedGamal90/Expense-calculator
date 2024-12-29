@@ -27,7 +27,7 @@ export const CardList = () => {
   const isRtl = useIsRtl();
   const { setSelectedCard } = useSelectedCardActions();
 
-  const { data: cards } = useGetCardsQuery();
+  const { data: cards, isFetching } = useGetCardsQuery();
 
   const width = screenWidth - space.base.val * 2 - 255;
 
@@ -37,7 +37,7 @@ export const CardList = () => {
     }
   }, [cards]);
 
-  if (!cards) {
+  if (!cards || isFetching) {
     return <CardListLoading />;
   }
 
@@ -93,20 +93,22 @@ export const CardList = () => {
   return (
     <View position="relative">
       <View flexDirection="row-reverse" justifyContent="center" alignItems="center" flex={1}>
-        <ControlIndexBtn
-          onPress={onPrev}
-          left={20}
-          icon={
-            <Icon
-              // style={{ transform: [{ scaleX: isRtl ? 1 : -1 }] }}
-              name={"arrow-left"}
-              color={color.$white.val}
-              width={24}
-              height={24}
-            />
-          }
-          disabled={currentIndex === 0}
-        />
+        {cards.length > 1 && (
+          <ControlIndexBtn
+            onPress={onPrev}
+            left={20}
+            icon={
+              <Icon
+                // style={{ transform: [{ scaleX: isRtl ? 1 : -1 }] }}
+                name={"arrow-left"}
+                color={color.$white.val}
+                width={24}
+                height={24}
+              />
+            }
+            disabled={currentIndex === 0}
+          />
+        )}
 
         <Pressable
           style={{ width: "100%" }}
@@ -135,29 +137,32 @@ export const CardList = () => {
             onMomentumScrollEnd={handleMomentumScrollEnd}
           />
         </Pressable>
-        <ControlIndexBtn
-          style={{ transform: [{ scaleX: isRtl ? -1 : 1 }] }}
-          onPress={onNext}
-          right={20}
-          icon={<Icon name={"arrow-right"} color={color.white.val} width={24} height={24} />}
-          disabled={currentIndex === cards.length - 1}
-        />
+        {cards.length > 1 && (
+          <ControlIndexBtn
+            style={{ transform: [{ scaleX: isRtl ? -1 : 1 }] }}
+            onPress={onNext}
+            right={20}
+            icon={<Icon name={"arrow-right"} color={color.white.val} width={24} height={24} />}
+            disabled={currentIndex === cards.length - 1}
+          />
+        )}
       </View>
 
       <View gap={5} flexDirection="row" alignSelf="center" marginVertical={10}>
-        {cards.map((_, index) => (
-          <Pressable
-            key={index}
-            onPress={() => handleChooseDot(index)}
-            style={{
-              backgroundColor: currentIndex === index ? "black" : "grey",
-              transform: [{ scale: currentIndex === index ? 1.25 : 1 }],
-              width: 10,
-              height: 10,
-              borderRadius: 100,
-            }}
-          />
-        ))}
+        {cards.length > 1 &&
+          cards.map((_, index) => (
+            <Pressable
+              key={index}
+              onPress={() => handleChooseDot(index)}
+              style={{
+                backgroundColor: currentIndex === index ? "black" : "grey",
+                transform: [{ scale: currentIndex === index ? 1.25 : 1 }],
+                width: 10,
+                height: 10,
+                borderRadius: 100,
+              }}
+            />
+          ))}
       </View>
     </View>
   );
