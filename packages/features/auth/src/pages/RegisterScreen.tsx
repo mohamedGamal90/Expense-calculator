@@ -70,7 +70,7 @@ export const RegisterScreen = () => {
             icon={<Icon name="arrow-left" color="black" />}
             onPress={() => router.push("auth/login")}
           />
-          <StyledText variant="Heading5xl">{t("titles.login")}</StyledText>
+          <StyledText variant="Heading5xl">Sign Up</StyledText>
           <View>
             <StyledText mb="$s" variant="Heading5xl">
               {t("titles.welcome")}

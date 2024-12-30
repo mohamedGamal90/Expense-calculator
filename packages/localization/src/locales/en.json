@@ -19,7 +19,8 @@
     "newPassword": "Enter your new password",
     "confirmNewPassword": "Confirm your new password",
     "username": "Enter your username",
-    "select-card": "Select a card"
+    "select-card": "Select a card",
+    "select-limit": "Select a limit"
   },
   "buttons": {
     "login": "Login",

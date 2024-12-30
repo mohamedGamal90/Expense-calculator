@@ -15,7 +15,10 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
   const { t } = useTranslation();
 
   const flatListRef = useRef<FlatList>(null);
-  const newLimitValue = useRef<number>(0);
+  const selectedLimitRef = useRef({
+    limitAmount: 0,
+    limitType: "",
+  });
   const [status, setStatus] = useState<{
     status: "success" | "error" | "pending";
     statusTitle: string;
@@ -66,17 +69,20 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
     },
   });
 
-  const firstStep = (value: number) => {
-    newLimitValue.current = value;
+  const firstStep = (limitAmount: number, limitType: string) => {
+    console.log({ limitAmount, limitType });
+    selectedLimitRef.current = { limitAmount, limitType };
     requestOTP();
   };
 
   const secondStep = async () => {
-    await setLimit({ cardId: selectedCard.id, newLimit: newLimitValue.current.toString() }).catch(
-      () => {
-        setStatus({ status: "error", statusTitle: "Limit set failed" });
-      },
-    );
+    await setLimit({
+      cardId: selectedCard.id,
+      newLimit: selectedLimitRef.current.limitAmount.toString(),
+      limitType: selectedLimitRef.current.limitType,
+    }).catch(() => {
+      setStatus({ status: "error", statusTitle: "Limit set failed" });
+    });
     onNextScreen();
   };
 
@@ -84,12 +90,7 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
     {
       title: t("titles.card-limit"),
       render: (
-        <CardLimit
-          cardNumber={selectedCard.cardNumber.slice(-4)}
-          cardCurrency={selectedCard.currencyName}
-          onSubmit={firstStep}
-          isPending={requestOtpPending}
-        />
+        <CardLimit selectedCard={selectedCard} onSubmit={firstStep} isPending={requestOtpPending} />
       ),
     },
     {

@@ -19,7 +19,8 @@
     "newPassword": "أدخل كلمة المرور الجديدة",
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
     "username": "أدخل اسم المستخدم",
-    "select-card": "اختر بطاقة"
+    "select-card": "اختر بطاقة",
+    "select-limit": "اختر حداً"
   },
   "buttons": {
     "login": "تسجيل الدخول",

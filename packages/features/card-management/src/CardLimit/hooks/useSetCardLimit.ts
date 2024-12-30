@@ -6,19 +6,19 @@ import { getNextWeek, getTommorowDate } from "@aurora/utils";
 type setCardLimitMutationParams = {
   cardId: string;
   newLimit: string;
+  limitType: string;
 };
-const setLimit = async (cardId: string, newLimit: string) => {
-  return await authApiClient.post(
+const setLimit = async (cardId: string, newLimit: string, limitType: string) =>
+  await authApiClient.post(
     `/card-management-service/api/v1/${process.env.EXPO_PUBLIC_REALM_ID}/cards/change-limit`,
     {
       cardId,
       newLimit,
-      limitType: "LMTP0107",
+      limitType,
       dateFrom: getTommorowDate(),
       dateTo: getNextWeek(),
     },
   );
-};
 
 export const useSetCardLimitMutation = ({
   onError,
@@ -28,11 +28,8 @@ export const useSetCardLimitMutation = ({
   onSuccess?: () => void;
 } = {}) =>
   useMutation({
-    mutationFn: (params: setCardLimitMutationParams) => setLimit(params.cardId, params.newLimit),
-    onError(error) {
-      onError?.(error as ErrorType);
-    },
-    onSuccess() {
-      onSuccess?.();
-    },
+    mutationFn: (params: setCardLimitMutationParams) =>
+      setLimit(params.cardId, params.newLimit, params.limitType),
+    onError: error => onError?.(error as ErrorType),
+    onSuccess: () => onSuccess?.(),
   });
