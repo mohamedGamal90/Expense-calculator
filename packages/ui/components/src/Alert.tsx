@@ -1,6 +1,7 @@
-import { AlertDialog, StyledButton, YStack } from "@aurora/components";
+import { AlertDialog, StyledButton, StyledText, YStack } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { useState, useImperativeHandle, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 type Message = { title: string; message: string };
 
@@ -44,6 +45,7 @@ export function hideAlert() {
 export const Alert = () => {
   const [message, setMessage] = useState<Message>({ message: "", title: "" });
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const { t } = useTranslation();
   const messageRef = useRef<Alert | null>(null);
   useImperativeHandle(messageRef, () => {
     return {
@@ -96,13 +98,17 @@ export const Alert = () => {
           <YStack space gap="$m" width={"100%"}>
             <YStack gap="$s" justifyContent="center" alignItems="center">
               <Icon name="error" />
-              <AlertDialog.Title>{message.title}</AlertDialog.Title>
-              <AlertDialog.Description>{message.message}</AlertDialog.Description>
+              <AlertDialog.Title>
+                <StyledText variant="Headingl">{message.title}</StyledText>
+              </AlertDialog.Title>
+              <AlertDialog.Description>
+                <StyledText variant="BodyBoldm">{message.message}</StyledText>
+              </AlertDialog.Description>
             </YStack>
 
             <AlertDialog.Action asChild>
               <StyledButton onPress={() => toggleModal(false)} theme="active">
-                Cancel
+                {t("buttons.cancel")}
               </StyledButton>
             </AlertDialog.Action>
           </YStack>

@@ -2,13 +2,13 @@ import React from "react";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ControlledField } from "./ControlledField";
-import { View, ScrollView, ViewStyle, Form, Spinner } from "tamagui";
+import { View, ScrollView, ViewStyle, Form, InputProps } from "tamagui";
 import * as yup from "yup";
 import { FieldType } from "./types";
 import { IconKeys } from "@aurora/icons";
 import { StyledButton } from "@aurora/components";
 
-export type FieldItem = {
+export type FieldItem = InputProps & {
   fieldName: string;
   label?: string;
   placeholder?: string;

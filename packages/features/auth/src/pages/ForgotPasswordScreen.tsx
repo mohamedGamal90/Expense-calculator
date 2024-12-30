@@ -16,47 +16,48 @@ enum FormFields {
   PasswordConfirm = "passwordConfirm",
 }
 
-const forgetPasswordFormResolver = yup.object().shape({
-  [FormFields.Username]: yup.string().required(i18n.t("validation.required")),
-  [FormFields.Password]: yup
-    .string()
-    .required(i18n.t("validation.required"))
-    .test({
-      name: "lowercaseErr",
-      message: i18n.t("validation.lowercaseErr"),
-      test: value => /[a-z]/.test(value ?? ""),
-    })
-    .test({
-      name: "uppercaseErr",
-      message: i18n.t("validation.uppercaseErr"),
-      test: value => /[A-Z]/.test(value ?? ""),
-    })
-    .test({
-      name: "numberErr",
-      message: i18n.t("validation.numberErr"),
-      test: value => /\d/.test(value ?? ""),
-    })
-    .test({
-      name: "specialErr",
-      message: i18n.t("validation.specialErr"),
-      test: value => /[@$!%*?&]/.test(value ?? ""),
-    })
-    .test({
-      name: "minErr",
-      message: i18n.t("Validation.minErr"),
-      test: value => (value?.length ?? 0) >= 8,
-    }),
-  [FormFields.PasswordConfirm]: yup
-    .string()
-    .required(i18n.t("validation.required"))
-    .oneOf([yup.ref("password")], i18n.t("validation.confirm-password")),
-});
-
-type FormValues = yup.InferType<typeof forgetPasswordFormResolver>;
-
 export const ForgotPasswordScreen = () => {
   const router = useRouter();
   const { t } = useTranslation();
+
+  const forgetPasswordFormResolver = yup.object().shape({
+    [FormFields.Username]: yup.string().required(i18n.t("validation.required")),
+    [FormFields.Password]: yup
+      .string()
+      .required(i18n.t("validation.required"))
+      .test({
+        name: "lowercaseErr",
+        message: i18n.t("validation.lowercaseErr"),
+        test: value => /[a-z]/.test(value ?? ""),
+      })
+      .test({
+        name: "uppercaseErr",
+        message: i18n.t("validation.uppercaseErr"),
+        test: value => /[A-Z]/.test(value ?? ""),
+      })
+      .test({
+        name: "numberErr",
+        message: i18n.t("validation.numberErr"),
+        test: value => /\d/.test(value ?? ""),
+      })
+      .test({
+        name: "specialErr",
+        message: i18n.t("validation.specialErr"),
+        test: value => /[@$!%*?&]/.test(value ?? ""),
+      })
+      .test({
+        name: "minErr",
+        message: i18n.t("Validation.minErr"),
+        test: value => (value?.length ?? 0) >= 8,
+      }),
+    [FormFields.PasswordConfirm]: yup
+      .string()
+      .required(i18n.t("validation.required"))
+      .oneOf([yup.ref("password")], i18n.t("validation.confirm-password")),
+  });
+
+  type FormValues = yup.InferType<typeof forgetPasswordFormResolver>;
+
   const form = useForm({
     resolver: yupResolver(forgetPasswordFormResolver),
     defaultValues: {
@@ -80,8 +81,8 @@ export const ForgotPasswordScreen = () => {
     },
     onError(error) {
       showAlert({
-        title: "An error has occurred.",
-        message: error.response?.data.message as string,
+        title: t("server-error.an_error_has_occurred"),
+        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
       });
     },
   });

@@ -2,7 +2,7 @@ import { StatusView } from "@aurora/blocks";
 import { View } from "@aurora/components";
 import { useLocalSearchParams, useRouter } from "expo-router";
 
-export const ForgotPasswordStatusScreen = () => {
+export const StatusScreen = () => {
   const router = useRouter();
   const params = useLocalSearchParams();
 

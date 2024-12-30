@@ -1,12 +1,11 @@
-import { SimpleSlider, StyledButton, StyledText, View } from "@aurora/components";
+import { StyledButton, StyledText, View } from "@aurora/components";
 import { useState } from "react";
-import { DateSelection } from "./components/DateSelectionBtn";
 import { SelectedCardHeader } from "@aurora/blocks";
 import { FieldGroup } from "@aurora/blocks/src/Form/FieldGroup";
+import { useTranslation } from "react-i18next";
 
 export const CardLimit = ({
   cardNumber,
-  cardCurrency,
   onSubmit,
   isPending,
 }: {
@@ -16,16 +15,17 @@ export const CardLimit = ({
   isPending: boolean;
 }) => {
   const [sliderValue, setSliderValue] = useState(100);
+  const { t } = useTranslation();
 
   return (
     <View flex={1} justifyContent="space-between">
       <View marginTop="$m">
         <SelectedCardHeader cardNumber={cardNumber} />
         <StyledText variant="Headingxl" color={"$neutral800"} marginVertical="$s">
-          Limit Tracker
+          {t("titles.limit-tracker")}
         </StyledText>
         <StyledText variant="Bodysm" color={"$neutral800"}>
-          How do you want to limit your monthly limit?
+          {t("titles.limit-inquiry")}
         </StyledText>
         {/* <DateSelection /> */}
         {/* <View flexDirection="row" justifyContent="space-between" alignItems="center" marginTop="$m">
@@ -50,7 +50,7 @@ export const CardLimit = ({
           </View>
         </View> */}
         <StyledText variant="Bodysm" color={"$neutral800"} marginTop="$ml" marginBottom="$xs">
-          Enter Amount
+          {t("inputs.enter-amount")}
         </StyledText>
         <FieldGroup
           onChange={value => {
@@ -64,7 +64,7 @@ export const CardLimit = ({
         onPress={() => onSubmit(sliderValue)}
         isLoading={isPending}
         disabled={isPending}>
-        Next
+        {t("buttons.next")}
       </StyledButton>
     </View>
   );

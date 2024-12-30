@@ -6,10 +6,14 @@ import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMu
 import { StatusView, Verification } from "@aurora/blocks";
 import { useSelectedCard } from "@metroid/store";
 import { useSetCardLimitMutation } from "../hooks/useSetCardLimit";
+import { useTranslation } from "react-i18next";
+import { showAlert } from "@aurora/components";
 
 type Props = { returnBackHandler: () => void };
 export const CardLimitFlow = ({ returnBackHandler }: Props) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
+  const { t } = useTranslation();
+
   const flatListRef = useRef<FlatList>(null);
   const newLimitValue = useRef<number>(0);
   const [status, setStatus] = useState<{
@@ -45,10 +49,22 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
     data,
   } = useRequestOtpMutation({
     onSuccess: () => onNextScreen(),
-    onError: error => console.log("error", error),
+    onError(error) {
+      showAlert({
+        title: t("server-error.an_error_has_occurred"),
+        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
+      });
+    },
   });
 
-  const { mutateAsync: setLimit, isPending: setLimitPending } = useSetCardLimitMutation({});
+  const { mutateAsync: setLimit, isPending: setLimitPending } = useSetCardLimitMutation({
+    onError(error) {
+      showAlert({
+        title: t("server-error.an_error_has_occurred"),
+        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
+      });
+    },
+  });
 
   const firstStep = (value: number) => {
     newLimitValue.current = value;
@@ -66,7 +82,7 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
 
   const CardLimitFlowScreens = [
     {
-      title: "Card Limit",
+      title: t("titles.card-limit"),
       render: (
         <CardLimit
           cardNumber={selectedCard.cardNumber.slice(-4)}
@@ -77,7 +93,7 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
       ),
     },
     {
-      title: "Verification",
+      title: t("titles.verification"),
       render: (
         <Verification
           onSubmit={secondStep}
@@ -88,7 +104,7 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
       ),
     },
     {
-      title: "StatusView",
+      title: t("titles.status-view"),
       render: (
         <StatusView
           onSubmit={onNextScreen}

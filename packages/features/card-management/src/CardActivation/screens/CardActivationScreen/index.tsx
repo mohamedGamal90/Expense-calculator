@@ -14,27 +14,28 @@ type Props = {
 
 export const CardActivation = ({ selectedCard, onSubmit, isPending, activationEnabled }: Props) => {
   const { t } = useTranslation();
-
   const details = [
     {
       id: 1,
-      title: "CardHolder Name",
+      title: t("titles.cardholder-name"),
       value: selectedCard.cardholderName,
     },
-
     {
       id: 2,
-      title: "Status",
-      value: selectedCard.statusName === "VALID CARD" ? "Active" : "Inactive",
+      title: t("titles.status"),
+      value:
+        selectedCard.statusName === "VALID CARD"
+          ? t("cardDetails.active")
+          : t("cardDetails.inactive"),
     },
     {
       id: 3,
-      title: "Card number",
+      title: t("titles.card-number"),
       value: selectedCard.cardNumber.replace(/(.{4})(?=.)/g, "$1 "),
     },
     {
       id: 4,
-      title: "Expiry date",
+      title: t("titles.expiry-date"),
       value: selectedCard.expirDate.replace(".20", "/"),
     },
   ];

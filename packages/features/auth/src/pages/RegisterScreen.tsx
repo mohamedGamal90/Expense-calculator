@@ -1,39 +1,39 @@
 import { Alert, Form, StyledButton, StyledText, View, showAlert } from "@aurora/components";
-import { Link } from "expo-router";
-import { useLoginMutation } from "../hooks/useLoginMutation";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "expo-router";
-import { setValue, StoreKey } from "@aurora/utils";
 import { ControlledField } from "@aurora/blocks";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
+import { useRegisterCardNumberMutation } from "../hooks";
+import { Icon } from "@aurora/icons";
 
 enum FormFields {
-  Username = "username",
-  Password = "password",
+  CardNumber = "cardNumber",
 }
 
-export function LoginScreen() {
+const registerFormResolver = yup.object().shape({
+  [FormFields.CardNumber]: yup
+    .string()
+    .required(i18n.t("validation.required"))
+    .length(16, i18n.t("validation.length", { length: 16 })),
+});
+
+type FormValues = yup.InferType<typeof registerFormResolver>;
+
+export const RegisterScreen = () => {
   const router = useRouter();
   const { t } = useTranslation();
 
-  const loginFormResolver = yup.object().shape({
-    [FormFields.Username]: yup.string().required(i18n.t("validation.required")),
-    [FormFields.Password]: yup.string().required(i18n.t("validation.required")),
-  });
-  type FormValues = yup.InferType<typeof loginFormResolver>;
-
   const form = useForm({
-    resolver: yupResolver(loginFormResolver),
+    resolver: yupResolver(registerFormResolver),
     defaultValues: {
-      [FormFields.Username]: "",
-      [FormFields.Password]: "",
+      [FormFields.CardNumber]: "",
     },
   });
 
-  const { mutate, isPending } = useLoginMutation({
+  const { mutate, isPending } = useRegisterCardNumberMutation({
     onError(error) {
       showAlert({
         title: t("server-error.an_error_has_occurred"),
@@ -41,8 +41,14 @@ export function LoginScreen() {
       });
     },
     async onSuccess(data) {
-      await setValue(StoreKey.AccessToken, data.access_token);
-      router.navigate("/dashboard");
+      router.navigate({
+        pathname: "/auth/register-verification",
+        params: {
+          email: data.email,
+          customerId: data.customerId,
+          stepId: data.stepId,
+        },
+      });
     },
   });
 
@@ -55,6 +61,15 @@ export function LoginScreen() {
       <Alert />
       <FormProvider {...form}>
         <View gap="$xl">
+          <StyledButton
+            variant="outlined"
+            borderColor={"$gray9"}
+            paddingVertical={"$xs"}
+            marginBottom={"$s"}
+            width={50}
+            icon={<Icon name="arrow-left" color="black" />}
+            onPress={() => router.push("auth/login")}
+          />
           <StyledText variant="Heading5xl">{t("titles.login")}</StyledText>
           <View>
             <StyledText mb="$s" variant="Heading5xl">
@@ -62,37 +77,18 @@ export function LoginScreen() {
             </StyledText>
 
             <StyledText mb="$xl" variant="BodySemiBoldm">
-              {t("titles.instruction")}
+              Create credentials to access your account
             </StyledText>
 
             <ControlledField
-              fieldName={FormFields.Username}
+              fieldName={FormFields.CardNumber}
               type="textInput"
-              placeholder={t("placeholders.username")}
-              label={t("inputs.username")}
-              iconLeft="email"
+              placeholder={"0000   0000    0000     0000"}
+              label={"Card Number"}
+              iconLeft="card"
+              maxLength={19}
             />
 
-            <ControlledField
-              fieldName={FormFields.Password}
-              type="textInput"
-              placeholder={t("placeholders.password")}
-              label={t("inputs.password")}
-              secureTextEntry
-              iconLeft="password"
-            />
-
-            <Link
-              style={{
-                alignSelf: "flex-end",
-                marginTop: -20,
-                marginBottom: 20,
-              }}
-              href={"/auth/forgot-password"}>
-              <StyledText color={"$primary800"} padding="$space.s" variant="BodySemiBoldsm">
-                {t("buttons.forgotPassword")}
-              </StyledText>
-            </Link>
             <Form.Trigger mt="$m" asChild>
               <StyledButton isLoading={isPending}>{t("buttons.login")}</StyledButton>
             </Form.Trigger>
@@ -113,8 +109,8 @@ export function LoginScreen() {
                   cursor="pointer"
                   variant="BodyBoldml"
                   color={"$primary800"}
-                  onPress={() => router.push("/auth/register")}>
-                  {t("titles.signUp")}
+                  onPress={() => router.push("/auth/login")}>
+                  {t("titles.login")}
                 </StyledText>
               </StyledText>
             </View>
@@ -123,4 +119,4 @@ export function LoginScreen() {
       </FormProvider>
     </Form>
   );
-}
+};

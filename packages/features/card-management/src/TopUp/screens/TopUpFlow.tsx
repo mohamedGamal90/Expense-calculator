@@ -55,7 +55,14 @@ export function TopUpFlow() {
     onSuccess: () => onNextScreen(),
   });
 
-  const { mutateAsync: topUp, isPending: topupPending } = useTopUpMutation({});
+  const { mutateAsync: topUp, isPending: topupPending } = useTopUpMutation({
+    onError(error) {
+      showAlert({
+        title: t("server-error.an_error_has_occurred"),
+        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
+      });
+    },
+  });
 
   const firstStep = (toCardId: string, amount: string) => {
     amountRef.current = amount;
@@ -101,7 +108,7 @@ export function TopUpFlow() {
       render: (
         <TopUpConfirmation
           fromCardNumber={selectedCard.cardNumber}
-          toCardNumber={toCardRef.current && toCardRef.current.cardNumber}
+          toCardNumber={(toCardRef.current && toCardRef.current.cardNumber) as string}
           amount={amountRef.current}
           onSubmit={callOtpApi}
           isPending={requestOtpPending}

@@ -9,6 +9,7 @@ import {
 } from "@aurora/components";
 import { useState } from "react";
 import { GestureResponderEvent } from "react-native";
+import { useTranslation } from "react-i18next";
 
 export const ReportCard = ({
   onSubmit,
@@ -19,14 +20,16 @@ export const ReportCard = ({
   isPending: boolean;
   cardNumber: string;
 }) => {
+  const { t } = useTranslation();
   const { color } = getTokens();
   const [value, setValue] = useState<string | undefined>();
+
   return (
     <View flex={1} justifyContent="space-between">
       <View>
         <SelectedCardHeader cardNumber={cardNumber} />
         <StyledText marginTop={"$ml"} variant="Headingxl" color={"$neutral800"}>
-          What happened to your card?
+          {t("titles.report-card-header")}
         </StyledText>
         <RadioGroup
           aria-labelledby="Select one item"
@@ -39,13 +42,17 @@ export const ReportCard = ({
             setValue(target.value);
           }}
           accentColor={color.primary800.val}>
-          <RadioGroupItemWithLabel updateValue={setValue} value="Lost" label="Card Lost" />
+          <RadioGroupItemWithLabel updateValue={setValue} value="Lost" label={t("inputs.lost")} />
           <View height={1} backgroundColor={"$secondary100"} />
 
-          <RadioGroupItemWithLabel updateValue={setValue} value="Stolen" label="Card Stolen" />
+          <RadioGroupItemWithLabel
+            updateValue={setValue}
+            value="Stolen"
+            label={t("inputs.stolen")}
+          />
           <View height={1} backgroundColor={"$secondary100"} />
 
-          <RadioGroupItemWithLabel updateValue={setValue} value="ATM" label="ATM took my card" />
+          <RadioGroupItemWithLabel updateValue={setValue} value="ATM" label={t("inputs.atm")} />
         </RadioGroup>
       </View>
       <StyledButton
@@ -54,7 +61,7 @@ export const ReportCard = ({
         disabled={!value}
         onPress={onSubmit}
         variant="primary">
-        Report card
+        {t("buttons.report-card")}
       </StyledButton>
     </View>
   );

@@ -1,61 +1,93 @@
 import { Alert, Form, StyledButton, StyledText, View, showAlert } from "@aurora/components";
-import { Link } from "expo-router";
-import { useLoginMutation } from "../hooks/useLoginMutation";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useRouter } from "expo-router";
-import { setValue, StoreKey } from "@aurora/utils";
 import { ControlledField } from "@aurora/blocks";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
+import { useRegisterCustomerMutation } from "../hooks";
+import { useRouter, useLocalSearchParams } from "expo-router";
 
 enum FormFields {
   Username = "username",
   Password = "password",
 }
 
-export function LoginScreen() {
+const customerRegisterFormResolver = yup.object().shape({
+  [FormFields.Username]: yup.string().required(i18n.t("validation.required")),
+  [FormFields.Password]: yup
+    .string()
+    .required(i18n.t("validation.required"))
+    .test({
+      name: "lowercaseErr",
+      message: i18n.t("validation.lowercaseErr"),
+      test: value => /[a-z]/.test(value ?? ""),
+    })
+    .test({
+      name: "uppercaseErr",
+      message: i18n.t("validation.uppercaseErr"),
+      test: value => /[A-Z]/.test(value ?? ""),
+    })
+    .test({
+      name: "numberErr",
+      message: i18n.t("validation.numberErr"),
+      test: value => /\d/.test(value ?? ""),
+    })
+    .test({
+      name: "specialErr",
+      message: i18n.t("validation.specialErr"),
+      test: value => /[@$!%*?&]/.test(value ?? ""),
+    })
+    .test({
+      name: "minErr",
+      message: i18n.t("Validation.minErr"),
+      test: value => (value?.length ?? 0) >= 8,
+    }),
+});
+
+type FormValues = yup.InferType<typeof customerRegisterFormResolver>;
+
+export const CustomerRegistrationScreen = () => {
   const router = useRouter();
   const { t } = useTranslation();
+  const params = useLocalSearchParams();
 
-  const loginFormResolver = yup.object().shape({
-    [FormFields.Username]: yup.string().required(i18n.t("validation.required")),
-    [FormFields.Password]: yup.string().required(i18n.t("validation.required")),
-  });
-  type FormValues = yup.InferType<typeof loginFormResolver>;
+  const { customerId, stepId } = params as {
+    customerId: string;
+    stepId: string;
+  };
 
   const form = useForm({
-    resolver: yupResolver(loginFormResolver),
+    resolver: yupResolver(customerRegisterFormResolver),
     defaultValues: {
       [FormFields.Username]: "",
       [FormFields.Password]: "",
     },
   });
 
-  const { mutate, isPending } = useLoginMutation({
-    onError(error) {
+  const { mutate, isPending } = useRegisterCustomerMutation({
+    onSuccess: () =>
+      router.push({
+        pathname: "/auth/status",
+        params: {
+          status: "success",
+        },
+      }),
+    onError: error =>
       showAlert({
         title: t("server-error.an_error_has_occurred"),
         message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
-    async onSuccess(data) {
-      await setValue(StoreKey.AccessToken, data.access_token);
-      router.navigate("/dashboard");
-    },
+      }),
   });
 
   function handleLogin(data: FormValues) {
-    mutate(data);
+    mutate({ ...data, customerId, stepId });
   }
-
   return (
     <Form flex={1} onSubmit={form.handleSubmit(handleLogin)}>
       <Alert />
       <FormProvider {...form}>
         <View gap="$xl">
-          <StyledText variant="Heading5xl">{t("titles.login")}</StyledText>
           <View>
             <StyledText mb="$s" variant="Heading5xl">
               {t("titles.welcome")}
@@ -82,20 +114,10 @@ export function LoginScreen() {
               iconLeft="password"
             />
 
-            <Link
-              style={{
-                alignSelf: "flex-end",
-                marginTop: -20,
-                marginBottom: 20,
-              }}
-              href={"/auth/forgot-password"}>
-              <StyledText color={"$primary800"} padding="$space.s" variant="BodySemiBoldsm">
-                {t("buttons.forgotPassword")}
-              </StyledText>
-            </Link>
             <Form.Trigger mt="$m" asChild>
-              <StyledButton isLoading={isPending}>{t("buttons.login")}</StyledButton>
+              <StyledButton isLoading={isPending}>{t("buttons.submit")}</StyledButton>
             </Form.Trigger>
+
             <View w={"100%"} alignItems="center">
               <View
                 flexDirection="row"
@@ -113,8 +135,8 @@ export function LoginScreen() {
                   cursor="pointer"
                   variant="BodyBoldml"
                   color={"$primary800"}
-                  onPress={() => router.push("/auth/register")}>
-                  {t("titles.signUp")}
+                  onPress={() => router.push("/auth/login")}>
+                  {t("titles.login")}
                 </StyledText>
               </StyledText>
             </View>
@@ -123,4 +145,4 @@ export function LoginScreen() {
       </FormProvider>
     </Form>
   );
-}
+};

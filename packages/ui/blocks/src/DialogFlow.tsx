@@ -3,6 +3,7 @@ import { Dimensions, FlatList } from "react-native";
 import { Dispatch, SetStateAction } from "react";
 import { Icon } from "@aurora/icons";
 import { getTokens } from "@tamagui/core";
+import { isRtl } from "@metroid/store";
 
 const screenWidth = Dimensions.get("window").width;
 const dialogWidth = screenWidth > 700 ? 600 - 48 : screenWidth - 48;
@@ -60,7 +61,13 @@ export const DialogFlow = ({
               onPress={onPrevScreen}
               left={0}
               top={7}>
-              <Icon name={"arrow-left"} width={26} height={26} color={color.$black.val} />
+              <Icon
+                name={"arrow-left"}
+                style={{ transform: [{ scaleX: isRtl ? 1 : -1 }] }}
+                width={26}
+                height={26}
+                color={color.$black.val}
+              />
             </StyledButton>
           )}
           <Dialog.Title textAlign="center">

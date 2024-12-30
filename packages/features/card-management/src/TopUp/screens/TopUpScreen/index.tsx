@@ -2,7 +2,7 @@ import { FieldGroup, SelectedCardHeader } from "@aurora/blocks";
 import { StyledSelect, StyledButton, StyledText, View } from "@aurora/components";
 import { CardType } from "@metroid/types";
 import { useState } from "react";
-import { useTranslation } from "react-i18next"; // Assuming you're using react-i18next for translations
+import { useTranslation } from "react-i18next";
 
 export const TopUp = ({
   cards,

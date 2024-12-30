@@ -1,19 +1,22 @@
-import { StyledButton, StyledText, View } from "@aurora/components";
-import { Icon } from "@aurora/icons";
+import { View, StyledText, StyledButton } from "@aurora/components";
+import { useTranslation } from "react-i18next";
+import { Icon } from "@aurora/icons"; // Adjust this import according to your project structure
 
 export const TopUpConfirmation = ({
+  onSubmit,
+  isPending,
   fromCardNumber,
   toCardNumber,
   amount,
-  onSubmit,
-  isPending,
 }: {
-  fromCardNumber: string;
-  toCardNumber: string | null;
-  amount: string;
   onSubmit: () => void;
   isPending: boolean;
+  fromCardNumber: string;
+  toCardNumber: string;
+  amount: string;
 }) => {
+  const { t } = useTranslation();
+
   return (
     <View flex={1} justifyContent="space-between">
       <View marginVertical="$l">
@@ -25,12 +28,12 @@ export const TopUpConfirmation = ({
           borderRadius="$sm"
           paddingBottom="$3xl">
           <StyledText variant="Headingxl" textAlign="center" color="$secondary800">
-            From:
+            {t("transfer.from")}
           </StyledText>
           <View flex={1} flexDirection="row" alignItems="center" justifyContent="center" gap="$s">
             <Icon name={"card"} />
             <StyledText variant="BodymL" color="$secondary800">
-              Card number
+              {t("transfer.cardNumber")}
             </StyledText>
             <StyledText variant="BodymL" color="$secondary800">
               {fromCardNumber}
@@ -57,12 +60,12 @@ export const TopUpConfirmation = ({
           borderRadius="$sm"
           paddingBottom="$3xl">
           <StyledText variant="Headingxl" textAlign="center" color="$secondary800">
-            To:
+            {t("transfer.to")}
           </StyledText>
           <View flex={1} flexDirection="row" alignItems="center" justifyContent="center" gap="$s">
             <Icon name={"card"} />
             <StyledText variant="BodymL" color="$secondary800">
-              Card number
+              {t("transfer.cardNumber")}
             </StyledText>
             <StyledText variant="BodymL" color="$secondary800">
               {toCardNumber}
@@ -71,7 +74,7 @@ export const TopUpConfirmation = ({
         </View>
         <View marginTop="$xl" flexDirection="row" justifyContent="space-between">
           <StyledText variant="Headingxl" color="$neutral800">
-            Amount you will send
+            {t("transfer.amount")}
           </StyledText>
           <StyledText variant="Headingxl" color="$neutral800">
             {amount}
@@ -79,7 +82,7 @@ export const TopUpConfirmation = ({
         </View>
       </View>
       <StyledButton isLoading={isPending} onPress={onSubmit} variant="primary">
-        Send
+        {t("buttons.send")}
       </StyledButton>
     </View>
   );

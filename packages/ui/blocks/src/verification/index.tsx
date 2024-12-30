@@ -2,6 +2,7 @@ import { getTokens, StyledButton, StyledText, View } from "@aurora/components";
 import { OTPInput } from "input-otp";
 import { Icon } from "@aurora/icons";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const CELL_COUNT = 4;
 
@@ -17,6 +18,7 @@ export const Verification = ({
   isPending: boolean;
 }) => {
   const [value, setValue] = useState("");
+  const { t } = useTranslation();
   const [error, setError] = useState(false);
   const { color } = getTokens();
   const verifyObject: { icon: "mobile" | "email"; txt: string; iconTxt: JSX.Element } = (() => {
@@ -24,14 +26,14 @@ export const Verification = ({
       case "mobile":
         return {
           icon: "mobile",
-          txt: "Verify your phone number",
+          txt: t("validation.verify-phone-number"),
           iconTxt: (
             <>
               <StyledText variant="Bodysm" color="$neutral800">
-                Phone
+                {t("inputs.phone")}
               </StyledText>
               <StyledText variant="Bodysm" color="$neutral800">
-                Number
+                {t("inputs.number")}
               </StyledText>
             </>
           ),
@@ -39,10 +41,10 @@ export const Verification = ({
       case "email":
         return {
           icon: "email",
-          txt: "Verify your email address",
+          txt: t("validation.verify-email-address"),
           iconTxt: (
             <StyledText variant="Bodysm" color="$neutral800">
-              Email
+              {t("inputs.email")}
             </StyledText>
           ),
         };
@@ -89,7 +91,7 @@ export const Verification = ({
               <Icon name={"tick-circle"} color={color.secondary300.val} />
             </View>
             <StyledText variant="Bodysm" color="$neutral800">
-              Success
+              {t("status.success")}
             </StyledText>
           </View>
         </View>
@@ -101,7 +103,7 @@ export const Verification = ({
         </View>
         <View marginLeft="$2xl" marginTop="$base">
           <StyledText variant="BodymL" color="$neutral800" marginBottom="$s">
-            We sent a 4 digit code to:
+            {t("validation.otp-sent-message")}
           </StyledText>
           <StyledText variant="BodymL" color="$neutral800" marginBottom="$l">
             {credential}
@@ -133,7 +135,7 @@ export const Verification = ({
           />
           {error && (
             <StyledText variant="Bodysm" color="$error600" marginTop="$sm">
-              OTP only contains characters
+              {t("validation.otp-error-message")}
             </StyledText>
           )}
         </View>
@@ -143,7 +145,7 @@ export const Verification = ({
         disabled={value.length < 4}
         onPress={validateOtp}
         variant="primary">
-        Next
+        {t("buttons.next")}
       </StyledButton>
     </View>
   );

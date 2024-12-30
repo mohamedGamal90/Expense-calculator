@@ -5,12 +5,15 @@ import { SetPinScreen } from "./SetPinScreen/index.web";
 import { useSetPinMutation } from "../hooks/useSetPinMutation";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 import { useSelectedCard } from "@metroid/store";
+import { useTranslation } from "react-i18next";
+import { showAlert } from "@aurora/components";
 
 type Props = { returnBackHandler: () => void };
 
 export function SetPinFlow({ returnBackHandler }: Props) {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+  const { t } = useTranslation();
 
   const [status, setStatus] = useState<{
     status: "success" | "error" | "pending";
@@ -40,14 +43,26 @@ export function SetPinFlow({ returnBackHandler }: Props) {
   };
 
   const { mutateAsync: requestOTP, data } = useRequestOtpMutation({
-    onError: error => console.log("error", error),
+    onError(error) {
+      showAlert({
+        title: t("server-error.an_error_has_occurred"),
+        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
+      });
+    },
   });
 
   const {
     mutateAsync: setPin,
     data: setPinUrl,
     isPending: setPinIsPending,
-  } = useSetPinMutation({});
+  } = useSetPinMutation({
+    onError(error) {
+      showAlert({
+        title: t("server-error.an_error_has_occurred"),
+        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
+      });
+    },
+  });
 
   const onSetPin = async (otp: string) => {
     await setPin({
@@ -65,7 +80,7 @@ export function SetPinFlow({ returnBackHandler }: Props) {
 
   const SetPinFlowScreens = [
     {
-      title: "Verification",
+      title: t("titles.verification"),
       render: (
         <Verification
           onSubmit={onSetPin}
@@ -80,7 +95,7 @@ export function SetPinFlow({ returnBackHandler }: Props) {
       render: <SetPinScreen src={setPinUrl?.data.url} />,
     },
     {
-      title: "StatusView",
+      title: t("titles.status-view"),
       render: (
         <StatusView
           onSubmit={onNextScreen}

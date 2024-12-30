@@ -1,7 +1,6 @@
 import React from "react";
 import { SvgProps } from "react-native-svg"; // Adjust import based on your SVG library
 import svgs from "./svg";
-import { useIsRtl } from "@metroid/hooks";
 import { StyleProp, ViewStyle } from "react-native";
 // Define the props interface for the IconComponent
 type IconComponent = (props: SvgProps) => React.ReactElement; // Specify the return type
@@ -31,8 +30,6 @@ type IconComponentProps = SvgProps & {
 
 // Create the IconComponent functional component
 export const Icon = ({ name, ...props }: IconComponentProps) => {
-  const isRtl = useIsRtl();
-
   const Component = svgs[name];
 
   // If Component is not found, return a fallback or handle it appropriately
@@ -41,5 +38,5 @@ export const Icon = ({ name, ...props }: IconComponentProps) => {
     return null;
   }
 
-  return <Component style={{ transform: [{ scaleX: isRtl ? -1 : 1 }] }} {...props} />;
+  return <Component {...props} />;
 };

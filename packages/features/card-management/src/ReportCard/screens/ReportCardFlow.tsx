@@ -6,6 +6,8 @@ import { StatusView, Verification } from "@aurora/blocks";
 import { ReportCard } from "./ReportCardScreen";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 import { useSelectedCard } from "@metroid/store";
+import { useTranslation } from "react-i18next";
+import { showAlert } from "@aurora/components";
 
 const screenWidth = Dimensions.get("window").width;
 export const dialogWidth = screenWidth > 700 ? 600 - 48 : screenWidth - 48;
@@ -15,6 +17,8 @@ type Props = { returnBackHandler: () => void };
 export const ReportCardFlow = ({ returnBackHandler }: Props) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+  const { t } = useTranslation();
+
   const [status, setStatus] = useState<{
     status: "success" | "error" | "pending";
     statusTitle: string;
@@ -30,7 +34,7 @@ export const ReportCardFlow = ({ returnBackHandler }: Props) => {
   }
 
   const onNextScreen = () => {
-    if (currentScreenIndex === ReportCardFlowScreens.length - 1) {
+    if (currentScreenIndex === reportCardFlowScreens.length - 1) {
       returnBackHandler();
       return;
     }
@@ -48,10 +52,22 @@ export const ReportCardFlow = ({ returnBackHandler }: Props) => {
     data,
   } = useRequestOtpMutation({
     onSuccess: () => onNextScreen(),
-    onError: error => console.log("error", error),
+    onError(error) {
+      showAlert({
+        title: t("server-error.an_error_has_occurred"),
+        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
+      });
+    },
   });
 
-  const { mutateAsync: reportCard, isPending: reportCardIspending } = useReportCardMutation({});
+  const { mutateAsync: reportCard, isPending: reportCardIspending } = useReportCardMutation({
+    onError(error) {
+      showAlert({
+        title: t("server-error.an_error_has_occurred"),
+        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
+      });
+    },
+  });
 
   const onReportCard = async (otp: string) => {
     await reportCard({
@@ -63,9 +79,9 @@ export const ReportCardFlow = ({ returnBackHandler }: Props) => {
     onNextScreen();
   };
 
-  const ReportCardFlowScreens = [
+  const reportCardFlowScreens = [
     {
-      title: "Report Card",
+      title: t("titles.report-card"),
       render: (
         <ReportCard
           onSubmit={requestOTP}
@@ -75,7 +91,7 @@ export const ReportCardFlow = ({ returnBackHandler }: Props) => {
       ),
     },
     {
-      title: "Verification",
+      title: t("titles.verification"),
       render: (
         <Verification
           onSubmit={onReportCard}
@@ -86,7 +102,7 @@ export const ReportCardFlow = ({ returnBackHandler }: Props) => {
       ),
     },
     {
-      title: "StatusView",
+      title: t("titles.status-view"),
       render: (
         <StatusView
           onSubmit={onNextScreen}
@@ -100,7 +116,7 @@ export const ReportCardFlow = ({ returnBackHandler }: Props) => {
   return (
     <DialogFlow
       returnBackHandler={returnBackHandler}
-      screensFlow={ReportCardFlowScreens}
+      screensFlow={reportCardFlowScreens}
       flatListRef={flatListRef}
       currentScreenIndex={currentScreenIndex}
       setCurrentScreenIndex={setCurrentScreenIndex}

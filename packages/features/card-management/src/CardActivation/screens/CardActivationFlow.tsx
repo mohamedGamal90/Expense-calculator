@@ -9,6 +9,7 @@ import { CardAvailableStatusCodes } from "../../CardMangement/cardStatusCodes";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 import { useSelectedCard } from "@metroid/store";
 import { AvailableStatuses } from "@metroid/types";
+import { showAlert } from "@aurora/components";
 
 type Props = { returnBackHandler: () => void };
 
@@ -58,11 +59,30 @@ export const CardActivationFlow = ({ returnBackHandler }: Props) => {
     onSuccess: () => {
       onNextScreen();
     },
-    onError: error => console.log("error", error),
+    onError(error) {
+      showAlert({
+        title: t("server-error.an_error_has_occurred"),
+        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
+      });
+    },
   });
 
-  const { mutateAsync: activateCard, isPending: activePending } = useActivateCardMutation({});
-  const { mutateAsync: deactivateCard, isPending: deactivePending } = useDeactivateCardMutation({});
+  const { mutateAsync: activateCard, isPending: activePending } = useActivateCardMutation({
+    onError(error) {
+      showAlert({
+        title: t("server-error.an_error_has_occurred"),
+        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
+      });
+    },
+  });
+  const { mutateAsync: deactivateCard, isPending: deactivePending } = useDeactivateCardMutation({
+    onError(error) {
+      showAlert({
+        title: t("server-error.an_error_has_occurred"),
+        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
+      });
+    },
+  });
 
   const onCardActivation = async (otp: string) => {
     if (activationEnabled)
@@ -79,7 +99,7 @@ export const CardActivationFlow = ({ returnBackHandler }: Props) => {
 
   const CardLimitFlowScreens = [
     {
-      title: "Card Activation",
+      title: t("titles.card-activation"),
       render: (
         <CardActivation
           selectedCard={selectedCard}
@@ -90,7 +110,7 @@ export const CardActivationFlow = ({ returnBackHandler }: Props) => {
       ),
     },
     {
-      title: "Verification",
+      title: t("titles.verification"),
       render: (
         <Verification
           onSubmit={onCardActivation}
@@ -101,7 +121,7 @@ export const CardActivationFlow = ({ returnBackHandler }: Props) => {
       ),
     },
     {
-      title: "StatusView",
+      title: t("titles.status-view"),
       render: (
         <StatusView
           onSubmit={onNextScreen}
