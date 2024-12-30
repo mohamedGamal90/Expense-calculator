@@ -24,7 +24,7 @@ export const TransactionHistory = () => {
   return (
     <View
       borderWidth={1}
-      borderRadius={"$sm"}
+      borderRadius="$l"
       borderColor={"$secondary100"}
       style={{
         lineHeight: 1,

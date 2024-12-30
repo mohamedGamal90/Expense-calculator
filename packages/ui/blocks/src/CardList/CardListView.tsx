@@ -14,7 +14,7 @@ export const CardListView = () => {
     <View
       width="100%"
       borderWidth={1}
-      borderRadius="$sm"
+      borderRadius="$l"
       borderColor="$secondary100"
       paddingVertical="$m"
       // paddingHorizontal="$m"
