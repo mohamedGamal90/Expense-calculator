@@ -12,24 +12,24 @@ export const RootLayout = ({ children }: { children: React.ReactNode }) => {
       href: "/dashboard",
       disabled: false,
     },
-    {
-      icon: "card-add",
-      title: t("titles.add_card"), // "Add Card" or "إضافة بطاقة"
-      href: "",
-      disabled: true,
-    },
-    {
-      icon: "group",
-      title: t("titles.transfers"), // "Transfers" or "التحويلات"
-      href: "",
-      disabled: true,
-    },
-    {
-      icon: "setting",
-      title: t("titles.settings"), // "Settings" or "الإعدادات"
-      href: "",
-      disabled: true,
-    },
+    // {
+    //   icon: "card-add",
+    //   title: t("titles.add_card"), // "Add Card" or "إضافة بطاقة"
+    //   href: "",
+    //   disabled: true,
+    // },
+    // {
+    //   icon: "group",
+    //   title: t("titles.transfers"), // "Transfers" or "التحويلات"
+    //   href: "",
+    //   disabled: true,
+    // },
+    // {
+    //   icon: "setting",
+    //   title: t("titles.settings"), // "Settings" or "الإعدادات"
+    //   href: "",
+    //   disabled: true,
+    // },
   ];
 
   return (

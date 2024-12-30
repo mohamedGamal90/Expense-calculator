@@ -1,5 +1,5 @@
 import { SimpleSlider, StyledButton, StyledSelect, StyledText, View } from "@aurora/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SelectedCardHeader } from "@aurora/blocks";
 import { FieldGroup } from "@aurora/blocks/src/Form/FieldGroup";
 import { CardType } from "@metroid/types";
@@ -18,6 +18,8 @@ export const CardLimit = ({
 }) => {
   const [sliderValue, setSliderValue] = useState(0);
   const [selectedLimit, setSelectedLimit] = useState<string>("");
+  // const [customCardLimits, setCardLimits] = useState<{ label: string; value: string }[]>([]);
+
   const { data, isSuccess } = useGetCardLimitsQuery(selectedCard.id);
   const { t } = useTranslation();
 
@@ -25,13 +27,23 @@ export const CardLimit = ({
     setSelectedLimit(limit);
     setSliderValue(0);
   };
-  let customCardLimits = [{ label: "limit.description", value: "limit.limitType" }];
+  let customCardLimits: { label: string; value: string }[] = [];
   if (isSuccess) {
     customCardLimits = data?.limits.map(limit => ({
       label: limit.description,
       value: limit.limitType,
     }));
   }
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     const customCardLimits = data?.limits.map(limit => ({
+  //       label: limit.description,
+  //       value: limit.limitType,
+  //     }));
+
+  //     setCardLimits(customCardLimits);
+  //   }
+  // }, [isSuccess]);
 
   const sliderMax = data?.limits.find(limit => selectedLimit === limit.limitType)?.limitValue;
 
@@ -52,7 +64,7 @@ export const CardLimit = ({
           onSelect={onSelectLimit}
         />
         <View flexDirection="row" justifyContent="space-between" alignItems="center" marginTop="$m">
-          <View flex={5 / 6} marginHorizontal="$xs" alignItems="center">
+          <View mt={"$m"} flex={5 / 6} marginHorizontal="$xs" alignItems="center">
             <SimpleSlider
               key={selectedLimit}
               alignSelf="center"

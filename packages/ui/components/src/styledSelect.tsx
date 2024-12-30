@@ -70,7 +70,7 @@ export const StyledSelect = ({
           minWidth={200}>
           <Select.Group>
             {/* <Select.Label>Fruits</Select.Label> */}
-            <MappingList data={items} renderItem={renderOption} />
+            {items.length && <MappingList data={items} renderItem={renderOption} />}
           </Select.Group>
           {/* Native gets an extra icon */}
           {props.native && (

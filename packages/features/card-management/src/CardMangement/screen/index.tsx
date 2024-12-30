@@ -62,19 +62,19 @@ export const CardMangementDialogScreen = () => {
       render: <ReportCardFlow returnBackHandler={returnBackHandler} />,
       disabled: cardIsValid,
     },
-    { title: t("titles.replace-card"), icon: "replace-card", render: <View />, disabled: true }, //untill it is implemented
+    // { title: t("titles.replace-card"), icon: "replace-card", render: <View />, disabled: true }, //untill it is implemented
     {
       title: t("titles.change-pin"),
       icon: "change-pin",
       render: <SetPinFlow returnBackHandler={returnBackHandler} />,
       disabled: setPinDisabled,
     },
-    {
-      title: t("titles.international-transactions"),
-      icon: "arrow-swap-horizontal",
-      render: <View />,
-      disabled: true, //untill it is implemented
-    },
+    // {
+    //   title: t("titles.international-transactions"),
+    //   icon: "arrow-swap-horizontal",
+    //   render: <View />,
+    //   disabled: true, //untill it is implemented
+    // },
   ];
 
   return (

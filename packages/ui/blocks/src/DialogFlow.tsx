@@ -61,13 +61,7 @@ export const DialogFlow = ({
               onPress={onPrevScreen}
               left={0}
               top={7}>
-              <Icon
-                name={"arrow-left"}
-                style={{ transform: [{ scaleX: isRtl ? 1 : -1 }] }}
-                width={26}
-                height={26}
-                color={color.$black.val}
-              />
+              <Icon name={"arrow-left"} width={26} height={26} color={color.$black.val} />
             </StyledButton>
           )}
           <Dialog.Title textAlign="center">
