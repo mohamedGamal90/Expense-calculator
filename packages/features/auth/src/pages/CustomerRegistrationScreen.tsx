@@ -90,26 +90,26 @@ export const CustomerRegistrationScreen = () => {
         <View gap="$xl">
           <View>
             <StyledText mb="$s" variant="Heading5xl">
-              {t("titles.welcome")}
+              {"Create a new account"}
             </StyledText>
 
             <StyledText mb="$xl" variant="BodySemiBoldm">
-              {t("titles.instruction")}
+              {"Creat Credentials to access your account"}
             </StyledText>
 
             <ControlledField
               fieldName={FormFields.Username}
               type="textInput"
-              placeholder={t("placeholders.username")}
-              label={t("inputs.username")}
+              placeholder={"Enter New Username"}
+              label={"New Username"}
               iconLeft="email"
             />
 
             <ControlledField
               fieldName={FormFields.Password}
               type="textInput"
-              placeholder={t("placeholders.password")}
-              label={t("inputs.password")}
+              placeholder={"Enter New Password"}
+              label={"New Password"}
               secureTextEntry
               iconLeft="password"
             />
@@ -130,7 +130,7 @@ export const CustomerRegistrationScreen = () => {
                 <View h={"1px"} w={"100px"} backgroundColor={"$neutral900"}></View>
               </View>
               <StyledText mb={"$m"} color={"$secondary900"} variant="BodySemiBoldsm">
-                {t("titles.noAccount")}{" "}
+                {"Already have an account?"}{" "}
                 <StyledText
                   cursor="pointer"
                   variant="BodyBoldml"

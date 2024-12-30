@@ -90,7 +90,7 @@ export const RegisterScreen = () => {
             />
 
             <Form.Trigger mt="$m" asChild>
-              <StyledButton isLoading={isPending}>{t("buttons.login")}</StyledButton>
+              <StyledButton isLoading={isPending}>{"Sign Up"}</StyledButton>
             </Form.Trigger>
             <View w={"100%"} alignItems="center">
               <View
@@ -104,13 +104,14 @@ export const RegisterScreen = () => {
                 <View h={"1px"} w={"100px"} backgroundColor={"$neutral900"}></View>
               </View>
               <StyledText mb={"$m"} color={"$secondary900"} variant="BodySemiBoldsm">
-                {t("titles.noAccount")}{" "}
+                {"Already have an account?"}
+                {"  "}
                 <StyledText
                   cursor="pointer"
                   variant="BodyBoldml"
                   color={"$primary800"}
                   onPress={() => router.push("/auth/login")}>
-                  {t("titles.login")}
+                  {"Login"}
                 </StyledText>
               </StyledText>
             </View>

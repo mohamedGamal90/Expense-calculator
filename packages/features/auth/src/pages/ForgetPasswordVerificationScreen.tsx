@@ -25,11 +25,6 @@ export const ForgetPasswordVerificationScreen = () => {
         },
       }),
     onError: error => {
-      console.log(
-        "error.response?.data.message.toLocaleLowerCase()",
-        error.response?.data.message.toLocaleLowerCase(),
-      );
-
       showAlert({
         title: t("server-error.an_error_has_occurred"),
         message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
@@ -50,6 +45,7 @@ export const ForgetPasswordVerificationScreen = () => {
         onSubmit={otp => handleOnSubmit(otp)}
         isPending={isPending}
         credential={email}
+        type="email"
       />
     </View>
   );

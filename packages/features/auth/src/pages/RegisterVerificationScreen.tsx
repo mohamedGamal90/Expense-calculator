@@ -45,6 +45,7 @@ export const RegisterVerificationScreen = () => {
         onSubmit={otp => handleOnSubmit(otp)}
         isPending={isPending}
         credential={email}
+        type="email"
       />
     </View>
   );

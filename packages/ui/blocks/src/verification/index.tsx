@@ -22,22 +22,22 @@ export const Verification = ({
   const [error, setError] = useState(false);
   const { color } = getTokens();
   const verifyObject: { icon: "mobile" | "email"; txt: string; iconTxt: JSX.Element } = (() => {
-    switch (type) {
-      case "mobile":
-        return {
-          icon: "mobile",
-          txt: t("validation.verify-phone-number"),
-          iconTxt: (
-            <>
-              <StyledText variant="Bodysm" color="$neutral800">
-                {t("inputs.phone")}
-              </StyledText>
-              <StyledText variant="Bodysm" color="$neutral800">
-                {t("inputs.number")}
-              </StyledText>
-            </>
-          ),
-        };
+    switch ("email") {
+      // case "mobile":
+      //   return {
+      //     icon: "mobile",
+      //     txt: t("validation.verify-phone-number"),
+      //     iconTxt: (
+      //       <>
+      //         <StyledText variant="Bodysm" color="$neutral800">
+      //           {t("inputs.phone")}
+      //         </StyledText>
+      //         <StyledText variant="Bodysm" color="$neutral800">
+      //           {t("inputs.number")}
+      //         </StyledText>
+      //       </>
+      //     ),
+      //   };
       case "email":
         return {
           icon: "email",
