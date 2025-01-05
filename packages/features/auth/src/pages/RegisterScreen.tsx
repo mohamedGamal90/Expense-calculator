@@ -17,6 +17,7 @@ const registerFormResolver = yup.object().shape({
   [FormFields.CardNumber]: yup
     .string()
     .required(i18n.t("validation.required"))
+    .matches(/^\d+$/, i18n.t("validation.number"))
     .length(16, i18n.t("validation.length", { length: 16 })),
 });
 
@@ -31,6 +32,7 @@ export const RegisterScreen = () => {
     defaultValues: {
       [FormFields.CardNumber]: "",
     },
+    mode: "onChange",
   });
 
   const { mutate, isPending } = useRegisterCardNumberMutation({
@@ -83,14 +85,16 @@ export const RegisterScreen = () => {
             <ControlledField
               fieldName={FormFields.CardNumber}
               type="textInput"
-              placeholder={"0000   0000    0000     0000"}
+              placeholder={"0000 0000 0000 0000"}
               label={"Card Number"}
               iconLeft="card"
-              maxLength={19}
+              maxLength={16}
             />
 
             <Form.Trigger mt="$m" asChild>
-              <StyledButton isLoading={isPending}>{"Sign Up"}</StyledButton>
+              <StyledButton disabled={!form.formState.isValid} isLoading={isPending}>
+                {"Sign Up"}
+              </StyledButton>
             </Form.Trigger>
             <View w={"100%"} alignItems="center">
               <View

@@ -51,6 +51,7 @@ export const FieldGroup = forwardRef<any, FieldGroupProps>(
       onChange,
       renderAfter,
       renderBefore,
+      maxLength,
       ...props
     },
     ref,
@@ -105,6 +106,7 @@ export const FieldGroup = forwardRef<any, FieldGroupProps>(
             type={type}
             secureTextEntry={secureTextEntry && !showPassword}
             ref={ref}
+            maxLength={maxLength}
           />
           <XStack gap="$s" alignItems="center" justifyContent="center">
             {secureTextEntry && (
