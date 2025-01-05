@@ -3,7 +3,7 @@ import { Dimensions, FlatList } from "react-native";
 import { Dispatch, SetStateAction } from "react";
 import { Icon } from "@aurora/icons";
 import { getTokens } from "@tamagui/core";
-import { isRtl } from "@metroid/store";
+// import { isRtl } from "@metroid/store";
 
 const screenWidth = Dimensions.get("window").width;
 const dialogWidth = screenWidth > 700 ? 600 - 48 : screenWidth - 48;
@@ -12,7 +12,7 @@ type Props = {
   returnBackHandler?: () => void;
   currentScreenIndex: number;
   setCurrentScreenIndex: Dispatch<SetStateAction<number>>;
-  screensFlow: { title: string; render: JSX.Element }[];
+  screensFlow: { title?: string; render: JSX.Element }[];
   flatListRef: React.RefObject<FlatList>;
   showCloseButton?: boolean;
   singleFlow?: boolean;
@@ -45,7 +45,6 @@ export const DialogFlow = ({
     if (singleFlow && currentScreenIndex === 0) return false;
     return true;
   })();
-
   return (
     <View flex={1}>
       {currentScreenIndex !== screensFlow.length - 1 && (
@@ -54,12 +53,12 @@ export const DialogFlow = ({
             <StyledButton
               position="absolute"
               variant="iconBtn"
-              backgroundColor={"$white"}
-              borderColor={"$white"}
+              borderWidth={0}
               width={40}
               height={26}
               onPress={onPrevScreen}
               left={0}
+              zIndex={100}
               top={7}>
               <Icon name={"arrow-left"} width={26} height={26} color={color.$black.val} />
             </StyledButton>

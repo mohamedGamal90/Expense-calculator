@@ -56,10 +56,7 @@ export function SetPinFlow({ returnBackHandler }: Props) {
     data: setPinUrl,
     isPending: setPinIsPending,
   } = useSetPinMutation({
-    onSuccess: data => {
-      window.open(data.url, "_blank");
-      returnBackHandler();
-    },
+    onSuccess: () => onNextScreen(),
     onError(error) {
       showAlert({
         title: t("server-error.an_error_has_occurred"),
@@ -75,7 +72,6 @@ export function SetPinFlow({ returnBackHandler }: Props) {
     }).catch(() => {
       setStatus({ status: "error", statusTitle: "Error setting pin" });
     });
-    // onNextScreen();
   };
 
   useEffect(() => {
@@ -95,7 +91,6 @@ export function SetPinFlow({ returnBackHandler }: Props) {
       ),
     },
     {
-      title: "",
       render: <SetPinScreen src={setPinUrl?.data.url} />,
     },
     {
