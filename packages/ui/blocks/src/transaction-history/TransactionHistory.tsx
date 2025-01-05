@@ -1,11 +1,47 @@
 import { getTokens, StyledText, View } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { TransactionHistoryItem } from "./components/TransactionHistoryItem";
-import { useGetTransactionsQuery } from "@aurora/home/src/hooks/useGetTransactions";
+import {
+  GetCardTransactionsReponse,
+  useGetTransactionsQuery,
+} from "@aurora/home/src/hooks/useGetTransactions";
 import { useSelectedCard } from "@metroid/store";
 import { getLastWeek, getTodayDate } from "@aurora/utils";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
+
+const RenderTransactions = ({ transactions }: { transactions: GetCardTransactionsReponse }) => {
+  let oldDate: null | string;
+  return transactions.transaction.slice(0, 3).map((transaction, index) => {
+    let datetxt: null | string;
+    if (transaction.transactionDate.slice(0, 10) !== oldDate) {
+      oldDate = transaction.transactionDate.slice(0, 10);
+      datetxt = dayjs(transaction.transactionDate, "DD-MM-YYYY HH:mm:ss", true)
+        .tz(transactions.timeZone)
+        .format("dddd, D MMMM YYYY");
+    } else {
+      datetxt = null;
+    }
+    return (
+      <>
+        {datetxt && (
+          <StyledText paddingTop="$sm" color={"$secondary400"} variant="BodySemiBoldml">
+            {datetxt}
+          </StyledText>
+        )}
+        <TransactionHistoryItem
+          key={index}
+          transaction={transaction}
+          timeZone={transactions.timeZone}
+        />
+      </>
+    );
+  });
+};
 
 export const TransactionHistory = () => {
   const selectedCard = useSelectedCard();
@@ -54,16 +90,7 @@ export const TransactionHistory = () => {
         </View>
       </View>
       <View>
-        {transactions &&
-          transactions.transaction
-            .slice(0, 3)
-            .map((transaction, index) => (
-              <TransactionHistoryItem
-                key={index}
-                transaction={transaction}
-                timeZone={transactions.timeZone}
-              />
-            ))}
+        {transactions && <RenderTransactions transactions={transactions} />}
         {transactions && transactions.transaction.length === 0 && (
           <View flex={1} alignItems="center" justifyContent="center">
             <View

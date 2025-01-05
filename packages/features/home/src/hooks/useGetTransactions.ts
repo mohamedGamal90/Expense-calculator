@@ -28,7 +28,7 @@ export type TransactionType = {
   transactionType: string;
 };
 
-type GetCardTransactionsReponse = {
+export type GetCardTransactionsReponse = {
   timeZone: string;
   totalSize: number;
   transaction: TransactionType[];

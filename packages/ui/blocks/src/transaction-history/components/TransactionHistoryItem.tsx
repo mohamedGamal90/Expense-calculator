@@ -41,10 +41,10 @@ export const TransactionHistoryItem = ({
         return { pillVariant: "negative", PillTxt: t("status.cancelled") }; // "Cancelled" or "ملغى"
     }
   })();
-  const parsedDate = dayjs(transactionDate, "DD-MM-YYYY HH:mm:ss", true)
+  const formattedDate = dayjs(transactionDate, "DD-MM-YYYY HH:mm:ss", true)
     .locale(lang as string)
-    .tz(timeZone);
-  const formattedDate = parsedDate.format("dddd, D MMMM YYYY, h:mm A"); // User-friendly format
+    .tz(timeZone)
+    .format("h:mm A"); // User-friendly format
 
   return (
     <View
@@ -68,7 +68,7 @@ export const TransactionHistoryItem = ({
           {pillVariant.PillTxt}
         </Pill>
       </View>
-      <StyledText variant="BodyBoldm">{`${getTypeObj.type === "Send" ? "-" : ""}${billingAmount} ${t("currencies." + billingCurrency)}`}</StyledText>
+      <StyledText variant="BodyBoldm">{`${getTypeObj.type === "Send" ? "-" : ""}${billingAmount} ${billingCurrency}`}</StyledText>
     </View>
   );
 };

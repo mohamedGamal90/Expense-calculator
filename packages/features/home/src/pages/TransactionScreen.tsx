@@ -6,6 +6,7 @@ import { getLastMonth, getTodayDate } from "@aurora/utils";
 import { Icon } from "@aurora/icons";
 import { useTranslation } from "react-i18next";
 import { useLocalSearchParams } from "expo-router";
+import dayjs from "dayjs";
 
 export const TransactionScreen = () => {
   const params = useLocalSearchParams();
@@ -46,7 +47,7 @@ export const TransactionScreen = () => {
       </StyledText>
     </View>
   );
-
+  let oldDate: null | string;
   return (
     <View
       flex={1}
@@ -69,12 +70,30 @@ export const TransactionScreen = () => {
             data={transactions?.transaction}
             contentContainerStyle={{ flexGrow: 1 }}
             keyExtractor={(_item, index) => `item-${index}`}
-            renderItem={({ item }) => (
-              <TransactionHistoryItem
-                timeZone={transactions?.timeZone as string}
-                transaction={item}
-              />
-            )}
+            renderItem={({ item }) => {
+              let datetxt: null | string;
+              if (item.transactionDate.slice(0, 10) !== oldDate) {
+                oldDate = item.transactionDate.slice(0, 10);
+                datetxt = dayjs(item.transactionDate, "DD-MM-YYYY HH:mm:ss", true)
+                  .tz(transactions?.timeZone)
+                  .format("dddd, D MMMM YYYY");
+              } else {
+                datetxt = null;
+              }
+              return (
+                <>
+                  {datetxt && (
+                    <StyledText paddingTop="$sm" color={"$secondary400"} variant="BodySemiBoldml">
+                      {datetxt}
+                    </StyledText>
+                  )}
+                  <TransactionHistoryItem
+                    timeZone={transactions?.timeZone as string}
+                    transaction={item}
+                  />
+                </>
+              );
+            }}
             ListEmptyComponent={emptyTransactionsList}
           />
         )}
