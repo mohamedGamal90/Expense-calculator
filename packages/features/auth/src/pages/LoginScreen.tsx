@@ -55,9 +55,11 @@ export function LoginScreen() {
       <Alert />
       <FormProvider {...form}>
         <View gap="$xl">
-          <StyledText variant="Heading5xl">{t("titles.login")}</StyledText>
           <View>
-            <StyledText mb="$s" variant="Heading5xl">
+            <StyledText variant="Heading3xl" pb="$l">
+              {t("titles.login")}
+            </StyledText>
+            <StyledText mb="$xs" variant="Heading5xl">
               {t("titles.welcome")}
             </StyledText>
 

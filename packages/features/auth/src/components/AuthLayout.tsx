@@ -1,4 +1,4 @@
-import { RootView, StyledSelect, View } from "@aurora/components";
+import { RootView, ScrollView, StyledSelect, View } from "@aurora/components";
 import { Lang, changeLang } from "@metroid/localization";
 import { useSettingStore } from "@metroid/store";
 import { Image } from "expo-image";
@@ -44,9 +44,11 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
             /> */}
           </View>
         </View>
-        <View flex={1} w={"100%"} gap={"$5xl"} justifyContent="center">
-          {children}
-        </View>
+        <ScrollView style={{ width: "100%", flex: 1, paddingRight: 13 }}>
+          <View gap={"$5xl"} justifyContent="center">
+            {children}
+          </View>
+        </ScrollView>
       </View>
       <View w={"50%"} height={"100%"} backgroundColor={"white"} paddingVertical={"$base"}>
         <Image
