@@ -114,7 +114,7 @@
     "spaceErr": "لا يجب تضمين المسافات",
     "number": "يجب أن يكون رقمًا",
     "confirm-password": "يجب أن تتطابق كلمة المرور",
-    "otp-sent-message": "لقد أرسلنا رمزًا مكونًا من 4 أرقام إلى:",
+    "otp-sent-message": "لقد أرسلنا رمزًا مكونًا من 6 أرقام إلى:",
     "otp-error-message": "يجب أن يحتوي OTP على أرقام فقط",
     "verify-phone-number": "تحقق من رقم هاتفك",
     "verify-email-address": "تحقق من عنوان بريدك الإلكتروني"

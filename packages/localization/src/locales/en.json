@@ -122,7 +122,7 @@
     "confirm-password": "Password must match",
     "verify-phone-number": "Verify your phone number",
     "verify-email-address": "Verify your email address",
-    "otp-sent-message": "We sent a 4 digit code to:",
+    "otp-sent-message": "We sent a 6 digit code to:",
     "otp-error-message": "OTP only contains characters",
     "length": "Card number must be exactly 16 characters long"
   },

@@ -4,7 +4,7 @@ import { Icon } from "@aurora/icons";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const CELL_COUNT = 4;
+const CELL_COUNT = 6;
 
 export const Verification = ({
   onSubmit,
