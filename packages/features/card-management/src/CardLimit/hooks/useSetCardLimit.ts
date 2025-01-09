@@ -15,8 +15,8 @@ const setLimit = async (cardId: string, newLimit: string, limitType: string) =>
       cardId,
       newLimit,
       limitType,
-      dateFrom: getTommorowDate(),
-      dateTo: getNextWeek(),
+      // dateFrom: getTommorowDate(),
+      // dateTo: getNextWeek(),
     },
   );
 

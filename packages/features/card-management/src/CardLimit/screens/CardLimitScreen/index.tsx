@@ -20,20 +20,31 @@ export const CardLimit = ({
   const [selectedLimit, setSelectedLimit] = useState<string>("");
   // const [customCardLimits, setCardLimits] = useState<{ label: string; value: string }[]>([]);
 
-  const { data, isSuccess } = useGetCardLimitsQuery(selectedCard.id);
+  // const { data, isSuccess } = useGetCardLimitsQuery(selectedCard.id);
   const { t } = useTranslation();
 
   const onSelectLimit = (limit: string) => {
     setSelectedLimit(limit);
     setSliderValue(0);
   };
-  let customCardLimits: { label: string; value: string }[] = [];
-  if (isSuccess) {
-    customCardLimits = data?.limits.map(limit => ({
-      label: limit.description,
-      value: limit.limitType,
-    }));
-  }
+
+  let customCardLimits: { label: string; value: string }[] = [
+    {
+      label: "Card MOTO/E-commerce day limit",
+      value: "LMTP0111",
+    },
+    {
+      label: "Card MOTO/E-commerce monthly limit",
+      value: "LMTP0112",
+    },
+  ];
+
+  // if (isSuccess) {
+  //   customCardLimits = data?.limits.map(limit => ({
+  //     label: limit.description,
+  //     value: limit.limitType,
+  //   }));
+  // }
   // useEffect(() => {
   //   if (isSuccess) {
   //     const customCardLimits = data?.limits.map(limit => ({
@@ -45,7 +56,7 @@ export const CardLimit = ({
   //   }
   // }, [isSuccess]);
 
-  const sliderMax = data?.limits.find(limit => selectedLimit === limit.limitType)?.limitValue;
+  const sliderMax = selectedLimit === "LMTP0111" ? 4000 : 10000;
 
   return (
     <View flex={1} justifyContent="space-between">
@@ -101,7 +112,7 @@ export const CardLimit = ({
         variant="primary"
         onPress={() => onSubmit(sliderValue, selectedLimit)}
         isLoading={isPending}
-        disabled={isPending}>
+        disabled={isPending || selectedLimit === ""}>
         {t("buttons.next")}
       </StyledButton>
     </View>
