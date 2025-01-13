@@ -24,7 +24,7 @@ export const TransactionHistoryItem = ({
   const { lang } = useSettingStore();
   const { t } = useTranslation();
 
-  const getTypeObj: { icon: IconKeys; type: string } = (() => {
+  const transactionTypeObj: { icon: IconKeys; type: string } = (() => {
     switch (transactionType) {
       case "MONEY_OUT":
         return { icon: "send", type: t("status.send") }; // "Send" or "إرسال"
@@ -41,6 +41,7 @@ export const TransactionHistoryItem = ({
         return { pillVariant: "negative", PillTxt: t("status.cancelled") }; // "Cancelled" or "ملغى"
     }
   })();
+
   const formattedDate = dayjs(transactionDate, "DD-MM-YYYY HH:mm:ss", true)
     .locale(lang as string)
     .tz(timeZone)
@@ -54,13 +55,18 @@ export const TransactionHistoryItem = ({
       justifyContent="space-between">
       <View gap={"$s"} flexDirection="row" alignItems="center">
         <View borderRadius={"$xs"} borderWidth={0.3} borderColor={"$secondary900"} padding={"$xs"}>
-          <Icon name={getTypeObj.icon} width={14} height={14} />
+          <Icon name={transactionTypeObj.icon} width={14} height={14} />
         </View>
-        <StyledText width={90} color={"$secondary900"} variant="Bodysm">
-          {getTypeObj.type}
+        <StyledText color={"$secondary900"} variant="Bodysm">
+          {transactionTypeObj.type}
         </StyledText>
       </View>
-      <StyledText color={"$secondary400"} variant="BodySemiBoldml">
+      <StyledText
+        $sm={{
+          display: "none",
+        }}
+        color={"$secondary400"}
+        variant="BodySemiBoldml">
         {formattedDate}
       </StyledText>
       <View width={100}>
@@ -68,7 +74,7 @@ export const TransactionHistoryItem = ({
           {pillVariant.PillTxt}
         </Pill>
       </View>
-      <StyledText variant="BodyBoldm">{`${getTypeObj.type === "Send" ? "-" : ""}${billingAmount} ${billingCurrency}`}</StyledText>
+      <StyledText variant="BodyBoldm">{`${transactionTypeObj.type === "Send" ? "-" : ""}${billingAmount} ${billingCurrency}`}</StyledText>
     </View>
   );
 };

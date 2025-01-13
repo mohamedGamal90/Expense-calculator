@@ -31,6 +31,8 @@ import DetailsIcon from "./details-icon.svg";
 import Card from "./card.svg";
 import ArrowFullDown from "./arrow-full-down.svg";
 import Error from "./error.svg";
+import Menu from "./menu-2.svg";
+import Logout from "./logout.svg";
 
 const svgs = {
   error: Error,
@@ -55,8 +57,10 @@ const svgs = {
   "freeze-card": FreezeCard,
   group: Group,
   "layout-dashboard": LayoutDashboard,
+  logout: Logout,
   manage: Manage,
   mobile: Mobile,
+  menu: Menu,
   "more-circle": MoreCircle,
   password: Password,
   "replace-card": ReplaceCard,

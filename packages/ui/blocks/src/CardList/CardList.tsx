@@ -13,13 +13,14 @@ import { ControlIndexBtn } from "./component/ControlIndexBtn";
 import { Icon } from "@aurora/icons";
 import { getTokens } from "@tamagui/core";
 import { useSelectedCardActions } from "@metroid/store";
-import { useWindowDimensions } from "@aurora/components";
+import { useMedia, useWindowDimensions } from "@aurora/components";
 import { useGetCardsQuery, useIsRtl } from "@metroid/hooks";
 import { CardListLoading } from "./component/CardListLoading";
 
 export const CardList = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+  const media = useMedia();
 
   const { width: screenWidth } = useWindowDimensions();
   const { color, space } = getTokens();
@@ -29,7 +30,7 @@ export const CardList = () => {
 
   const { data: cards, isFetching } = useGetCardsQuery();
 
-  const width = screenWidth - space.base.val * 2 - 255;
+  const width = screenWidth - space.base.val * 2 - (media.sm ? 0 : 255);
 
   useEffect(() => {
     if (cards) {

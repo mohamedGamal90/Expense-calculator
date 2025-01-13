@@ -3,7 +3,7 @@ import { Icon } from "@aurora/icons";
 import { Link, usePathname, useRouter } from "expo-router";
 import { Image } from "expo-image";
 import { deleteValue, StoreKey } from "@aurora/utils";
-import { useTranslation } from "react-i18next";
+import { LogoutButton } from "./LogoutButton";
 
 type IconProps = React.ComponentProps<typeof Icon>;
 
@@ -18,7 +18,6 @@ export function Sidebar({ buttons }: { buttons: SidebarButton[] }) {
   const pathName = usePathname();
   const router = useRouter();
   const { color } = getTokens();
-  const { t } = useTranslation();
 
   const itemColor = (href: string, disabled: boolean) => {
     if (href === pathName) return color.$primary800.val;
@@ -31,7 +30,14 @@ export function Sidebar({ buttons }: { buttons: SidebarButton[] }) {
     router.replace("/");
   };
   return (
-    <View borderColor="$secondary100" borderWidth={1} borderRadius="$l" margin="$base">
+    <View
+      $sm={{
+        display: "none",
+      }}
+      borderColor="$secondary100"
+      borderWidth={1}
+      borderRadius="$l"
+      margin="$base">
       <View
         paddingVertical="$ml"
         borderBottomWidth={1}
@@ -78,16 +84,8 @@ export function Sidebar({ buttons }: { buttons: SidebarButton[] }) {
         ))}
       </View>
 
-      <View
-        cursor="pointer"
-        onPress={handleOnLogout}
-        mt="$auto"
-        mb="$2xl"
-        justifyContent="center"
-        alignItems="center">
-        <StyledText textDecorationLine="underline" color={"$error400"} variant="Headingl">
-          {t("buttons.logout")}
-        </StyledText>
+      <View mt="$auto" p="$m">
+        <LogoutButton />
       </View>
     </View>
   );

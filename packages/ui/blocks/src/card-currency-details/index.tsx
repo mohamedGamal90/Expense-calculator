@@ -36,34 +36,44 @@ export const CardCurrencyDetails = () => {
     selectedCard.statusName === "VALID CARD" ? t("cardDetails.active") : t("cardDetails.inactive");
 
   return (
-    <View flexDirection="row" justifyContent="center" margin={screenWidth > 600 ? "$ml" : "$sm"}>
+    <View flexDirection="row" justifyContent="center">
       <CardInfoBlock title={t("cardDetails.yourBalance")}>
         <StyledText
-          variant={screenWidth > 600 ? "BodySemiBoldml" : "BodySemiBoldsm"}
+          $sm={{
+            variant: "BodySemiBoldml",
+          }}
           paddingVertical={"$xs"}
           color={"$secondary900"}>
           {`${getCurrencySymbol(selectedCard.currencyName)} ${selectedCard.availableBalance}`}
         </StyledText>
       </CardInfoBlock>
-      <View width={1} height={68} backgroundColor={"$secondary100"} marginHorizontal={"$base"} />
+      <View width={1} height={68} backgroundColor={"$secondary100"} marginHorizontal={"$sm"} />
       <CardInfoBlock title={t("cardDetails.status")}>
         <View
           backgroundColor={selectedCard.statusName === "VALID CARD" ? "$success50" : "$error100"}
           paddingHorizontal={"$sm"}
           paddingVertical={"$s"}
+          alignItems="center"
+          justifyContent="center"
           borderRadius={"$sm"}>
           <StyledText
-            variant={screenWidth > 600 ? "Bodym" : "Bodys"}
+            $sm={{
+              variant: "BodySemiBolds",
+            }}
+            variant="BodySemiBoldm"
             color={selectedCard.statusName === "VALID CARD" ? "$success600" : "$error500"}>
             {cardStatus}
           </StyledText>
         </View>
       </CardInfoBlock>
-      <View width={1} height={68} backgroundColor={"$secondary100"} marginHorizontal={"$base"} />
+      <View width={1} height={68} backgroundColor={"$secondary100"} marginHorizontal={"$sm"} />
       <CardInfoBlock title={t("cardDetails.cardCurrency")}>
         <StyledText
+          $sm={{
+            variant: "BodySemiBolds",
+          }}
+          variant="BodySemiBoldm"
           paddingVertical={"$xs"}
-          variant={screenWidth > 600 ? "BodySemiBoldml" : "BodySemiBolds"}
           color={"$secondary900"}>
           {t("currencies." + selectedCard.currencyName)}
         </StyledText>

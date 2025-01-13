@@ -100,6 +100,8 @@ export const StyledButton = forwardRef<typeof View, StyledButtonProps>(
 
     return (
       <Button
+        cursor="pointer"
+        gap="$xs"
         {...props}
         ref={ref as LegacyRef<TamaguiElement> | undefined}
         disabled={props.disabled || isLoading}>

@@ -1,6 +1,7 @@
 import { Sidebar, SidebarButton } from "@aurora/blocks";
 import { RootView } from "@aurora/components";
 import { useTranslation } from "react-i18next";
+import { MobileTopbar } from "./MobileTopbar";
 
 export const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation();
@@ -33,7 +34,13 @@ export const RootLayout = ({ children }: { children: React.ReactNode }) => {
   ];
 
   return (
-    <RootView flex={1} flexDirection="row">
+    <RootView
+      $sm={{
+        flexDirection: "column",
+      }}
+      flex={1}
+      flexDirection="row">
+      <MobileTopbar />
       <Sidebar buttons={buttons} />
       {children}
     </RootView>

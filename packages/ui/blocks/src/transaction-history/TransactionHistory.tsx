@@ -1,4 +1,4 @@
-import { getTokens, StyledText, View } from "@aurora/components";
+import { getTokens, StyledText, Text, View } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { TransactionHistoryItem } from "./components/TransactionHistoryItem";
 import {
@@ -29,7 +29,13 @@ const RenderTransactions = ({ transactions }: { transactions: GetCardTransaction
     return (
       <>
         {datetxt && (
-          <StyledText paddingTop="$sm" color={"$secondary400"} variant="BodySemiBoldml">
+          <StyledText
+            $sm={{
+              variant: "BodySemiBoldm",
+            }}
+            paddingTop="$sm"
+            color={"$secondary400"}
+            variant="BodySemiBoldml">
             {datetxt}
           </StyledText>
         )}
@@ -69,11 +75,9 @@ export const TransactionHistory = () => {
       padding={"$ml"}
       width={"100%"}>
       <View flexDirection="row" justifyContent="space-between" alignItems="center">
-        <View>
-          <StyledText color={"$secondary900"} variant="Headingxl">
-            {t("titles.transactions-history")}
-          </StyledText>
-        </View>
+        <StyledText color={"$secondary900"} variant="Headingxl">
+          {t("titles.transactions-history")}
+        </StyledText>
 
         <View
           cursor="pointer"
@@ -103,9 +107,17 @@ export const TransactionHistory = () => {
               marginBottom="$base">
               <Icon name={"arrow-swap-horizontal"} color={color.$white.val} />
             </View>
-            <StyledText variant="Heading2xl" color="secondary800">
-              No transactions found in the last week
-            </StyledText>
+            <View flexDirection="row">
+              <StyledText
+                $sm={{
+                  variant: "BodymL",
+                }}
+                textAlign="center"
+                variant="Heading2xl"
+                color="secondary800">
+                No transactions found in the last week
+              </StyledText>
+            </View>
           </View>
         )}
       </View>
