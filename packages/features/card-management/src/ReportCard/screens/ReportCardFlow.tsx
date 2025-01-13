@@ -1,4 +1,4 @@
-import { Dimensions, FlatList } from "react-native";
+import { FlatList } from "react-native";
 import { useRef, useState } from "react";
 import { DialogFlow } from "@aurora/blocks/src/DialogFlow";
 import { useReportCardMutation } from "@metroid/card-management/src/ReportCard/hooks/useReportCardMutation";
@@ -8,9 +8,6 @@ import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMu
 import { useSelectedCard } from "@metroid/store";
 import { useTranslation } from "react-i18next";
 import { showAlert } from "@aurora/components";
-
-const screenWidth = Dimensions.get("window").width;
-export const dialogWidth = screenWidth > 700 ? 600 - 48 : screenWidth - 48;
 
 type Props = { returnBackHandler: () => void };
 
@@ -52,21 +49,19 @@ export const ReportCardFlow = ({ returnBackHandler }: Props) => {
     data,
   } = useRequestOtpMutation({
     onSuccess: () => onNextScreen(),
-    onError(error) {
+    onError: error =>
       showAlert({
         title: t("server-error.an_error_has_occurred"),
         message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
+      }),
   });
 
   const { mutateAsync: reportCard, isPending: reportCardIspending } = useReportCardMutation({
-    onError(error) {
+    onError: error =>
       showAlert({
         title: t("server-error.an_error_has_occurred"),
         message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
+      }),
   });
 
   const onReportCard = async (otp: string) => {

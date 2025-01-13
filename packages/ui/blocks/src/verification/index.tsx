@@ -60,7 +60,7 @@ export const Verification = ({
   };
 
   return (
-    <View flex={1} justifyContent="space-between">
+    <View f={1} $md={{ mih: 500 }} jc="space-between">
       <View>
         <View flexDirection="row" gap={"$s"} marginVertical={"$l"}>
           <View alignItems="center" gap={"$xs"}>

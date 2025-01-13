@@ -94,18 +94,23 @@ export const ForgotPasswordScreen = () => {
   return (
     <Form flex={1} onSubmit={form.handleSubmit(handleSubmit)}>
       <FormProvider {...form}>
-        <View flex={1} paddingHorizontal="$s" backgroundColor="$white">
+        <View f={1} paddingHorizontal="$s" bg="$white">
           <StyledButton
             variant="outlined"
-            borderColor={"$gray9"}
-            paddingVertical={"$xs"}
-            marginBottom={"$s"}
-            width={50}
+            bc="$gray9"
+            py="$xs"
+            mb="$s"
+            w={50}
             icon={<Icon name="arrow-left" color="black" />}
             onPress={() => router.push("auth/login")}
           />
 
-          <StyledText mt={"$l"} variant="Heading4xl" color={"$secondary900"} marginBottom="$l">
+          <StyledText
+            variant="Heading2xl"
+            mt="$l"
+            $gtMd={{ variant: "Heading5xl" }}
+            col="$secondary900"
+            mb="$l">
             {t("titles.forgotPassword")} {/* Translated title */}
           </StyledText>
 

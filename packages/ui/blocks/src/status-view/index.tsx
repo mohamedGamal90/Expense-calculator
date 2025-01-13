@@ -12,7 +12,7 @@ export const StatusView = ({
   status?: "success" | "error" | "pending";
   singleFlow?: boolean;
 }) => (
-  <View flex={1} justifyContent="space-between">
+  <View f={1} $md={{ mih: 500 }} jc="space-between">
     <View flex={1} alignItems="center" paddingTop={"$xl"} gap={"$xl"}>
       <View>
         <LottieView

@@ -16,8 +16,8 @@ enum FormFields {
 }
 
 export function LoginScreen() {
-  const router = useRouter();
   const { t } = useTranslation();
+  const router = useRouter();
 
   const loginFormResolver = yup.object().shape({
     [FormFields.Username]: yup.string().required(i18n.t("validation.required")),
@@ -56,14 +56,14 @@ export function LoginScreen() {
       <FormProvider {...form}>
         <View gap="$xl">
           <View>
-            <StyledText variant="Heading3xl" pb="$l">
+            <StyledText variant="Heading2xl" $gtMd={{ variant: "Heading3xl" }} pb="$l">
               {t("titles.login")}
             </StyledText>
-            <StyledText mb="$xs" variant="Heading5xl">
+            <StyledText mb="$xs" variant="Heading2xl" $gtMd={{ variant: "Heading5xl" }}>
               {t("titles.welcome")}
             </StyledText>
 
-            <StyledText mb="$xl" variant="BodySemiBoldm">
+            <StyledText mb="$xl" variant="BodySemiBolds" $gtMd={{ variant: "BodySemiBoldm" }}>
               {t("titles.instruction")}
             </StyledText>
 
@@ -91,30 +91,25 @@ export function LoginScreen() {
                 marginBottom: 20,
               }}
               href={"/auth/forgot-password"}>
-              <StyledText color={"$primary800"} padding="$space.s" variant="BodySemiBoldsm">
+              <StyledText col="$primary800" padding="$space.s" variant="BodySemiBoldsm">
                 {t("buttons.forgotPassword")}
               </StyledText>
             </Link>
             <Form.Trigger mt="$m" asChild>
               <StyledButton isLoading={isPending}>{t("buttons.login")}</StyledButton>
             </Form.Trigger>
-            <View w={"100%"} alignItems="center">
-              <View
-                flexDirection="row"
-                mt="$l"
-                paddingBottom={"$m"}
-                gap={"$space.sm"}
-                alignItems="center">
-                <View h={"1px"} w={"100px"} backgroundColor={"$neutral900"}></View>
+            <View w="100%" alignItems="center">
+              <View fd="row" mt="$l" pb="$m" gap={"$space.sm"} alignItems="center">
+                <View h="1px" w="100px" bg="$neutral900"></View>
                 <StyledText>{t("titles.or")}</StyledText>
-                <View h={"1px"} w={"100px"} backgroundColor={"$neutral900"}></View>
+                <View h="1px" w="100px" bg="$neutral900"></View>
               </View>
-              <StyledText mb={"$m"} color={"$secondary900"} variant="BodySemiBoldsm">
-                {t("titles.noAccount")}{" "}
+              <StyledText variant="BodySemiBoldsm" mb="$m" col="$secondary900">
+                {t("titles.noAccount")}
                 <StyledText
                   cursor="pointer"
                   variant="BodyBoldml"
-                  color={"$primary800"}
+                  col="$primary800"
                   onPress={() => router.push("/auth/register")}>
                   {t("titles.signUp")}
                 </StyledText>

@@ -1,7 +1,7 @@
 import { StyledText, View } from "@aurora/components";
 import { CardInfoBlock } from "./components/cardInfoBlock";
 import { Dimensions } from "react-native";
-import { getCurrencyFullName, getCurrencySymbol } from "@aurora/utils";
+import { getCurrencySymbol } from "@aurora/utils";
 import { useSelectedCard } from "@metroid/store";
 import { t } from "i18next";
 

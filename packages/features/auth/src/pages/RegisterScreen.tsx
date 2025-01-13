@@ -65,16 +65,18 @@ export const RegisterScreen = () => {
         <View gap="$xl">
           <StyledButton
             variant="outlined"
-            borderColor={"$gray9"}
-            paddingVertical={"$xs"}
-            marginBottom={"$s"}
-            width={50}
+            bc="$gray9"
+            py="$xs"
+            mb="$s"
+            w={50}
             icon={<Icon name="arrow-left" color="black" />}
             onPress={() => router.push("auth/login")}
           />
-          <StyledText variant="Heading5xl">Sign Up</StyledText>
+          <StyledText variant="Heading2xl" $gtMd={{ variant: "Heading5xl" }}>
+            Sign Up
+          </StyledText>
           <View>
-            <StyledText mb="$s" variant="Heading5xl">
+            <StyledText mb="$s" variant="Heading2xl" $gtMd={{ variant: "Heading5xl" }}>
               {t("titles.welcome")}
             </StyledText>
 
@@ -97,23 +99,17 @@ export const RegisterScreen = () => {
               </StyledButton>
             </Form.Trigger>
             <View w={"100%"} alignItems="center">
-              <View
-                flexDirection="row"
-                mt="$l"
-                paddingBottom={"$m"}
-                gap={"$space.sm"}
-                alignItems="center">
+              <View fd="row" mt="$l" pb={"$m"} gap={"$space.sm"} alignItems="center">
                 <View h={"1px"} w={"100px"} backgroundColor={"$neutral900"}></View>
                 <StyledText>{t("titles.or")}</StyledText>
                 <View h={"1px"} w={"100px"} backgroundColor={"$neutral900"}></View>
               </View>
-              <StyledText mb={"$m"} color={"$secondary900"} variant="BodySemiBoldsm">
+              <StyledText mb={"$m"} col={"$secondary900"} variant="BodySemiBoldsm">
                 {"Already have an account?"}
-                {"  "}
                 <StyledText
                   cursor="pointer"
                   variant="BodyBoldml"
-                  color={"$primary800"}
+                  col={"$primary800"}
                   onPress={() => router.push("/auth/login")}>
                   {"Login"}
                 </StyledText>

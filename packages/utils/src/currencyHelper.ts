@@ -11,7 +11,6 @@ const CURRENCYOBJ = {
 };
 
 const getCurrencySymbol = (currency: CurrencyType) => CURRENCYOBJ[currency].symbol;
-const getCurrencyFullName = (currency: CurrencyType) => CURRENCYOBJ[currency].currencyName;
 const getCurrencyCode = (currency: CurrencyType) => CURRENCYOBJ[currency].currencyCode;
 
-export { getCurrencySymbol, getCurrencyFullName, getCurrencyCode };
+export { getCurrencySymbol, getCurrencyCode };

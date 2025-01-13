@@ -1,6 +1,6 @@
-import { getTokens, View } from "@aurora/components";
 import { useState } from "react";
 import { ActivityIndicator } from "react-native";
+import { getTokens, View } from "@aurora/components";
 
 export function SetPinScreen({ src }: { src: string }) {
   const [loading, setLoading] = useState(true);
@@ -21,11 +21,7 @@ export function SetPinScreen({ src }: { src: string }) {
           border: "none",
         }}
         src={src}
-        loading="eager"
-        onLoad={() => {
-          setLoading(false);
-          console.log("Finished loading");
-        }}
+        onLoad={() => setLoading(false)}
       />
     </>
   );
