@@ -29,7 +29,7 @@ export const TransactionHistoryItem = ({
       case "MONEY_OUT":
         return { icon: "send", type: t("status.send") }; // "Send" or "إرسال"
       default:
-        return { icon: "topup", type: t("status.added") }; // "Added" or "تم الإضافة"
+        return { icon: "topup", type: t("status.received") }; // "Added" or "تم الإضافة"
     }
   })();
 

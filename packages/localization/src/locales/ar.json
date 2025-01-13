@@ -134,7 +134,7 @@
   },
   "status": {
     "send": "إرسال",
-    "added": "تم الإضافة",
+    "received": "تم الاستلام",
     "success": "نجاح",
     "cancelled": "ملغى"
   },

@@ -135,7 +135,7 @@
   },
   "status": {
     "send": "Send",
-    "added": "Added",
+    "received": "Received",
     "success": "Success",
     "cancelled": "Cancelled"
   },
