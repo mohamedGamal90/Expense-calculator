@@ -19,42 +19,17 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
     () => (
       <>
         <View
-          $gtMd={{
-            w: "50%",
-            h: "100%",
-            py: "$base",
-          }}
+          zi={10}
           w="100%"
-          h={300}>
-          {media.md && (
-            <View
-              pos="absolute"
-              zi={10}
-              w="100%"
-              t={-10}
-              height={70}
-              borderRadius="$sm"
-              bg="white"
-              opacity={0.73}
-              jc="center">
-              <Image
-                source={require("./logo.png")}
-                style={{ width: "100%", height: "70%" }}
-                contentFit="contain"
-              />
-            </View>
-          )}
-
+          t={-10}
+          height={70}
+          borderRadius="$sm"
+          bg="white"
+          opacity={0.73}
+          jc="center">
           <Image
-            style={{
-              flex: 1,
-            }}
-            priority="high"
-            source={
-              media.gtMd
-                ? require("../assets/login-img.png")
-                : require("../assets/login-img-mobile.png")
-            }
+            source={require("./logo.png")}
+            style={{ width: "100%", height: "70%" }}
             contentFit="contain"
           />
         </View>
