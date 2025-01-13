@@ -5,15 +5,11 @@ export function CardListLoading() {
   return (
     <View>
       <View
-        $sm={{
-          width: "85%",
-        }}
-        alignSelf="center"
         width={screenWidth - 315}
         height={200}
         backgroundColor="$secondary100"
         borderRadius="$sm"
-        paddingHorizontal="$base"
+        marginHorizontal="$base"
       />
       <View flexDirection="row" justifyContent="center" gap="$xs" marginTop="$base">
         {[...Array(3)].map((_, index) => (
