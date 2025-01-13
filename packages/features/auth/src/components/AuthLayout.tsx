@@ -24,39 +24,25 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
             h: "100%",
             py: "$base",
           }}
-          w="100%"
-          h={300}>
-          {media.md && (
-            <View
-              pos="absolute"
-              zi={10}
-              w="100%"
-              t={-10}
-              height={70}
-              borderRadius="$sm"
-              bg="white"
-              opacity={0.73}
-              jc="center">
+          w="100%">
+          {media.md ? (
+            <View w="100%" t={-10} h={70} borderRadius="$sm" bg="white" opacity={0.73} jc="center">
               <Image
                 source={require("./logo.png")}
                 style={{ width: "100%", height: "70%" }}
                 contentFit="contain"
               />
             </View>
+          ) : (
+            <Image
+              style={{
+                flex: 1,
+              }}
+              priority="high"
+              source={require("../assets/login-img.png")}
+              contentFit="contain"
+            />
           )}
-
-          <Image
-            style={{
-              flex: 1,
-            }}
-            priority="high"
-            source={
-              media.gtMd
-                ? require("../assets/login-img.png")
-                : require("../assets/login-img-mobile.png")
-            }
-            contentFit="contain"
-          />
         </View>
         <View
           $gtMd={{
@@ -118,7 +104,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
       fw="wrap"
       bg="white"
       fd="row-reverse">
-      {media.gtMd ? screen() : <ScrollView>{screen()}</ScrollView>}
+      {screen()}
     </RootView>
   );
 }
