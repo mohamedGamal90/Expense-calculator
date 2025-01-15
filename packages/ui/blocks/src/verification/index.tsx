@@ -1,4 +1,4 @@
-import { getTokens, StyledButton, StyledText, View } from "@aurora/components";
+import { getTokens, StyledButton, StyledText, useMedia, View } from "@aurora/components";
 import { OTPInput } from "input-otp";
 import { Icon } from "@aurora/icons";
 import { useState } from "react";
@@ -21,6 +21,8 @@ export const Verification = ({
   const { t } = useTranslation();
   const [error, setError] = useState(false);
   const { color } = getTokens();
+  const { gtXs } = useMedia();
+
   const verifyObject: { icon: "mobile" | "email"; txt: string; iconTxt: JSX.Element } = (() => {
     switch ("email") {
       // case "mobile":
@@ -60,7 +62,7 @@ export const Verification = ({
   };
 
   return (
-    <View f={1} $md={{ mih: 500 }} jc="space-between">
+    <View f={1} jc="space-between">
       <View>
         <View flexDirection="row" gap={"$s"} marginVertical={"$l"}>
           <View alignItems="center" gap={"$xs"}>
@@ -122,19 +124,17 @@ export const Verification = ({
                     borderColor={slot.isActive ? "$secondary800" : "$secondary300"}
                     borderRadius={"$s"}
                     borderWidth={2}
-                    marginRight={"$m"}
+                    mr={gtXs ? "$m" : "$xs"}
                     height={40}
                     width={40}>
-                    {slot.char !== null && (
-                      <StyledText color="$secondary800">{slot.char}</StyledText>
-                    )}
+                    {slot.char !== null && <StyledText col="$secondary800">{slot.char}</StyledText>}
                   </View>
                 ))}
               </View>
             )}
           />
           {error && (
-            <StyledText variant="Bodysm" color="$error600" marginTop="$sm">
+            <StyledText variant="Bodysm" col="$error600" mt="$sm">
               {t("validation.otp-error-message")}
             </StyledText>
           )}
