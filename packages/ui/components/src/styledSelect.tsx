@@ -21,16 +21,12 @@ export const StyledSelect = ({
   onSelect: (value: string) => void;
 }) => {
   const renderOption = useCallback(
-    (item: Item, index: number) => {
-      return (
-        <Select.Item padding={"$m"} index={index} value={item.value}>
-          <Select.ItemText color={"$black"}>{item.label}</Select.ItemText>
-          <Select.ItemIndicator marginLeft="auto">
-            <Icon name={"arrow-circle-right"} />
-          </Select.ItemIndicator>
-        </Select.Item>
-      );
-    },
+    (item: Item, index: number) => (
+      <Select.Item padding={"$m"} index={index} value={item.value}>
+        <Select.ItemText col={"$black"}>{item.label}</Select.ItemText>
+        <Select.ItemIndicator ml="auto"></Select.ItemIndicator>
+      </Select.Item>
+    ),
     [items],
   );
   return (
@@ -74,15 +70,7 @@ export const StyledSelect = ({
           </Select.Group>
           {/* Native gets an extra icon */}
           {props.native && (
-            <YStack
-              position="absolute"
-              // right={0}
-              // top={0}
-              // bottom={0}
-              alignItems="center"
-              justifyContent="center"
-              width={"$3"}
-              pointerEvents="none">
+            <YStack pos="absolute" ai="center" jc="center" w={"$3"} pointerEvents="none">
               {/* <ChevronDown size={getFontSize((props.size as FontSizeTokens) ?? "$true")} /> */}
             </YStack>
           )}
