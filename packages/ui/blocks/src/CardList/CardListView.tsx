@@ -5,11 +5,14 @@ import { useWindowDimensions } from "react-native";
 import { CardList } from "./CardList";
 import { CardMangementDialogScreen, TopUpFlow } from "@metroid/card-management";
 import { useTranslation } from "react-i18next";
+import { useSelectedCard } from "@metroid/store";
 
 export const CardListView = () => {
   const { width } = useWindowDimensions();
+  const selectedCard = useSelectedCard();
   const { t } = useTranslation();
 
+  const disabled = selectedCard?.statusCode !== "0";
   return (
     <View
       width="100%"
@@ -31,6 +34,7 @@ export const CardListView = () => {
         marginTop="$base">
         {/* <StyledDialog title={"Send"} icon={<Icon name={"send"} />} children={<SendMoneyFlow />} /> */}
         <StyledDialog
+          disabled={disabled}
           title={t("titles.topUp")}
           icon={<Icon name="topup" />}
           children={<TopUpFlow />}
