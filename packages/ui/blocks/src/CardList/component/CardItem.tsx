@@ -9,27 +9,14 @@ type Props = {
 };
 
 export const CardItem = memo(({ card, width }: Props) => (
-  <View
-    width={width}
-    height={200}
-    alignItems="center"
-    justifyContent="center"
-    paddingHorizontal="$xl"
-    alignSelf="center"
-    marginHorizontal="$auto">
+  <View w={width} h={200} ai="center" jc="center" px="$xl" alignSelf="center" mx="$auto">
     <RNImageBackground
       source={require("../../cardImage.png")}
       style={styles.imageBackground}
       resizeMode="contain">
-      <View
-        backgroundColor="black"
-        alignSelf="center"
-        borderRadius={5}
-        padding={5}
-        right={50}
-        top={148}>
-        <StyledText variant="Headingl" color={"white"}>
-          {card.cardMask}
+      <View bg="black" alignSelf="center" br={5} p={5} r={45} t={145}>
+        <StyledText variant="Headingl" col={"white"}>
+          Ending with ** {card.cardMask.slice(-4)}
         </StyledText>
       </View>
     </RNImageBackground>
