@@ -48,11 +48,7 @@ export const TransactionHistoryItem = ({
     .format("h:mm A"); // User-friendly format
 
   return (
-    <View
-      paddingVertical="$m"
-      flexDirection="row"
-      alignItems="center"
-      justifyContent="space-between">
+    <View py="$m" fd="row" ai="center" jc="space-between">
       <View gap={"$s"} flexDirection="row" alignItems="center">
         <View borderRadius={"$xs"} borderWidth={0.3} borderColor={"$secondary900"} padding={"$xs"}>
           <Icon name={transactionTypeObj.icon} width={14} height={14} />
@@ -74,7 +70,10 @@ export const TransactionHistoryItem = ({
           {pillVariant.PillTxt}
         </Pill>
       </View>
-      <StyledText variant="BodyBoldm">{`${transactionTypeObj.type === "Send" ? "-" : ""}${billingAmount} ${billingCurrency}`}</StyledText>
+      <StyledText
+        w={"15%"}
+        ta="right"
+        variant="BodyBoldm">{`${getTypeObj.type === "Send" ? "-" : ""}${billingAmount} ${billingCurrency}`}</StyledText>
     </View>
   );
 };
