@@ -33,7 +33,7 @@ export const CardCurrencyDetails = () => {
   }
 
   const cardStatus =
-    selectedCard.statusName === "VALID CARD" ? t("cardDetails.active") : t("cardDetails.inactive");
+    selectedCard.statusName === "VALID CARD" ? t("cardDetails.active") : selectedCard.statusName;
 
   return (
     <View flexDirection="row" justifyContent="center">
