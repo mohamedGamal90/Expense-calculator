@@ -17,17 +17,19 @@ export const TopUp = ({
   const [amount, setAmount] = useState<string>("");
   const { t } = useTranslation();
 
-  const items = cards?.map(item => ({
-    label: item.cardNumber,
-    value: item.id,
-  }));
+  const filteredCards = cards
+    ?.filter(card => card.status === "Valid card")
+    ?.map(item => ({
+      label: item.cardNumber,
+      value: item.id,
+    }));
 
   return (
     <View flex={1} paddingTop="$m" justifyContent="space-between">
       <View>
         <SelectedCardHeader cardNumber={cardNumber.slice(-4)} />
         <StyledSelect
-          items={items!}
+          items={filteredCards!}
           placeHolderText={t("placeholders.select-card")}
           value={selectedCardID}
           onSelect={value => setselectedCardID(value)}
