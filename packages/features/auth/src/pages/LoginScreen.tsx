@@ -37,7 +37,9 @@ export function LoginScreen() {
     onError(error) {
       showAlert({
         title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
+        message: t(
+          `server-error.${error?.response?.data?.message ? error.response.data.message.toLocaleLowerCase() : "an_error_has_occurred"}`,
+        ) as string,
       });
     },
     async onSuccess(data) {
