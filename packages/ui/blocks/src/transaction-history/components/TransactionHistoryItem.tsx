@@ -50,7 +50,7 @@ export const TransactionHistoryItem = ({
   return (
     <View py="$m" fd="row" ai="center" jc="space-between">
       <View gap={"$s"} flexDirection="row" alignItems="center">
-        <View borderRadius={"$xs"} borderWidth={0.3} borderColor={"$secondary900"} padding={"$xs"}>
+        <View borderRadius={"$xs"} borderWidth={0.3} bc={"$secondary900"} padding={"$xs"}>
           <Icon name={transactionTypeObj.icon} width={14} height={14} />
         </View>
         <StyledText color={"$secondary900"} variant="Bodysm">
@@ -61,19 +61,19 @@ export const TransactionHistoryItem = ({
         $sm={{
           display: "none",
         }}
-        color={"$secondary400"}
+        col={"$secondary400"}
         variant="BodySemiBoldml">
         {formattedDate}
       </StyledText>
       <View width={100}>
-        <Pill marginHorizontal={"$auto"} width={80} height={25} variant={pillVariant.pillVariant}>
+        <Pill mx={"$auto"} w={80} h={25} variant={pillVariant.pillVariant}>
           {pillVariant.PillTxt}
         </Pill>
       </View>
       <StyledText
         w={"15%"}
         ta="right"
-        variant="BodyBoldm">{`${getTypeObj.type === "Send" ? "-" : ""}${billingAmount} ${billingCurrency}`}</StyledText>
+        variant="BodyBoldm">{`${transactionTypeObj.type === "Send" ? "-" : ""}${billingAmount} ${billingCurrency}`}</StyledText>
     </View>
   );
 };
