@@ -15,23 +15,10 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
   // const { lang } = useSettingStore();
 
   return (
-    <RootView
-      $gtMd={{
-        px: "$4xl",
-      }}
-      f={1}
-      fw="wrap"
-      bg="white"
-      fd="row-reverse">
-      <View
-        $gtMd={{
-          w: "50%",
-          h: "100%",
-          py: "$base",
-        }}
-        w="100%">
+    <RootView $gtMd={{ px: "$4xl" }} f={1} fw="wrap" bg="white" fd="row-reverse">
+      <View $gtMd={{ w: "50%", h: "100%", py: "$base" }} w="100%">
         {media.md ? (
-          <View w="100%" t={-10} h={70} br="$sm" bg="white" opacity={0.73} jc="center">
+          <View w="100%" t={-10} h={70} br="$sm" bg="white" jc="center">
             <Image
               source={require("./logo.png")}
               style={{ width: "100%", height: "70%" }}
