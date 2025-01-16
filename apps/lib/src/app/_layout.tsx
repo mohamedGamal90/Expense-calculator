@@ -21,7 +21,6 @@ const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const { isConnected } = useNetworkState();
-  console.log(isConnected);
   if (isConnected === false) {
     alert("Connection Lost");
   }
