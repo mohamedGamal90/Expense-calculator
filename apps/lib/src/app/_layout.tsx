@@ -15,10 +15,16 @@ import "@metroid/localization";
 import { useLoadAssets } from "@metroid/hooks";
 import "dayjs/locale/ar"; // Import Arabic locale
 import "dayjs/locale/en"; // Import English locale
+import { useNetworkState } from "expo-network";
 
 const queryClient = new QueryClient();
 
 export default function RootLayout() {
+  const { isConnected } = useNetworkState();
+  console.log(isConnected);
+  if (isConnected === false) {
+    alert("Connection Lost");
+  }
   const { isLoaded } = useLoadAssets({
     fonts: {
       Tajawal_200ExtraLight,
