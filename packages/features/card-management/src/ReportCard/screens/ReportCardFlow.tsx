@@ -69,9 +69,12 @@ export const ReportCardFlow = ({ returnBackHandler }: Props) => {
     await reportCard({
       cardId: selectedCard.id,
       otp,
-    }).catch(() => {
-      setStatus({ status: "error", statusTitle: "Card report failed" });
-    });
+    }).catch(error =>
+      setStatus({
+        status: "error",
+        statusTitle: error.response?.data.message ?? "Card report failed",
+      }),
+    );
     onNextScreen();
   };
 

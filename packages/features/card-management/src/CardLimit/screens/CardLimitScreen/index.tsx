@@ -87,11 +87,7 @@ export const CardLimit = ({
             />
           </View>
           <View flex={1 / 6} position="absolute" right={0} top={-33}>
-            <StyledText
-              variant="BodySemiBoldml"
-              color={"$neutral800"}
-              marginTop="$ml"
-              marginBottom="$xs">
+            <StyledText variant="BodySemiBoldml" col={"$neutral800"} mt="$ml" marginBottom="$xs">
               {sliderValue}
               {getCurrencySymbol(selectedCard.currencyName)}
             </StyledText>

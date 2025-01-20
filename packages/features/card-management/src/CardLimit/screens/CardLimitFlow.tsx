@@ -53,25 +53,22 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
     data,
   } = useRequestOtpMutation({
     onSuccess: () => onNextScreen(),
-    onError(error) {
+    onError: error =>
       showAlert({
         title: t("server-error.an_error_has_occurred"),
         message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
+      }),
   });
 
   const { mutateAsync: setLimit, isPending: setLimitPending } = useSetCardLimitMutation({
-    onError(error) {
+    onError: error =>
       showAlert({
         title: t("server-error.an_error_has_occurred"),
         message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
+      }),
   });
 
   const firstStep = (limitAmount: number, limitType: string) => {
-    console.log({ limitAmount, limitType });
     selectedLimitRef.current = { limitAmount, limitType };
     requestOTP();
   };
@@ -81,9 +78,12 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
       cardId: selectedCard.id,
       newLimit: selectedLimitRef.current.limitAmount.toString(),
       limitType: selectedLimitRef.current.limitType,
-    }).catch(() => {
-      setStatus({ status: "error", statusTitle: "Limit set failed" });
-    });
+    }).catch(error =>
+      setStatus({
+        status: "error",
+        statusTitle: error.response?.data.message ?? "Limit set failed",
+      }),
+    );
     onNextScreen();
   };
 

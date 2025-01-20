@@ -42,12 +42,7 @@ export const CardActivation = ({ selectedCard, onSubmit, isPending, activationEn
 
   const renderItem = useCallback((item: (typeof details)[0]) => {
     return (
-      <View
-        flexDirection="row"
-        gap={"$s"}
-        width={"100%"}
-        justifyContent="space-between"
-        alignItems="center">
+      <View fd="row" gap={"$s"} width={"100%"} jc="space-between" alignItems="center">
         <StyledText variant="BodyBoldml">{item.title}</StyledText>
         <StyledText variant="BodymL">{item.value}</StyledText>
       </View>

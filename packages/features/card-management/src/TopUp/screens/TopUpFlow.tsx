@@ -57,12 +57,11 @@ export function TopUpFlow() {
   });
 
   const { mutateAsync: topUp, isPending: topupPending } = useTopUpMutation({
-    onError(error) {
+    onError: error =>
       showAlert({
         title: t("server-error.an_error_has_occurred"),
         message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
+      }),
   });
 
   const firstStep = (toCardId: string, amount: string) => {
@@ -72,12 +71,12 @@ export function TopUpFlow() {
   };
 
   const callOtpApi = async () => {
-    await requestOTP().catch(error => {
+    await requestOTP().catch(error =>
       showAlert({
         title: "An error has occurred.",
         message: error.response?.data.message as string,
-      });
-    });
+      }),
+    );
   };
 
   const callTopUpApi = async () => {
@@ -86,9 +85,12 @@ export function TopUpFlow() {
       currencyCode: getCurrencyCode(selectedCard.currencyName),
       beneficiaryCardId: selectedCard.id,
       payerCardId: toCardRef.current?.id as string,
-    }).catch(() => {
-      setStatus({ status: "error", statusTitle: "Top up failed" });
-    });
+    }).catch(error =>
+      setStatus({
+        status: "error",
+        statusTitle: error?.response?.data?.message ?? "Top up failed",
+      }),
+    );
     queryClient.refetchQueries({ queryKey: ["cardList"] });
     onNextScreen();
   };

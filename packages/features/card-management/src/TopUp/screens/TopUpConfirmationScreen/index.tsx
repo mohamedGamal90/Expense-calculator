@@ -20,13 +20,7 @@ export const TopUpConfirmation = ({
   return (
     <View flex={1} justifyContent="space-between">
       <View marginVertical="$l">
-        <View
-          backgroundColor="$secondary100"
-          gap="$ml"
-          padding="$ml"
-          marginBottom="$xl"
-          borderRadius="$sm"
-          paddingBottom="$3xl">
+        <View bg="$secondary100" gap="$ml" padding="$ml" mb="$xl" br="$sm" paddingBottom="$3xl">
           <StyledText variant="Headingxl" textAlign="center" color="$secondary800">
             {t("transfer.from")}
           </StyledText>
@@ -53,12 +47,7 @@ export const TopUpConfirmation = ({
           padding="$base">
           <Icon name={"arrow-full-down"} />
         </View>
-        <View
-          backgroundColor="$secondary100"
-          gap="$ml"
-          padding="$ml"
-          borderRadius="$sm"
-          paddingBottom="$3xl">
+        <View bg="$secondary100" gap="$ml" p="$ml" br="$sm" paddingBottom="$3xl">
           <StyledText variant="Headingxl" textAlign="center" color="$secondary800">
             {t("transfer.to")}
           </StyledText>

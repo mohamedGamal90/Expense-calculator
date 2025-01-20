@@ -57,42 +57,43 @@ export const CardActivationFlow = ({ returnBackHandler }: Props) => {
     isPending: requestOtpPending,
     data,
   } = useRequestOtpMutation({
-    onSuccess: () => {
-      onNextScreen();
-    },
-    onError(error) {
+    onSuccess: () => onNextScreen(),
+    onError: error =>
       showAlert({
         title: t("server-error.an_error_has_occurred"),
         message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
+      }),
   });
 
   const { mutateAsync: activateCard, isPending: activePending } = useActivateCardMutation({
-    onError(error) {
+    onError: error =>
       showAlert({
         title: t("server-error.an_error_has_occurred"),
         message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
+      }),
   });
   const { mutateAsync: deactivateCard, isPending: deactivePending } = useDeactivateCardMutation({
-    onError(error) {
+    onError: error =>
       showAlert({
         title: t("server-error.an_error_has_occurred"),
         message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
+      }),
   });
 
   const onCardActivation = async (otp: string) => {
     if (activationEnabled)
-      await activateCard({ cardId: selectedCard.id, otp }).catch(() =>
-        setStatus({ status: "error", statusTitle: "Activation failed" }),
+      await activateCard({ cardId: selectedCard.id, otp }).catch(error =>
+        setStatus({
+          status: "error",
+          statusTitle: error?.response?.data?.message ?? "Activation failed",
+        }),
       );
     else
-      await deactivateCard({ cardId: selectedCard?.id, otp }).catch(() =>
-        setStatus({ status: "error", statusTitle: "Deactivation failed" }),
+      await deactivateCard({ cardId: selectedCard?.id, otp }).catch(error =>
+        setStatus({
+          status: "error",
+          statusTitle: error?.response?.data?.message ?? "Deactivation failed",
+        }),
       );
     queryClient.refetchQueries({ queryKey: ["cardList"] });
     onNextScreen();

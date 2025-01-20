@@ -81,15 +81,15 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
   const firstStep = async ({ amount, cardNumber }: { amount: string; cardNumber: string }) => {
     amountRef.current = amount;
     toCardNumber.current = cardNumber;
-    await fetchCardHolderName({ cardNumber }).catch(error => {
+    await fetchCardHolderName({ cardNumber }).catch(error =>
       showAlert({
         title: "An error has occurred.",
         message: error.response?.data.message as string,
-      });
-    });
+      }),
+    );
   };
 
-  const onSendMoney = (otp: string) => {
+  const onSendMoney = (otp: string) =>
     sendMoney({
       paymentAmount: amountRef.current,
       currencyCode: getCurrencyCode(selectedCard.currencyName),
@@ -97,7 +97,6 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
       payerCardId: selectedCard?.id as string,
       otp,
     });
-  };
 
   const ReportCardFlowScreens = [
     {
