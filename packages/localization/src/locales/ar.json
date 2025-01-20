@@ -138,6 +138,9 @@
     "success": "نجاح",
     "cancelled": "ملغى"
   },
+  "forget-password": {
+    "success-msg": "تم تغيير كلمة المرور بنجاح!"
+  },
   "otp": {
     "resend-otp": "إعادة إرسال رمز التحقق",
     "resend-otp-waiting-time": "إعادة إرسال الرمز في {{time}} ثانية",

@@ -78,18 +78,24 @@ export const ForgotPasswordScreen = () => {
           password,
         },
       });
+      form.reset();
     },
-    onError(error) {
+    onError: error =>
       showAlert({
         title: t("server-error.an_error_has_occurred"),
         message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
+      }),
   });
 
   function handleSubmit(data: FormValues) {
     validateUsername(data);
   }
+
+  const disabled = !(
+    form.watch().username.length > 0 &&
+    form.watch().password.length > 0 &&
+    form.watch().passwordConfirm.length > 0
+  );
 
   return (
     <Form flex={1} onSubmit={form.handleSubmit(handleSubmit)}>
@@ -140,7 +146,9 @@ export const ForgotPasswordScreen = () => {
           />
 
           <Form.Trigger mt="$m" asChild>
-            <StyledButton isLoading={isPending}>{t("buttons.submit")}</StyledButton>
+            <StyledButton disabled={disabled} isLoading={isPending}>
+              {t("buttons.submit")}
+            </StyledButton>
           </Form.Trigger>
         </View>
       </FormProvider>

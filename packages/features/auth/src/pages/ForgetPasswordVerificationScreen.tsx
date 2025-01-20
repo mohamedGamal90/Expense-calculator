@@ -20,7 +20,7 @@ export const ForgetPasswordVerificationScreen = () => {
   const router = useRouter();
   const params = useLocalSearchParams();
   const { t } = useTranslation();
-  const [value, setValue] = useState("");
+  const [otp, setOtp] = useState("");
   const [error, setError] = useState(false);
   const { color } = getTokens();
   const { height: screenHeight } = useWindowDimensions();
@@ -57,8 +57,9 @@ export const ForgetPasswordVerificationScreen = () => {
   })();
 
   const validateOtp = () => {
-    if (/^\d+$/.test(value)) {
-      handleOnSubmit(value);
+    if (/^\d+$/.test(otp)) {
+      console.log(otp);
+      forgetPassword({ otp, username, password });
       return;
     }
     setError(true);
@@ -77,25 +78,18 @@ export const ForgetPasswordVerificationScreen = () => {
         pathname: "auth/status",
         params: {
           status: "success",
+          statusMessage: t("forget-password.success-msg"),
         },
       }),
-    onError: error => {
+    onError: error =>
       showAlert({
         title: t("server-error.an_error_has_occurred"),
         message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
+      }),
   });
 
-  const handleOnSubmit = (otp: string) => {
-    forgetPassword({
-      otp,
-      username,
-      password,
-    });
-  };
   return (
-    <View $md={{ h: screenHeight - 100 }} h={screenHeight - 170} jc="space-between">
+    <View $md={{ h: screenHeight - 110 }} h={screenHeight - 190} jc="space-between">
       <View>
         <View flexDirection="row" gap="$s" marginVertical="$l">
           <View alignItems="center" gap="$xs">
@@ -145,7 +139,7 @@ export const ForgetPasswordVerificationScreen = () => {
           </StyledText>
           <OTPInput
             maxLength={CELL_COUNT}
-            onChange={setValue}
+            onChange={setOtp}
             inputMode="numeric"
             render={({ slots }) => (
               <View flexDirection="row">
@@ -175,7 +169,7 @@ export const ForgetPasswordVerificationScreen = () => {
       </View>
       <StyledButton
         isLoading={isPending}
-        disabled={value.length < 6}
+        disabled={otp.length < 6}
         onPress={validateOtp}
         variant="primary">
         {t("buttons.next")}

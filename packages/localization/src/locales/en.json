@@ -139,6 +139,9 @@
     "success": "Success",
     "cancelled": "Cancelled"
   },
+  "forget-password": {
+    "success-msg": "Password Has Changed Successfully!"
+  },
   "otp": {
     "resend-otp": "Resend OTP",
     "resend-otp-waiting-time": "Resend code in {{time}} second",

@@ -6,8 +6,9 @@ export const StatusScreen = () => {
   const router = useRouter();
   const params = useLocalSearchParams();
 
-  const { status } = params as {
+  const { status, statusMessage } = params as {
     status: "success" | "error" | "pending";
+    statusMessage: string;
   };
 
   const handleOnSubmit = () => {
@@ -15,7 +16,7 @@ export const StatusScreen = () => {
   };
   return (
     <View flex={1}>
-      <StatusView onSubmit={handleOnSubmit} status={status} />
+      <StatusView onSubmit={handleOnSubmit} status={status} statusTitle={statusMessage} />
     </View>
   );
 };
