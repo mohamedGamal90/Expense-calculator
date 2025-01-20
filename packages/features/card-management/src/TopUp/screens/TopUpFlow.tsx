@@ -2,7 +2,7 @@ import { FlatList } from "react-native";
 import { CardType } from "@metroid/types";
 import { useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { DialogFlow, StatusView, Verification } from "@aurora/blocks";
+import { DialogFlow, StatusView } from "@aurora/blocks";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 import { TopUpConfirmation } from "./TopUpConfirmationScreen";
 import { useTopUpMutation } from "../hooks/useTopUpMutation";
@@ -12,6 +12,7 @@ import { getCurrencyCode } from "@aurora/utils";
 import { useTranslation } from "react-i18next";
 import { showAlert } from "@aurora/components";
 import { TopUp } from "./TopUpScreen";
+import { Verification } from "../../verification";
 
 export function TopUpFlow() {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);

@@ -1,6 +1,6 @@
 import { FlatList } from "react-native";
 import { useEffect, useRef, useState } from "react";
-import { DialogFlow, Verification } from "@aurora/blocks";
+import { DialogFlow } from "@aurora/blocks";
 import { SetPinScreen } from "./SetPinScreen/index.web";
 import { useSetPinMutation } from "../hooks/useSetPinMutation";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
@@ -8,6 +8,7 @@ import { useSelectedCard } from "@metroid/store";
 import { useTranslation } from "react-i18next";
 import { showAlert } from "@aurora/components";
 import { ErrorType } from "@metroid/api";
+import { Verification } from "../../verification";
 
 type Props = { returnBackHandler: () => void };
 

@@ -139,6 +139,13 @@
     "success": "Success",
     "cancelled": "Cancelled"
   },
+  "otp": {
+    "resend-otp": "Resend OTP",
+    "resend-otp-waiting-time": "Resend code in {{time}} second",
+    "resend-otp-api-error": "Error while resending OTP",
+    "max-resend-otp-reached-title": "Can't resend otp now",
+    "max-resend-otp-reached-msg": "Can't resend otp now. you have used all you three times."
+  },
   "server-error": {
     "an_error_has_occurred": "An error has occurred",
     "do not honor transaction": "Do not honor transaction",

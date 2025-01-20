@@ -138,6 +138,13 @@
     "success": "نجاح",
     "cancelled": "ملغى"
   },
+  "otp": {
+    "resend-otp": "إعادة إرسال رمز التحقق",
+    "resend-otp-waiting-time": "إعادة إرسال الرمز في {{time}} ثانية",
+    "resend-otp-api-error": "خطأ أثناء إعادة إرسال OTP",
+    "max-resend-otp-reached-title": "لا يمكن إعادة إرسال رمز التحقق الآن",
+    "max-resend-otp-reached-msg": "لا يمكن إعادة إرسال رمز التحقق الآن. لقد استخدمت جميع محاولاتك الثلاث."
+  },
   "server-error": {
     "an_error_has_occurred": "حدث خطأ",
     "do not honor transaction": "لا يتم تكريم المعاملة",

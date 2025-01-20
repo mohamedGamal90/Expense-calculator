@@ -3,6 +3,7 @@ import { OTPInput } from "input-otp";
 import { Icon } from "@aurora/icons";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { ResendOtpBtn } from "./components/resendOtpBtn";
 import { ActivityIndicator } from "react-native";
 
 const CELL_COUNT = 6;
@@ -73,8 +74,8 @@ export const Verification = ({
       ) : (
         <>
           <View>
-            <View flexDirection="row" gap={"$s"} marginVertical={"$l"}>
-              <View alignItems="center" gap={"$xs"}>
+            <View flexDirection="row" gap="$s" marginVertical="$l">
+              <View alignItems="center" gap="$xs">
                 <View
                   width={50}
                   height={50}
@@ -93,9 +94,9 @@ export const Verification = ({
                 <View
                   width={50}
                   height={50}
-                  backgroundColor={"$secondary50"}
+                  backgroundColor="$secondary50"
                   borderWidth={1}
-                  borderColor={"$secondary300"}
+                  borderColor="$secondary300"
                   borderRadius={"$full"}
                   justifyContent="center"
                   alignItems="center">
@@ -131,7 +132,7 @@ export const Verification = ({
                         justifyContent="center"
                         alignItems="center"
                         borderColor={slot.isActive ? "$secondary800" : "$secondary300"}
-                        borderRadius={"$s"}
+                        borderRadius="$s"
                         borderWidth={2}
                         mr={gtXs ? "$m" : "$xs"}
                         height={40}
@@ -149,6 +150,7 @@ export const Verification = ({
                   {t("validation.otp-error-message")}
                 </StyledText>
               )}
+              {credential && <ResendOtpBtn />}
             </View>
           </View>
           <StyledButton

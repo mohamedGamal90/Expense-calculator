@@ -3,13 +3,14 @@ import { FlatList } from "react-native";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { CardActivation } from "./CardActivationScreen";
-import { DialogFlow, StatusView, Verification } from "@aurora/blocks";
+import { DialogFlow, StatusView } from "@aurora/blocks";
 import { useActivateCardMutation, useDeactivateCardMutation } from "../hooks";
 import { CardAvailableStatusCodes } from "../../CardMangement/cardStatusCodes";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 import { useSelectedCard } from "@metroid/store";
 import { AvailableStatuses } from "@metroid/types";
 import { showAlert } from "@aurora/components";
+import { Verification } from "../../verification";
 
 type Props = { returnBackHandler: () => void };
 

@@ -2,12 +2,13 @@ import { FlatList } from "react-native";
 import { useRef, useState } from "react";
 import { DialogFlow } from "@aurora/blocks/src/DialogFlow";
 import { useReportCardMutation } from "@metroid/card-management/src/ReportCard/hooks/useReportCardMutation";
-import { StatusView, Verification } from "@aurora/blocks";
+import { StatusView } from "@aurora/blocks";
 import { ReportCard } from "./ReportCardScreen";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 import { useSelectedCard } from "@metroid/store";
 import { useTranslation } from "react-i18next";
 import { showAlert } from "@aurora/components";
+import { Verification } from "../../verification";
 
 type Props = { returnBackHandler: () => void };
 

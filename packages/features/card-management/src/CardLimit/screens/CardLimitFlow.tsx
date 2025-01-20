@@ -3,11 +3,12 @@ import { useRef, useState } from "react";
 import { CardLimit } from "./CardLimitScreen";
 import { DialogFlow } from "@aurora/blocks/src/DialogFlow";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
-import { StatusView, Verification } from "@aurora/blocks";
+import { StatusView } from "@aurora/blocks";
 import { useSelectedCard } from "@metroid/store";
 import { useSetCardLimitMutation } from "../hooks/useSetCardLimit";
 import { useTranslation } from "react-i18next";
 import { showAlert } from "@aurora/components";
+import { Verification } from "../../verification";
 
 type Props = { returnBackHandler: () => void };
 export const CardLimitFlow = ({ returnBackHandler }: Props) => {

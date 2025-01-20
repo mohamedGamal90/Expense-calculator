@@ -10,6 +10,5 @@ export * from "./Sidebar";
 export * from "./DialogFlow";
 export * from "./SelectedCardHeader";
 export * from "./status-view";
-export * from "./verification";
 export * from "./LogoutButton";
 export * from "./DialogFlowBtn";

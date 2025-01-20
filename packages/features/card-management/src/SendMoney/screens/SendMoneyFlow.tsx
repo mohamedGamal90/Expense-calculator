@@ -1,7 +1,7 @@
 import { FlatList } from "react-native";
 import { useRef, useState } from "react";
 import { DialogFlow } from "@aurora/blocks/src/DialogFlow";
-import { StatusView, Verification } from "@aurora/blocks";
+import { StatusView } from "@aurora/blocks";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 import { useSelectedCard } from "@metroid/store";
 import { SendMoney } from "./SendMoneyScreen";
@@ -10,6 +10,7 @@ import { useCardholderNameMutation } from "../hooks/useGetCardholderNameMutation
 import { SelectedCardPreview } from "./SelectedCardPreviewScreen";
 import { getCurrencyCode } from "@aurora/utils";
 import { showAlert } from "@aurora/components";
+import { Verification } from "../../verification";
 
 type Props = { returnBackHandler?: () => void };
 
