@@ -14,24 +14,13 @@ export const CardListView = () => {
 
   const disabled = selectedCard?.statusCode !== "0";
   return (
-    <View
-      width="100%"
-      borderWidth={1}
-      borderRadius="$l"
-      borderColor="$secondary100"
-      paddingVertical="$m"
-      // paddingHorizontal="$m"
-      overflow="hidden">
+    <View w="100%" bw={1} br="$l" bc="$secondary100" py="$m" overflow="hidden">
       <StyledText mx="$m" variant="Headingxl" color="$secondary900">
         {t("titles.overview")}
       </StyledText>
       <CardList />
       <CardCurrencyDetails />
-      <View
-        flexDirection="row"
-        alignSelf="center"
-        gap={width > 600 ? "$5xl" : "$l"}
-        marginTop="$base">
+      <View fd="row" alignSelf="center" gap={width > 600 ? "$5xl" : "$l"} mt="$base">
         {/* <StyledDialog title={"Send"} icon={<Icon name={"send"} />} children={<SendMoneyFlow />} /> */}
         <StyledDialog
           disabled={disabled}

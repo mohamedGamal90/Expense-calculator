@@ -49,31 +49,25 @@ export const TransactionHistoryItem = ({
 
   return (
     <View py="$m" fd="row" ai="center" jc="space-between">
-      <View gap={"$s"} flexDirection="row" alignItems="center">
-        <View borderRadius={"$xs"} borderWidth={0.3} bc={"$secondary900"} padding={"$xs"}>
+      <View $sm={{ width: "25%" }} w="15%" gap="$s" fd="row" ai="center">
+        <View br="$xs" borderWidth={0.3} bc="$secondary900" padding="$xs">
           <Icon name={transactionTypeObj.icon} width={14} height={14} />
         </View>
-        <StyledText color={"$secondary900"} variant="Bodysm">
+        <StyledText color="$secondary900" variant="Bodysm">
           {transactionTypeObj.type}
         </StyledText>
       </View>
-      <StyledText
-        $sm={{
-          display: "none",
-        }}
-        col={"$secondary400"}
-        variant="BodySemiBoldml">
+      <StyledText $sm={{ display: "none" }} col="$secondary400" variant="BodySemiBoldml">
         {formattedDate}
       </StyledText>
-      <View width={100}>
-        <Pill mx={"$auto"} w={80} h={25} variant={pillVariant.pillVariant}>
+      <View w={100}>
+        <Pill mx="$auto" w={80} h={25} variant={pillVariant.pillVariant}>
           {pillVariant.PillTxt}
         </Pill>
       </View>
-      <StyledText
-        w={"15%"}
-        ta="right"
-        variant="BodyBoldm">{`${transactionTypeObj.type === "Send" ? "-" : ""}${billingAmount} ${billingCurrency}`}</StyledText>
+      <StyledText $sm={{ width: "25%" }} w="15%" ta="right" variant="BodyBoldm">
+        {`${transactionTypeObj.type === "Send" ? "-" : ""}${billingAmount} ${billingCurrency}`}
+      </StyledText>
     </View>
   );
 };

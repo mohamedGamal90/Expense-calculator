@@ -26,7 +26,7 @@ export const CardActivation = ({ selectedCard, onSubmit, isPending, activationEn
       value:
         selectedCard.statusName === "VALID CARD"
           ? t("cardDetails.active")
-          : t("cardDetails.inactive"),
+          : selectedCard.statusName,
     },
     {
       id: 3,

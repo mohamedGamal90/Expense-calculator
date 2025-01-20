@@ -9,7 +9,7 @@ const { width: screenWidth } = Dimensions.get("window");
 
 function CardCurrencyDetailsLoading() {
   return (
-    <View flexDirection="row" justifyContent="center" margin={screenWidth > 600 ? "$ml" : "$sm"}>
+    <View fd="row" jc="center" margin={screenWidth > 600 ? "$ml" : "$sm"}>
       <CardInfoBlock title={t("cardDetails.yourBalance")}>
         <View width={80} height={24} backgroundColor="$secondary100" borderRadius="$sm" />
       </CardInfoBlock>
@@ -27,7 +27,6 @@ function CardCurrencyDetailsLoading() {
 
 export const CardCurrencyDetails = () => {
   const selectedCard = useSelectedCard();
-
   if (!selectedCard) {
     return <CardCurrencyDetailsLoading />;
   }
@@ -38,43 +37,37 @@ export const CardCurrencyDetails = () => {
   return (
     <View flexDirection="row" justifyContent="center">
       <CardInfoBlock title={t("cardDetails.yourBalance")}>
-        <StyledText
-          $sm={{
-            variant: "BodySemiBoldml",
-          }}
-          paddingVertical={"$xs"}
-          color={"$secondary900"}>
+        <StyledText $sm={{ variant: "BodySemiBoldm" }} py="$xs" color="$secondary900">
           {`${getCurrencySymbol(selectedCard.currencyName)} ${selectedCard.availableBalance}`}
         </StyledText>
       </CardInfoBlock>
-      <View width={1} height={68} backgroundColor={"$secondary100"} marginHorizontal={"$sm"} />
+      <View w={1} h={68} bg="$secondary100" mx="$sm" />
       <CardInfoBlock title={t("cardDetails.status")}>
         <View
-          backgroundColor={selectedCard.statusName === "VALID CARD" ? "$success50" : "$error100"}
-          paddingHorizontal={"$sm"}
-          paddingVertical={"$s"}
+          bg={selectedCard.statusName === "VALID CARD" ? "$success50" : "$error100"}
+          $sm={{ px: "$s" }}
+          px="$sm"
+          py="$s"
           alignItems="center"
           justifyContent="center"
-          borderRadius={"$sm"}>
+          borderRadius="$sm">
           <StyledText
-            $sm={{
-              variant: "BodySemiBolds",
-            }}
+            $sm={{ variant: "BodySemiBolds" }}
             variant="BodySemiBoldm"
+            $xs={{ width: 58 }}
+            textAlign="center"
             color={selectedCard.statusName === "VALID CARD" ? "$success600" : "$error500"}>
             {cardStatus}
           </StyledText>
         </View>
       </CardInfoBlock>
-      <View width={1} height={68} backgroundColor={"$secondary100"} marginHorizontal={"$sm"} />
+      <View w={1} h={68} bg="$secondary100" mx="$sm" />
       <CardInfoBlock title={t("cardDetails.cardCurrency")}>
         <StyledText
-          $sm={{
-            variant: "BodySemiBolds",
-          }}
+          $sm={{ variant: "BodySemiBolds" }}
           variant="BodySemiBoldm"
-          paddingVertical={"$xs"}
-          color={"$secondary900"}>
+          py="$xs"
+          col="$secondary900">
           {t("currencies." + selectedCard.currencyName)}
         </StyledText>
       </CardInfoBlock>
