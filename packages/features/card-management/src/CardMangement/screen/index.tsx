@@ -13,6 +13,7 @@ import { CardAvailableStatusCodes } from "../cardStatusCodes";
 import { useSelectedCard } from "@metroid/store";
 import { AvailableStatuses } from "@metroid/types";
 import { useTranslation } from "react-i18next";
+import { DialogFlowBtn } from "@aurora/blocks";
 
 export const CardMangementDialogScreen = () => {
   const [render, setRender] = useState<JSX.Element>();
@@ -62,13 +63,13 @@ export const CardMangementDialogScreen = () => {
       render: <ReportCardFlow returnBackHandler={returnBackHandler} />,
       disabled: cardIsValid,
     },
+    {
+      title: t("titles.change-pin"),
+      icon: "change-pin",
+      render: <SetPinFlow returnBackHandler={returnBackHandler} />,
+      disabled: setPinDisabled,
+    },
     // { title: t("titles.replace-card"), icon: "replace-card", render: <View />, disabled: true }, //untill it is implemented
-    // {
-    //   title: t("titles.change-pin"),
-    //   icon: "change-pin",
-    //   render: <SetPinFlow returnBackHandler={returnBackHandler} />,
-    //   disabled: setPinDisabled,
-    // },
     // {
     //   title: t("titles.international-transactions"),
     //   icon: "arrow-swap-horizontal",
@@ -81,26 +82,13 @@ export const CardMangementDialogScreen = () => {
     <>
       {render ?? (
         <>
-          <View
-            flexDirection="row"
-            justifyContent="space-between"
-            alignItems="center"
-            marginBottom={"$m"}>
+          <View fd="row" jc="space-between" alignItems="center" mb="$m">
             <Dialog.Title>
-              <StyledText variant="Heading2xl" color={"$secondary800"}>
+              <StyledText variant="Heading2xl" col="$secondary800">
                 {t("titles.card-management")}
               </StyledText>
             </Dialog.Title>
-            <Dialog.Close asChild>
-              <StyledButton
-                variant="iconBtn"
-                width={40}
-                height={40}
-                backgroundColor={"$white"}
-                icon={<Icon name={"close-circle"} color={color.error600.val} />}
-                borderWidth={0}
-              />
-            </Dialog.Close>
+            <DialogFlowBtn close={true} />
           </View>
           <FlatList
             data={cardMangementList}
@@ -113,19 +101,19 @@ export const CardMangementDialogScreen = () => {
                   }}>
                   <View
                     flexDirection="row"
-                    paddingVertical={"$m"}
+                    paddingVertical="$m"
                     alignItems="center"
                     justifyContent="space-between"
-                    padding={"$s"}
-                    borderRadius={"$xs"}>
-                    <View flexDirection="row" gap={"$ml"} alignItems="center">
+                    padding="$s"
+                    borderRadius="$xs">
+                    <View flexDirection="row" gap="$ml" alignItems="center">
                       <View
-                        padding={"$ml"}
-                        backgroundColor={"$secondary100"}
+                        p="$ml"
+                        bg="$secondary100"
                         opacity={item.disabled ? 0.8 : 1}
-                        justifyContent="center"
+                        jc="center"
                         alignItems="center"
-                        borderRadius={"$s"}>
+                        borderRadius="$s">
                         <Icon
                           name={item.icon}
                           color={item.disabled ? color.secondary200.val : color.secondary900.val}
@@ -138,13 +126,13 @@ export const CardMangementDialogScreen = () => {
                       </StyledText>
                     </View>
                     <Icon
-                      name={"arrow-circle-right"}
+                      name="arrow-circle-right"
                       color={item.disabled ? color.secondary200.val : color.secondary900.val}
                     />
                   </View>
                 </Pressable>
                 {index < cardMangementList.length - 1 && (
-                  <View height={1} marginVertical={"$m"} backgroundColor={"$secondary100"} />
+                  <View height={1} marginVertical="$m" bg="$secondary100" />
                 )}
               </>
             )}

@@ -1,8 +1,8 @@
-import { Dialog, StyledButton, StyledText, View } from "@aurora/components";
+import { Dialog, StyledText, View } from "@aurora/components";
 import { Dimensions, FlatList } from "react-native";
 import { Dispatch, SetStateAction } from "react";
-import { Icon } from "@aurora/icons";
 import { getTokens } from "@tamagui/core";
+import { DialogFlowBtn } from "./DialogFlowBtn";
 // import { isRtl } from "@metroid/store";
 
 const screenWidth = Dimensions.get("window").width;
@@ -49,40 +49,13 @@ export const DialogFlow = ({
     <View flex={1}>
       {currentScreenIndex !== screensFlow.length - 1 && (
         <>
-          {showBackArrow && (
-            <StyledButton
-              position="absolute"
-              variant="iconBtn"
-              borderWidth={0}
-              width={40}
-              height={26}
-              onPress={onPrevScreen}
-              left={0}
-              zIndex={100}
-              top={7}>
-              <Icon name={"arrow-left"} width={26} height={26} color={color.$black.val} />
-            </StyledButton>
-          )}
+          {showBackArrow && <DialogFlowBtn close={false} onPress={onPrevScreen} />}
           <Dialog.Title textAlign="center">
             <StyledText variant="Heading2xl" color={"$secondary800"}>
               {screensFlow[currentScreenIndex].title}
             </StyledText>
           </Dialog.Title>
-          {showCloseButton && (
-            <Dialog.Close asChild>
-              <StyledButton
-                position="absolute"
-                variant="iconBtn"
-                width={40}
-                height={40}
-                backgroundColor={"$white"}
-                icon={<Icon name={"close-circle"} color={color.error600.val} />}
-                borderWidth={0}
-                right={0}
-                top={5}
-              />
-            </Dialog.Close>
-          )}
+          {showCloseButton && <DialogFlowBtn close={true} />}
         </>
       )}
       <FlatList

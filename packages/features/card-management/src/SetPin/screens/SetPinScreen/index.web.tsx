@@ -1,18 +1,16 @@
 import { useState } from "react";
 import { ActivityIndicator } from "react-native";
 import { getTokens, View } from "@aurora/components";
+import { DialogFlowBtn } from "@aurora/blocks";
 
 export function SetPinScreen({ src }: { src: string }) {
   const [loading, setLoading] = useState(true);
   const { color } = getTokens();
 
   return (
-    <>
-      {loading && (
-        <View flex={1} jc="center" ai="center">
-          <ActivityIndicator size="large" color={color.$primary800.val} />
-        </View>
-      )}
+    <View f={1} jc="center" ai="center">
+      <DialogFlowBtn close={true} />
+      {loading && <ActivityIndicator size="large" color={color.$primary800.val} />}
       <iframe
         style={{
           flex: loading ? 0 : 1,
@@ -23,6 +21,6 @@ export function SetPinScreen({ src }: { src: string }) {
         src={src}
         onLoad={() => setLoading(false)}
       />
-    </>
+    </View>
   );
 }

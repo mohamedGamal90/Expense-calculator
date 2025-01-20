@@ -1,12 +1,13 @@
 import { FlatList } from "react-native";
 import { useEffect, useRef, useState } from "react";
-import { DialogFlow, StatusView, Verification } from "@aurora/blocks";
+import { DialogFlow, Verification } from "@aurora/blocks";
 import { SetPinScreen } from "./SetPinScreen/index.web";
 import { useSetPinMutation } from "../hooks/useSetPinMutation";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 import { useSelectedCard } from "@metroid/store";
 import { useTranslation } from "react-i18next";
 import { showAlert } from "@aurora/components";
+import { ErrorType } from "@metroid/api";
 
 type Props = { returnBackHandler: () => void };
 
@@ -14,15 +15,6 @@ export function SetPinFlow({ returnBackHandler }: Props) {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
   const { t } = useTranslation();
-
-  const [status, setStatus] = useState<{
-    status: "success" | "error" | "pending";
-    statusTitle: string;
-  }>({
-    status: "success",
-    statusTitle: "Pin set successfully",
-  });
-
   const selectedCard = useSelectedCard();
 
   if (!selectedCard) {
@@ -42,13 +34,19 @@ export function SetPinFlow({ returnBackHandler }: Props) {
     setCurrentScreenIndex(nextIndex);
   };
 
-  const { mutateAsync: requestOTP, data } = useRequestOtpMutation({
-    onError(error) {
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
+  const onErrorFunction = (error: ErrorType) => {
+    showAlert({
+      title: t("server-error.an_error_has_occurred"),
+      message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
+    });
+  };
+
+  const {
+    mutateAsync: requestOTP,
+    data,
+    isPending,
+  } = useRequestOtpMutation({
+    onError: error => onErrorFunction(error),
   });
 
   const {
@@ -57,21 +55,14 @@ export function SetPinFlow({ returnBackHandler }: Props) {
     isPending: setPinIsPending,
   } = useSetPinMutation({
     onSuccess: () => onNextScreen(),
-    onError(error) {
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
+    onError: error => onErrorFunction(error),
   });
 
   const onSetPin = async (otp: string) => {
     await setPin({
       cardId: selectedCard.id,
       otp,
-    }).catch(() => {
-      setStatus({ status: "error", statusTitle: "Error setting pin" });
-    });
+    }).catch(error => onErrorFunction(error));
   };
 
   useEffect(() => {
@@ -83,6 +74,7 @@ export function SetPinFlow({ returnBackHandler }: Props) {
       title: t("titles.verification"),
       render: (
         <Verification
+          loading={isPending}
           onSubmit={onSetPin}
           type={data?.data.email ? "email" : "mobile"}
           credential={data?.data.email ?? data?.data.phoneNumber}
@@ -92,16 +84,6 @@ export function SetPinFlow({ returnBackHandler }: Props) {
     },
     {
       render: <SetPinScreen src={setPinUrl?.data.url} />,
-    },
-    {
-      title: t("titles.status-view"),
-      render: (
-        <StatusView
-          onSubmit={onNextScreen}
-          status={status.status}
-          statusTitle={status.statusTitle}
-        />
-      ),
     },
   ];
 
