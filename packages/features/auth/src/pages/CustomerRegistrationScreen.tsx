@@ -11,6 +11,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 enum FormFields {
   Username = "username",
   Password = "password",
+  PasswordConfirm = "passwordConfirm",
 }
 
 const customerRegisterFormResolver = yup.object().shape({
@@ -43,6 +44,10 @@ const customerRegisterFormResolver = yup.object().shape({
       message: i18n.t("Validation.minErr"),
       test: value => (value?.length ?? 0) >= 8,
     }),
+  [FormFields.PasswordConfirm]: yup
+    .string()
+    .required(i18n.t("validation.required"))
+    .oneOf([yup.ref("password")], i18n.t("validation.confirm-password")),
 });
 
 type FormValues = yup.InferType<typeof customerRegisterFormResolver>;
@@ -62,6 +67,7 @@ export const CustomerRegistrationScreen = () => {
     defaultValues: {
       [FormFields.Username]: "",
       [FormFields.Password]: "",
+      [FormFields.PasswordConfirm]: "",
     },
   });
 
@@ -112,6 +118,15 @@ export const CustomerRegistrationScreen = () => {
               label={"New Password"}
               secureTextEntry
               iconLeft="password"
+            />
+
+            <ControlledField
+              fieldName={FormFields.PasswordConfirm}
+              type="textInput"
+              placeholder={t("placeholders.confirmNewPassword")}
+              label={t("inputs.confirmNewPassword")}
+              iconLeft="password"
+              secureTextEntry
             />
 
             <Form.Trigger mt="$m" asChild>
