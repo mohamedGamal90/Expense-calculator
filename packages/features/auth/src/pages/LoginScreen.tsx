@@ -86,7 +86,7 @@ export function LoginScreen() {
               iconLeft="password"
             />
 
-            <Link
+            {/* <Link
               style={{
                 alignSelf: "flex-end",
                 marginTop: -20,
@@ -96,7 +96,7 @@ export function LoginScreen() {
               <StyledText col="$primary800" padding="$space.s" variant="BodySemiBoldsm">
                 {t("buttons.forgotPassword")}
               </StyledText>
-            </Link>
+            </Link> */}
             <Form.Trigger mt="$m" asChild>
               <StyledButton isLoading={isPending}>{t("buttons.login")}</StyledButton>
             </Form.Trigger>
