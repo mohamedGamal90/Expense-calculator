@@ -1,8 +1,8 @@
-import { Verification } from "@aurora/blocks";
 import { View, showAlert } from "@aurora/components";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useValidateOtpMutation } from "../hooks";
 import { useTranslation } from "react-i18next";
+import { Verification } from "@metroid/card-management/src/verification";
 
 export const RegisterVerificationScreen = () => {
   const router = useRouter();
