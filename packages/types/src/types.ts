@@ -19,6 +19,7 @@ export interface CardType {
   expirDate: string;
   seqNumber: string;
   nickname: string | null;
+  productNumber: string;
 }
 export interface AvailableStatuses {
   statusCode: string;
