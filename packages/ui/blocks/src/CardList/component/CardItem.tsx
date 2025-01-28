@@ -21,6 +21,8 @@ function getCardImage(card: CardType) {
       return require(`../../business.png`);
     case "70000480":
       return require(`../../corporate.png`);
+    default:
+      return require(`../../platinum-debit.png`);
   }
 }
 
