@@ -4,7 +4,6 @@ import {
   View,
   getTokens,
   showAlert,
-  useMedia,
   useWindowDimensions,
 } from "@aurora/components";
 import { useForgetPasswordMutation } from "../hooks";
@@ -24,7 +23,6 @@ export const ForgetPasswordVerificationScreen = () => {
   const [error, setError] = useState(false);
   const { color } = getTokens();
   const { height: screenHeight } = useWindowDimensions();
-  const { gtXs } = useMedia();
 
   const verifyObject: { icon: "mobile" | "email"; txt: string; iconTxt: JSX.Element } = (() => {
     switch ("email") {
@@ -124,13 +122,13 @@ export const ForgetPasswordVerificationScreen = () => {
             </StyledText>
           </View>
         </View>
-        <View flexDirection="row" gap="$ml">
+        <View fd="row" alignItems="center" $xs={{ gap: "$m" }} gap="$ml">
           <Icon name={verifyObject.icon} color={color.secondary800.val} />
           <StyledText variant="Headingxl" color="$neutral800">
             {verifyObject.txt}
           </StyledText>
         </View>
-        <View marginLeft="$2xl" marginTop="$base">
+        <View $xs={{ ml: "$xl" }} marginLeft="$2xl" marginTop="$base">
           <StyledText variant="BodymL" col="$neutral800" mb="$s">
             {t("validation.otp-sent-message")}
           </StyledText>
@@ -145,13 +143,14 @@ export const ForgetPasswordVerificationScreen = () => {
               <View flexDirection="row">
                 {slots.map((slot, index) => (
                   <View
+                    $xs={{ h: 35, w: 35, mr: "$s" }}
                     key={index}
                     jc="center"
                     ai="center"
                     bc={slot.isActive ? "$secondary800" : "$secondary300"}
                     br="$s"
                     bw={2}
-                    mr={gtXs ? "$m" : "$s"}
+                    mr="$m"
                     h={40}
                     w={40}>
                     {slot.char !== null && <StyledText col="$secondary800">{slot.char}</StyledText>}

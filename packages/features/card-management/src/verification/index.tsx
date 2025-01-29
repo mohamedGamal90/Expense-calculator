@@ -1,4 +1,4 @@
-import { getTokens, StyledButton, StyledText, useMedia, View } from "@aurora/components";
+import { getTokens, StyledButton, StyledText, View } from "@aurora/components";
 import { OTPInput } from "input-otp";
 import { Icon } from "@aurora/icons";
 import { useState } from "react";
@@ -25,7 +25,6 @@ export const Verification = ({
   const { t } = useTranslation();
   const [error, setError] = useState(false);
   const { color } = getTokens();
-  const { gtXs } = useMedia();
 
   const verifyObject: { icon: "mobile" | "email"; txt: string; iconTxt: JSX.Element } = (() => {
     switch ("email") {
@@ -107,13 +106,13 @@ export const Verification = ({
                 </StyledText>
               </View>
             </View>
-            <View flexDirection="row" gap="$ml">
+            <View flexDirection="row" alignItems="center" $xs={{ gap: "$m" }} gap="$ml">
               <Icon name={verifyObject.icon} color={color.secondary800.val} />
               <StyledText variant="Headingxl" color="$neutral800">
                 {verifyObject.txt}
               </StyledText>
             </View>
-            <View marginLeft="$2xl" marginTop="$base">
+            <View $xs={{ ml: "$xl" }} marginLeft="$2xl" marginTop="$base">
               <StyledText variant="BodymL" color="$neutral800" marginBottom="$s">
                 {t("validation.otp-sent-message")}
               </StyledText>
@@ -128,15 +127,16 @@ export const Verification = ({
                   <View flexDirection="row">
                     {slots.map((slot, index) => (
                       <View
+                        $xs={{ h: 35, w: 35, mr: "$s" }}
                         key={index}
-                        justifyContent="center"
-                        alignItems="center"
-                        borderColor={slot.isActive ? "$secondary800" : "$secondary300"}
-                        borderRadius="$s"
-                        borderWidth={2}
-                        mr={gtXs ? "$m" : "$xs"}
-                        height={40}
-                        width={40}>
+                        jc="center"
+                        ai="center"
+                        bc={slot.isActive ? "$secondary800" : "$secondary300"}
+                        br="$s"
+                        bw={2}
+                        mr="$m"
+                        h={40}
+                        w={40}>
                         {slot.char !== null && (
                           <StyledText col="$secondary800">{slot.char}</StyledText>
                         )}
