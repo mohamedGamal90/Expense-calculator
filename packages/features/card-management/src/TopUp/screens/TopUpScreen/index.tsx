@@ -30,7 +30,11 @@ export const TopUp = ({
         <SelectedCardHeader cardNumber={cardNumber.slice(-4)} />
         <StyledSelect
           items={filteredCards!}
-          placeHolderText={t("placeholders.select-card")}
+          placeHolderText={
+            filteredCards?.length === 0
+              ? t("placeholders.select-card-empty")
+              : t("placeholders.select-card")
+          }
           value={selectedCardID}
           onSelect={value => setselectedCardID(value)}
         />

@@ -20,7 +20,8 @@
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
     "username": "أدخل اسم المستخدم",
     "select-card": "اختر بطاقة",
-    "select-limit": "اختر حداً"
+    "select-limit": "اختر حداً",
+    "select-card-empty": "لا توجد بطاقات صالحة متاحة"
   },
   "buttons": {
     "login": "تسجيل الدخول",

@@ -65,16 +65,10 @@ export const StyledSelect = ({
           exitStyle={{ o: 0, y: 10 }}
           minWidth={200}>
           <Select.Group>
-            {/* <Select.Label>Fruits</Select.Label> */}
-            {items.length && <MappingList data={items} renderItem={renderOption} />}
+            {items.length > 0 && <MappingList data={items} renderItem={renderOption} />}
           </Select.Group>
-          {/* Native gets an extra icon */}
-          {props.native && (
-            <YStack pos="absolute" ai="center" jc="center" w={"$3"} pointerEvents="none">
-              {/* <ChevronDown size={getFontSize((props.size as FontSizeTokens) ?? "$true")} /> */}
-            </YStack>
-          )}
         </Select.Viewport>
+
         <ScrollDownButton />
       </Select.Content>
     </Select>

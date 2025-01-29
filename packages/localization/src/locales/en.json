@@ -20,7 +20,8 @@
     "confirmNewPassword": "Confirm your new password",
     "username": "Enter your username",
     "select-card": "Select a card",
-    "select-limit": "Select a limit"
+    "select-limit": "Select a limit",
+    "select-card-empty": "No valid cards available"
   },
   "buttons": {
     "login": "Login",
