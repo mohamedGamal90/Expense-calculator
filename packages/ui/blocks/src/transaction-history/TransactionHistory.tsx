@@ -1,4 +1,4 @@
-import { getTokens, StyledText, Text, View } from "@aurora/components";
+import { getTokens, StyledText, View } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { TransactionHistoryItem } from "./components/TransactionHistoryItem";
 import {
@@ -27,24 +27,18 @@ const RenderTransactions = ({ transactions }: { transactions: GetCardTransaction
       datetxt = null;
     }
     return (
-      <>
+      <View key={`view-${index}`}>
         {datetxt && (
           <StyledText
-            $sm={{
-              variant: "BodySemiBoldm",
-            }}
+            $sm={{ variant: "BodySemiBoldm" }}
             paddingTop="$sm"
             color={"$secondary400"}
             variant="BodySemiBoldml">
             {datetxt}
           </StyledText>
         )}
-        <TransactionHistoryItem
-          key={index}
-          transaction={transaction}
-          timeZone={transactions.timeZone}
-        />
-      </>
+        <TransactionHistoryItem transaction={transaction} timeZone={transactions.timeZone} />
+      </View>
     );
   });
 };
@@ -55,7 +49,7 @@ export const TransactionHistory = () => {
   const router = useRouter();
   const { t } = useTranslation();
 
-  const { data: transactions, isLoading: transactionsIsLoading } = useGetTransactionsQuery({
+  const { data: transactions } = useGetTransactionsQuery({
     cardId: selectedCard?.id,
     transactionDateFrom: getLastWeek(),
     transactionDateTo: getTodayDate(),
@@ -67,51 +61,40 @@ export const TransactionHistory = () => {
     <View
       borderWidth={1}
       borderRadius="$l"
-      borderColor={"$secondary100"}
-      style={{
-        lineHeight: 1,
-      }}
-      gap={"$base"}
-      padding={"$ml"}
-      width={"100%"}>
+      borderColor="$secondary100"
+      style={{ lineHeight: 1 }}
+      gap="$base"
+      padding="$ml"
+      w="100%">
       <View flexDirection="row" justifyContent="space-between" alignItems="center">
-        <StyledText color={"$secondary900"} variant="Headingxl">
+        <StyledText col="$secondary900" variant="Headingxl">
           {t("titles.transactions-history")}
         </StyledText>
 
         <View
           cursor="pointer"
-          flexDirection={"row"}
+          fd="row"
           alignItems="center"
           gap="$s"
           onPress={() =>
             router.push({ pathname: "/dashboard/transaction", params: { id: selectedCard?.id } })
           }>
-          <StyledText color={"$secondary900"} variant="BodySemiBoldm">
+          <StyledText col="$secondary900" variant="BodySemiBoldm">
             {t("buttons.showAll")}
           </StyledText>
-          <Icon name={"arrow-right"} color="#3C3C3D" />
+          <Icon name="arrow-right" color={color.secondary900.val} />
         </View>
       </View>
       <View>
         {transactions && <RenderTransactions transactions={transactions} />}
         {transactions && transactions.transaction.length === 0 && (
           <View flex={1} alignItems="center" justifyContent="center">
-            <View
-              width={50}
-              height={50}
-              backgroundColor={"$primary600"}
-              borderRadius="$full"
-              justifyContent="center"
-              alignItems="center"
-              marginBottom="$base">
-              <Icon name={"arrow-swap-horizontal"} color={color.$white.val} />
+            <View w={50} h={50} bg="$primary600" br="$full" jc="center" ai="center" mb="$base">
+              <Icon name="arrow-swap-horizontal" color={color.$white.val} />
             </View>
             <View flexDirection="row">
               <StyledText
-                $sm={{
-                  variant: "BodymL",
-                }}
+                $sm={{ variant: "BodymL" }}
                 textAlign="center"
                 variant="Heading2xl"
                 color="secondary800">
