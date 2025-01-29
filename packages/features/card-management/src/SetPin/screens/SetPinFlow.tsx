@@ -6,9 +6,8 @@ import { useSetPinMutation } from "../hooks/useSetPinMutation";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 import { useSelectedCard } from "@metroid/store";
 import { useTranslation } from "react-i18next";
-import { showAlert } from "@aurora/components";
-import { ErrorType } from "@metroid/api";
 import { Verification } from "../../verification";
+import { errorHandler } from "@aurora/utils";
 
 type Props = { returnBackHandler: () => void };
 
@@ -35,19 +34,12 @@ export function SetPinFlow({ returnBackHandler }: Props) {
     setCurrentScreenIndex(nextIndex);
   };
 
-  const onErrorFunction = (error: ErrorType) => {
-    showAlert({
-      title: t("server-error.an_error_has_occurred"),
-      message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-    });
-  };
-
   const {
     mutateAsync: requestOTP,
     data,
     isPending,
   } = useRequestOtpMutation({
-    onError: error => onErrorFunction(error),
+    onError: error => errorHandler(error),
   });
 
   const {
@@ -56,14 +48,14 @@ export function SetPinFlow({ returnBackHandler }: Props) {
     isPending: setPinIsPending,
   } = useSetPinMutation({
     onSuccess: () => onNextScreen(),
-    onError: error => onErrorFunction(error),
+    onError: error => errorHandler(error),
   });
 
   const onSetPin = async (otp: string) => {
     await setPin({
       cardId: selectedCard.id,
       otp,
-    }).catch(error => onErrorFunction(error));
+    }).catch(error => errorHandler(error));
   };
 
   useEffect(() => {

@@ -101,7 +101,7 @@ export const CardList = () => {
             icon={
               <Icon
                 // style={{ transform: [{ scaleX: isRtl ? 1 : -1 }] }}
-                name={"arrow-left"}
+                name="arrow-left"
                 color={color.$white.val}
                 width={24}
                 height={24}
@@ -122,9 +122,6 @@ export const CardList = () => {
             renderItem={({ item }) => <CardItem card={item} width={width} />}
             horizontal
             pagingEnabled
-            onScrollToIndexFailed={() => {
-              console.log("sadas");
-            }}
             bounces={false}
             getItemLayout={(_data, index) => ({
               length: width,
@@ -143,7 +140,7 @@ export const CardList = () => {
             style={{ transform: [{ scaleX: isRtl ? -1 : 1 }] }}
             onPress={onNext}
             right={20}
-            icon={<Icon name={"arrow-right"} color={color.white.val} width={24} height={24} />}
+            icon={<Icon name="arrow-right" color={color.white.val} width={24} height={24} />}
             disabled={currentIndex === cards.length - 1}
           />
         )}

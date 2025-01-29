@@ -1,12 +1,10 @@
-import { showAlert } from "@aurora/components";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useValidateOtpMutation } from "../hooks";
-import { useTranslation } from "react-i18next";
+import { errorHandler } from "@aurora/utils";
 import { AuthOtpVerification } from "../components/AuthOtpVerification";
 
 export const RegisterVerificationScreen = () => {
   const params = useLocalSearchParams();
-  const { t } = useTranslation();
   const router = useRouter();
 
   const { customerId, stepId, email } = params as {
@@ -24,11 +22,7 @@ export const RegisterVerificationScreen = () => {
           stepId: data.stepId,
         },
       }),
-    onError: error =>
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      }),
+    onError: error => errorHandler(error),
   });
 
   const onSubmit = (otp: string): void => {

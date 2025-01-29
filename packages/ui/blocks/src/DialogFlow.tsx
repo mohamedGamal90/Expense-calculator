@@ -1,7 +1,6 @@
 import { Dialog, StyledText, View } from "@aurora/components";
 import { Dimensions, FlatList } from "react-native";
 import { Dispatch, SetStateAction } from "react";
-import { getTokens } from "@tamagui/core";
 import { DialogFlowBtn } from "./DialogFlowBtn";
 // import { isRtl } from "@metroid/store";
 
@@ -26,8 +25,6 @@ export const DialogFlow = ({
   showCloseButton,
   singleFlow,
 }: Props) => {
-  const { color } = getTokens();
-
   const onPrevScreen = () => {
     if (currentScreenIndex === 0 && returnBackHandler) {
       returnBackHandler();
@@ -45,13 +42,14 @@ export const DialogFlow = ({
     if (singleFlow && currentScreenIndex === 0) return false;
     return true;
   })();
+
   return (
     <View flex={1}>
       {currentScreenIndex !== screensFlow.length - 1 && (
         <>
           {showBackArrow && <DialogFlowBtn close={false} onPress={onPrevScreen} />}
           <Dialog.Title textAlign="center">
-            <StyledText variant="Heading2xl" color={"$secondary800"}>
+            <StyledText variant="Heading2xl" color="$secondary800">
               {screensFlow[currentScreenIndex].title}
             </StyledText>
           </Dialog.Title>
@@ -62,7 +60,7 @@ export const DialogFlow = ({
         ref={flatListRef}
         data={screensFlow}
         renderItem={({ item }) => (
-          <View width={dialogWidth} paddingHorizontal={"$xxs"}>
+          <View width={dialogWidth} paddingHorizontal="$xxs">
             {item.render}
           </View>
         )}

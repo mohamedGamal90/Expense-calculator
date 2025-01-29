@@ -8,8 +8,7 @@ import { SendMoney } from "./SendMoneyScreen";
 import { useSendMoneyMutation } from "../hooks/useSendMoneyMutation";
 import { useCardholderNameMutation } from "../hooks/useGetCardholderNameMutation";
 import { SelectedCardPreview } from "./SelectedCardPreviewScreen";
-import { getCurrencyCode } from "@aurora/utils";
-import { showAlert } from "@aurora/components";
+import { getCurrencyCode, errorHandler } from "@aurora/utils";
 import { Verification } from "../../verification";
 
 type Props = { returnBackHandler?: () => void };
@@ -52,11 +51,7 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
     data: requestOtpData,
   } = useRequestOtpMutation({
     onSuccess: () => onNextScreen(),
-    onError: error =>
-      showAlert({
-        title: "An error has occurred.",
-        message: error.response?.data.message as string,
-      }),
+    onError: error => errorHandler(error),
   });
 
   const { mutate: sendMoney, isPending: sendMoneyIsPending } = useSendMoneyMutation({
@@ -81,12 +76,7 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
   const firstStep = async ({ amount, cardNumber }: { amount: string; cardNumber: string }) => {
     amountRef.current = amount;
     toCardNumber.current = cardNumber;
-    await fetchCardHolderName({ cardNumber }).catch(error =>
-      showAlert({
-        title: "An error has occurred.",
-        message: error.response?.data.message as string,
-      }),
-    );
+    await fetchCardHolderName({ cardNumber }).catch(error => errorHandler(error));
   };
 
   const onSendMoney = (otp: string) =>

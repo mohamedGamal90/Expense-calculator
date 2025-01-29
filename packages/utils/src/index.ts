@@ -5,4 +5,5 @@ export * from "./types";
 export * from "./dateHelper";
 export * from "./currencyHelper";
 export * from "./metrics";
+export * from "./errorHandler";
 export * from "./imageHelper/getCardImage";

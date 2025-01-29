@@ -10,7 +10,6 @@ export function LogoutButton() {
 
   const handleOnLogout = () => {
     deleteValue(StoreKey.AccessToken);
-
     router.replace("/");
   };
   return (
@@ -18,9 +17,9 @@ export function LogoutButton() {
       icon={<Icon name="logout" />}
       onPress={handleOnLogout}
       variant="outlined"
-      borderColor={"$error600"}
+      borderColor="$error600"
       mt="$auto">
-      <StyledText variant="BodySemiBoldm" color={"$error600"}>
+      <StyledText variant="BodySemiBoldm" color="$error600">
         {t("buttons.logout")}
       </StyledText>
     </StyledButton>

@@ -1,8 +1,8 @@
-import { showAlert } from "@aurora/components";
 import { useForgetPasswordMutation } from "../hooks";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { AuthOtpVerification } from "../components/AuthOtpVerification";
+import { errorHandler } from "@aurora/utils";
 
 export const ForgetPasswordVerificationScreen = () => {
   const router = useRouter();
@@ -25,11 +25,7 @@ export const ForgetPasswordVerificationScreen = () => {
           statusMessage: t("forget-password.success-msg"),
         },
       }),
-    onError: error =>
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      }),
+    onError: error => errorHandler(error),
   });
 
   const onSubmit = (otp: string): void => {

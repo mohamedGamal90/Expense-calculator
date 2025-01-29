@@ -1,11 +1,11 @@
-import { Alert, Form, StyledButton, StyledText, View, showAlert } from "@aurora/components";
+import { Alert, Form, StyledButton, StyledText, View } from "@aurora/components";
 import { Link } from "expo-router";
 import { useLoginMutation } from "../hooks/useLoginMutation";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "expo-router";
-import { setValue, StoreKey } from "@aurora/utils";
+import { errorHandler, setValue, StoreKey } from "@aurora/utils";
 import { ControlledField } from "@aurora/blocks";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
@@ -34,14 +34,7 @@ export function LoginScreen() {
   });
 
   const { mutate, isPending } = useLoginMutation({
-    onError(error) {
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t(
-          `server-error.${error?.response?.data?.message ? error.response.data.message.toLocaleLowerCase() : "an_error_has_occurred"}`,
-        ) as string,
-      });
-    },
+    onError: error => errorHandler(error),
     async onSuccess(data) {
       await setValue(StoreKey.AccessToken, data.access_token);
       router.navigate("/dashboard");

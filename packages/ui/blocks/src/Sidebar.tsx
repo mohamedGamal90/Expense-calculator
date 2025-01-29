@@ -1,8 +1,7 @@
 import { getTokens, StyledText, View } from "@aurora/components";
 import { Icon } from "@aurora/icons";
-import { Link, usePathname, useRouter } from "expo-router";
+import { Link, usePathname } from "expo-router";
 import { Image } from "expo-image";
-import { deleteValue, StoreKey } from "@aurora/utils";
 import { LogoutButton } from "./LogoutButton";
 
 type IconProps = React.ComponentProps<typeof Icon>;
@@ -16,7 +15,6 @@ export type SidebarButton = {
 
 export function Sidebar({ buttons }: { buttons: SidebarButton[] }) {
   const pathName = usePathname();
-  const router = useRouter();
   const { color } = getTokens();
 
   const itemColor = (href: string, disabled: boolean) => {
@@ -24,20 +22,9 @@ export function Sidebar({ buttons }: { buttons: SidebarButton[] }) {
     else if (disabled) return color.$secondary400.val;
     else return color.$secondary900.val;
   };
-  const handleOnLogout = () => {
-    deleteValue(StoreKey.AccessToken);
 
-    router.replace("/");
-  };
   return (
-    <View
-      $sm={{
-        display: "none",
-      }}
-      borderColor="$secondary100"
-      borderWidth={1}
-      borderRadius="$l"
-      margin="$base">
+    <View $sm={{ display: "none" }} bc="$secondary100" borderWidth={1} br="$l" margin="$base">
       <View
         paddingVertical="$ml"
         borderBottomWidth={1}
@@ -51,21 +38,9 @@ export function Sidebar({ buttons }: { buttons: SidebarButton[] }) {
       </View>
       <View gap="$3xl" alignItems="center" justifyContent="center" paddingVertical="$l">
         {buttons.map((item, index) => (
-          <View
-            width={"100%"}
-            alignItems="center"
-            justifyContent="center"
-            flexDirection="row"
-            key={index}>
+          <View w="100%" alignItems="center" jc="center" fd="row" key={index}>
             {item.href === pathName && (
-              <View
-                position="absolute"
-                left={0}
-                width={7}
-                height={42}
-                borderRadius="$l"
-                backgroundColor="$primary800"
-              />
+              <View pos="absolute" left={0} w={7} h={42} borderRadius="$l" bg="$primary800" />
             )}
             {item.disabled ? (
               <View key={index} gap="$s" alignItems="center">

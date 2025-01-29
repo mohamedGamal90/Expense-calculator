@@ -1,4 +1,4 @@
-import { Alert, Form, StyledButton, StyledText, View, showAlert } from "@aurora/components";
+import { Alert, Form, StyledButton, StyledText, View } from "@aurora/components";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { useRegisterCustomerMutation } from "../hooks";
 import { useRouter, useLocalSearchParams } from "expo-router";
+import { errorHandler } from "@aurora/utils";
 
 enum FormFields {
   Username = "username",
@@ -79,11 +80,7 @@ export const CustomerRegistrationScreen = () => {
           status: "success",
         },
       }),
-    onError: error =>
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      }),
+    onError: error => errorHandler(error),
   });
 
   function handleLogin(data: FormValues) {

@@ -1,4 +1,4 @@
-import { Dialog, StyledButton, StyledText, View } from "@aurora/components";
+import { Dialog, StyledText, View } from "@aurora/components";
 import { Icon, IconKeys } from "@aurora/icons";
 import { useState } from "react";
 import { FlatList, Pressable } from "react-native";

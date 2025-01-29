@@ -8,9 +8,8 @@ import { TopUpConfirmation } from "./TopUpConfirmationScreen";
 import { useTopUpMutation } from "../hooks/useTopUpMutation";
 import { useGetCardsQuery } from "@metroid/hooks";
 import { useSelectedCard } from "@metroid/store";
-import { getCurrencyCode } from "@aurora/utils";
+import { getCurrencyCode, errorHandler } from "@aurora/utils";
 import { useTranslation } from "react-i18next";
-import { showAlert } from "@aurora/components";
 import { TopUp } from "./TopUpScreen";
 import { Verification } from "../../verification";
 
@@ -56,13 +55,7 @@ export function TopUpFlow() {
     onSuccess: () => onNextScreen(),
   });
 
-  const { mutateAsync: topUp, isPending: topupPending } = useTopUpMutation({
-    onError: error =>
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      }),
-  });
+  const { mutateAsync: topUp, isPending: topupPending } = useTopUpMutation();
 
   const firstStep = (toCardId: string, amount: string) => {
     amountRef.current = amount;
@@ -71,12 +64,7 @@ export function TopUpFlow() {
   };
 
   const callOtpApi = async () => {
-    await requestOTP().catch(error =>
-      showAlert({
-        title: "An error has occurred.",
-        message: error.response?.data.message as string,
-      }),
-    );
+    await requestOTP().catch(error => errorHandler(error));
   };
 
   const callTopUpApi = async () => {

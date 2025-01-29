@@ -7,8 +7,8 @@ import { ReportCard } from "./ReportCardScreen";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 import { useSelectedCard } from "@metroid/store";
 import { useTranslation } from "react-i18next";
-import { showAlert } from "@aurora/components";
 import { Verification } from "../../verification";
+import { errorHandler } from "@aurora/utils";
 
 type Props = { returnBackHandler: () => void };
 
@@ -50,20 +50,10 @@ export const ReportCardFlow = ({ returnBackHandler }: Props) => {
     data,
   } = useRequestOtpMutation({
     onSuccess: () => onNextScreen(),
-    onError: error =>
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      }),
+    onError: error => errorHandler(error),
   });
 
-  const { mutateAsync: reportCard, isPending: reportCardIspending } = useReportCardMutation({
-    onError: error =>
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      }),
-  });
+  const { mutateAsync: reportCard, isPending: reportCardIspending } = useReportCardMutation();
 
   const onReportCard = async (otp: string) => {
     await reportCard({

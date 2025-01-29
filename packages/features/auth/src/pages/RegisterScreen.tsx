@@ -1,4 +1,4 @@
-import { Alert, Form, StyledButton, StyledText, View, showAlert } from "@aurora/components";
+import { Alert, Form, StyledButton, StyledText, View } from "@aurora/components";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { useRegisterCardNumberMutation } from "../hooks";
 import { Icon } from "@aurora/icons";
+import { errorHandler } from "@aurora/utils";
 
 enum FormFields {
   CardNumber = "cardNumber",
@@ -36,12 +37,7 @@ export const RegisterScreen = () => {
   });
 
   const { mutate, isPending } = useRegisterCardNumberMutation({
-    onError(error) {
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      });
-    },
+    onError: error => errorHandler(error),
     async onSuccess(data) {
       router.navigate({
         pathname: "/auth/register-verification",

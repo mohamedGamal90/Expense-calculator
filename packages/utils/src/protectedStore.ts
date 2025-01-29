@@ -15,7 +15,7 @@ export const getValue = async (key: StoreKey) => {
       return credentials;
     }
   } catch (error) {
-    console.log("Error getting value", error);
+    console.error("Error getting value", error);
     return;
   }
 };
@@ -30,7 +30,7 @@ export const setValue = async (key: StoreKey, value: string) => {
       await SecureStore.setItemAsync(key, value);
     }
   } catch (error) {
-    console.log("Error setting value", error);
+    console.error("Error setting value", error);
   }
 };
 
@@ -44,6 +44,6 @@ export const deleteValue = async (key: StoreKey) => {
       await SecureStore.deleteItemAsync(key);
     }
   } catch (error) {
-    console.log("Error deleting value", error);
+    console.error("Error deleting value", error);
   }
 };

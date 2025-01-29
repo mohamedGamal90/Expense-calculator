@@ -1,7 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-
 import { authApiClient, ErrorType } from "@metroid/api";
-import { getNextWeek, getTommorowDate } from "@aurora/utils";
 
 type setCardLimitMutationParams = {
   cardId: string;
@@ -15,8 +13,6 @@ const setLimit = async (cardId: string, newLimit: string, limitType: string) =>
       cardId,
       newLimit,
       limitType,
-      // dateFrom: getTommorowDate(),
-      // dateTo: getNextWeek(),
     },
   );
 

@@ -9,8 +9,8 @@ import { CardAvailableStatusCodes } from "../../CardMangement/cardStatusCodes";
 import { useRequestOtpMutation } from "../../CardMangement/hooks/useRequestOtpMutation";
 import { useSelectedCard } from "@metroid/store";
 import { AvailableStatuses } from "@metroid/types";
-import { showAlert } from "@aurora/components";
 import { Verification } from "../../verification";
+import { errorHandler } from "@aurora/utils";
 
 type Props = { returnBackHandler: () => void };
 
@@ -58,27 +58,10 @@ export const CardActivationFlow = ({ returnBackHandler }: Props) => {
     data,
   } = useRequestOtpMutation({
     onSuccess: () => onNextScreen(),
-    onError: error =>
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      }),
   });
 
-  const { mutateAsync: activateCard, isPending: activePending } = useActivateCardMutation({
-    onError: error =>
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      }),
-  });
-  const { mutateAsync: deactivateCard, isPending: deactivePending } = useDeactivateCardMutation({
-    onError: error =>
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      }),
-  });
+  const { mutateAsync: activateCard, isPending: activePending } = useActivateCardMutation();
+  const { mutateAsync: deactivateCard, isPending: deactivePending } = useDeactivateCardMutation();
 
   const onCardActivation = async (otp: string) => {
     if (activationEnabled)
@@ -105,7 +88,7 @@ export const CardActivationFlow = ({ returnBackHandler }: Props) => {
       render: (
         <CardActivation
           selectedCard={selectedCard}
-          onSubmit={requestOTP}
+          onSubmit={() => requestOTP().catch(error => errorHandler(error))}
           isPending={requestOtpPending}
           activationEnabled={activationEnabled}
         />

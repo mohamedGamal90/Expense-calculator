@@ -1,6 +1,6 @@
 import { View, Form } from "tamagui";
 import { useRouter } from "expo-router";
-import { StyledButton, StyledText, showAlert } from "@aurora/components";
+import { StyledButton, StyledText } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,6 +9,7 @@ import * as yup from "yup";
 import { FormProvider, useForm } from "react-hook-form";
 import i18n from "i18next";
 import { useValidateUsernameMutation } from "../hooks";
+import { errorHandler } from "@aurora/utils";
 
 enum FormFields {
   Username = "username",
@@ -80,11 +81,7 @@ export const ForgotPasswordScreen = () => {
       });
       form.reset();
     },
-    onError: error =>
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      }),
+    onError: error => errorHandler(error),
   });
 
   function handleSubmit(data: FormValues) {
