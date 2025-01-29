@@ -1,13 +1,13 @@
-import { View, showAlert } from "@aurora/components";
+import { showAlert } from "@aurora/components";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useValidateOtpMutation } from "../hooks";
 import { useTranslation } from "react-i18next";
-import { Verification } from "@metroid/card-management/src/verification";
+import { AuthOtpVerification } from "../components/AuthOtpVerification";
 
 export const RegisterVerificationScreen = () => {
-  const router = useRouter();
   const params = useLocalSearchParams();
   const { t } = useTranslation();
+  const router = useRouter();
 
   const { customerId, stepId, email } = params as {
     email: string;
@@ -31,22 +31,9 @@ export const RegisterVerificationScreen = () => {
       }),
   });
 
-  const handleOnSubmit = (otp: string) => {
-    validateOtp({
-      customerId,
-      otp,
-      stepId,
-    });
+  const onSubmit = (otp: string): void => {
+    validateOtp({ customerId, otp, stepId });
   };
 
-  return (
-    <View flex={1}>
-      <Verification
-        onSubmit={otp => handleOnSubmit(otp)}
-        isPending={isPending}
-        credential={email}
-        type="email"
-      />
-    </View>
-  );
+  return <AuthOtpVerification onSubmit={onSubmit} isPending={isPending} credential={email} />;
 };
