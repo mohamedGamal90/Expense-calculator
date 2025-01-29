@@ -6,14 +6,15 @@ type Props = {
   cardNumber: string;
   isPending: boolean;
   onSubmit: (values: { amount: string; cardNumber: string }) => void;
+  productNumber: string;
 };
-export function SendMoney({ onSubmit, isPending, cardNumber }: Props) {
+export function SendMoney({ onSubmit, isPending, cardNumber, productNumber }: Props) {
   const [sendToCardNumber, setSendToCardNumber] = useState("");
   const [amount, setAmount] = useState<string>("");
 
   return (
     <View flex={1}>
-      <SelectedCardHeader cardNumber={cardNumber} />
+      <SelectedCardHeader />
       <View gap="$m">
         <StyledText variant="Headingxl">To:</StyledText>
         <FieldGroup

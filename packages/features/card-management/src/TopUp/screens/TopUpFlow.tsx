@@ -99,11 +99,7 @@ export function TopUpFlow() {
     {
       title: t("titles.add-money"),
       render: (
-        <TopUp
-          cards={cards?.filter(item => item.id !== selectedCard.id)}
-          onSubmit={firstStep}
-          cardNumber={selectedCard.cardNumber}
-        />
+        <TopUp cards={cards?.filter(item => item.id !== selectedCard.id)} onSubmit={firstStep} />
       ),
     },
     {

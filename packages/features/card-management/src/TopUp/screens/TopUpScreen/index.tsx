@@ -7,11 +7,9 @@ import { useTranslation } from "react-i18next";
 export const TopUp = ({
   cards,
   onSubmit,
-  cardNumber,
 }: {
   cards: CardType[] | undefined;
   onSubmit: (selectedCard: string, amount: string) => void;
-  cardNumber: string;
 }) => {
   const [selectedCardID, setselectedCardID] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
@@ -27,7 +25,7 @@ export const TopUp = ({
   return (
     <View flex={1} paddingTop="$m" justifyContent="space-between">
       <View>
-        <SelectedCardHeader cardNumber={cardNumber.slice(-4)} />
+        <SelectedCardHeader />
         <StyledSelect
           items={filteredCards!}
           placeHolderText={

@@ -14,11 +14,9 @@ import { useTranslation } from "react-i18next";
 export const ReportCard = ({
   onSubmit,
   isPending,
-  cardNumber,
 }: {
   onSubmit: () => void;
   isPending: boolean;
-  cardNumber: string;
 }) => {
   const { t } = useTranslation();
   const { color } = getTokens();
@@ -27,7 +25,7 @@ export const ReportCard = ({
   return (
     <View flex={1} justifyContent="space-between">
       <View>
-        <SelectedCardHeader cardNumber={cardNumber} />
+        <SelectedCardHeader />
         <StyledText marginTop={"$ml"} variant="Headingxl" color={"$neutral800"}>
           {t("titles.report-card-header")}
         </StyledText>

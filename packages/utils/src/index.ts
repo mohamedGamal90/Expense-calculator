@@ -5,3 +5,4 @@ export * from "./types";
 export * from "./dateHelper";
 export * from "./currencyHelper";
 export * from "./metrics";
+export * from "./imageHelper/getCardImage";

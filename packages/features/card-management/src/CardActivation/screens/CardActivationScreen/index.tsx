@@ -51,7 +51,7 @@ export const CardActivation = ({ selectedCard, onSubmit, isPending, activationEn
 
   return (
     <View flex={1} paddingTop="$m">
-      <SelectedCardHeader cardNumber={selectedCard.cardNumber.slice(-4)} />
+      <SelectedCardHeader />
 
       <View flexDirection="row" gap={"$s"} marginVertical={"$m"} alignItems="center">
         <Icon name="details-icon" />

@@ -1,9 +1,8 @@
 import { SimpleSlider, StyledButton, StyledSelect, StyledText, View } from "@aurora/components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SelectedCardHeader } from "@aurora/blocks";
 import { FieldGroup } from "@aurora/blocks/src/Form/FieldGroup";
 import { CardType } from "@metroid/types";
-import { useGetCardLimitsQuery } from "../../hooks/useGetCardLimits";
 import { getCurrencySymbol } from "@aurora/utils";
 import { useTranslation } from "react-i18next";
 
@@ -18,9 +17,6 @@ export const CardLimit = ({
 }) => {
   const [sliderValue, setSliderValue] = useState(0);
   const [selectedLimit, setSelectedLimit] = useState<string>("");
-  // const [customCardLimits, setCardLimits] = useState<{ label: string; value: string }[]>([]);
-
-  // const { data, isSuccess } = useGetCardLimitsQuery(selectedCard.id);
   const { t } = useTranslation();
 
   const onSelectLimit = (limit: string) => {
@@ -39,29 +35,12 @@ export const CardLimit = ({
     },
   ];
 
-  // if (isSuccess) {
-  //   customCardLimits = data?.limits.map(limit => ({
-  //     label: limit.description,
-  //     value: limit.limitType,
-  //   }));
-  // }
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     const customCardLimits = data?.limits.map(limit => ({
-  //       label: limit.description,
-  //       value: limit.limitType,
-  //     }));
-
-  //     setCardLimits(customCardLimits);
-  //   }
-  // }, [isSuccess]);
-
   const sliderMax = selectedLimit === "LMTP0111" ? 4000 : 10000;
 
   return (
     <View flex={1} justifyContent="space-between">
       <View marginTop="$m">
-        <SelectedCardHeader cardNumber={selectedCard.cardNumber.slice(-4)} />
+        <SelectedCardHeader />
         <StyledText variant="Headingxl" color={"$neutral800"} marginVertical="$s">
           {t("titles.limit-tracker")}
         </StyledText>

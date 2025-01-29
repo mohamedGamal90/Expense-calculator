@@ -104,6 +104,7 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
       render: (
         <SendMoney
           cardNumber={selectedCard.cardNumber.slice(-4)}
+          productNumber={selectedCard.productNumber}
           onSubmit={firstStep}
           isPending={cardholderNameIsPending}
         />
