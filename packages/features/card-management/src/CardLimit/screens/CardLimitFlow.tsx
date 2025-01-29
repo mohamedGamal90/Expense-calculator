@@ -9,6 +9,7 @@ import { useSetCardLimitMutation } from "../hooks/useSetCardLimit";
 import { useTranslation } from "react-i18next";
 import { showAlert } from "@aurora/components";
 import { Verification } from "../../verification";
+import { ErrorType } from "@metroid/api";
 
 type Props = { returnBackHandler: () => void };
 export const CardLimitFlow = ({ returnBackHandler }: Props) => {
@@ -47,25 +48,24 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
     setCurrentScreenIndex(nextIndex);
   };
 
+  const onErrorFunction = (error: ErrorType) => {
+    showAlert({
+      title: t("server-error.an_error_has_occurred"),
+      message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
+    });
+  };
+
   const {
     mutateAsync: requestOTP,
     isPending: requestOtpPending,
     data,
   } = useRequestOtpMutation({
     onSuccess: () => onNextScreen(),
-    onError: error =>
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      }),
+    onError: error => onErrorFunction(error),
   });
 
   const { mutateAsync: setLimit, isPending: setLimitPending } = useSetCardLimitMutation({
-    onError: error =>
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("server-error." + error.response?.data.message.toLocaleLowerCase()) as string,
-      }),
+    onError: error => onErrorFunction(error),
   });
 
   const firstStep = (limitAmount: number, limitType: string) => {

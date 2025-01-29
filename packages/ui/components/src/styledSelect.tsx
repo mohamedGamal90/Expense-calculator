@@ -22,8 +22,8 @@ export const StyledSelect = ({
 }) => {
   const renderOption = useCallback(
     (item: Item, index: number) => (
-      <Select.Item padding={"$m"} index={index} value={item.value}>
-        <Select.ItemText col={"$black"}>{item.label}</Select.ItemText>
+      <Select.Item padding="$m" index={index} value={item.value}>
+        <Select.ItemText col="$black">{item.label}</Select.ItemText>
         <Select.ItemIndicator ml="auto"></Select.ItemIndicator>
       </Select.Item>
     ),
@@ -31,7 +31,7 @@ export const StyledSelect = ({
   );
   return (
     <Select value={value} onValueChange={onSelect} disablePreventBodyScroll {...props}>
-      <Select.Trigger padding={"$ml"} borderRadius={"$m"} iconAfter={<Icon name={"arrow-down"} />}>
+      <Select.Trigger padding="$ml" br="$m" bg="$white" iconAfter={<Icon name="arrow-down" />}>
         <Select.Value placeholder={placeHolderText} />
       </Select.Trigger>
 
@@ -57,7 +57,6 @@ export const StyledSelect = ({
 
       <Select.Content zIndex={200000}>
         <ScrollUpButton />
-
         <Select.Viewport
           animation="quick"
           animateOnly={["transform", "opacity"]}
@@ -75,14 +74,9 @@ export const StyledSelect = ({
   );
 };
 const ScrollUpButton = () => (
-  <Select.ScrollUpButton
-    alignItems="center"
-    justifyContent="center"
-    position="relative"
-    width="100%"
-    height="$3">
+  <Select.ScrollUpButton alignItems="center" jc="center" pos="relative" w="100%" h="$3">
     <YStack zIndex={10}>
-      <Icon name={"arrow-up"} />
+      <Icon name="arrow-up" />
     </YStack>
     <LinearGradient
       start={[0, 0]}
@@ -94,14 +88,9 @@ const ScrollUpButton = () => (
   </Select.ScrollUpButton>
 );
 const ScrollDownButton = () => (
-  <Select.ScrollDownButton
-    alignItems="center"
-    justifyContent="center"
-    position="relative"
-    width="100%"
-    height="$3">
+  <Select.ScrollDownButton alignItems="center" jc="center" pos="relative" w="100%" h="$3">
     <YStack zIndex={10}>
-      <Icon name={"arrow-down"} />
+      <Icon name="arrow-down" />
     </YStack>
     <LinearGradient
       start={[0, 0]}

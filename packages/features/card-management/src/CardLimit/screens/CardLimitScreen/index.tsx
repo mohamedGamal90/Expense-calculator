@@ -17,6 +17,7 @@ export const CardLimit = ({
 }) => {
   const [sliderValue, setSliderValue] = useState(0);
   const [selectedLimit, setSelectedLimit] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const { t } = useTranslation();
 
   const onSelectLimit = (limit: string) => {
@@ -24,27 +25,29 @@ export const CardLimit = ({
     setSliderValue(0);
   };
 
-  let customCardLimits: { label: string; value: string }[] = [
+  let customCardLimits: { label: string; value: string; sliderMax?: number }[] = [
     {
       label: "Card MOTO/E-commerce day limit",
       value: "LMTP0111",
+      sliderMax: 4000,
     },
     {
       label: "Card MOTO/E-commerce monthly limit",
       value: "LMTP0112",
+      sliderMax: 10000,
     },
   ];
 
-  const sliderMax = selectedLimit === "LMTP0111" ? 4000 : 10000;
-
+  const sliderMax = customCardLimits.find(item => item.value === selectedLimit)?.sliderMax;
+  const limitname = customCardLimits.find(item => item.value === selectedLimit)?.label;
   return (
     <View flex={1} justifyContent="space-between">
       <View marginTop="$m">
         <SelectedCardHeader />
-        <StyledText variant="Headingxl" color={"$neutral800"} marginVertical="$s">
+        <StyledText variant="Headingxl" color="$neutral800" marginVertical="$s">
           {t("titles.limit-tracker")}
         </StyledText>
-        <StyledText variant="Bodysm" color={"$neutral800"}>
+        <StyledText variant="Bodysm" color="$neutral800">
           {t("titles.limit-inquiry")}
         </StyledText>
         <StyledSelect
@@ -54,7 +57,7 @@ export const CardLimit = ({
           onSelect={onSelectLimit}
         />
         <View flexDirection="row" justifyContent="space-between" alignItems="center" marginTop="$m">
-          <View mt={"$m"} flex={5 / 6} marginHorizontal="$xs" alignItems="center">
+          <View mt="$m" flex={5 / 6} marginHorizontal="$xs" alignItems="center">
             <SimpleSlider
               key={selectedLimit}
               alignSelf="center"
@@ -65,22 +68,28 @@ export const CardLimit = ({
               onValueChange={value => setSliderValue(value[0])}
             />
           </View>
-          <View flex={1 / 6} position="absolute" right={0} top={-33}>
-            <StyledText variant="BodySemiBoldml" col={"$neutral800"} mt="$ml" marginBottom="$xs">
+          <View flex={1 / 6} position="absolute" right={0} top={-15}>
+            <StyledText variant="BodySemiBoldml" col="$neutral800" mt="$ml" marginBottom="$xs">
               {sliderValue}
               {getCurrencySymbol(selectedCard.currencyName)}
             </StyledText>
           </View>
         </View>
-        <StyledText variant="Bodysm" color={"$neutral800"} marginTop="$ml" marginBottom="$xs">
+        <StyledText variant="Bodysm" color="$neutral800" marginTop="$ml" marginBottom="$xs">
           {t("inputs.enter-amount")}
         </StyledText>
         <FieldGroup
           value={sliderValue.toString()}
           onChange={value => {
-            if (!isNaN(Number(value))) setSliderValue(Number(value));
+            const numericValue = Number(value);
+            if (!isNaN(numericValue) && sliderMax !== undefined && numericValue <= sliderMax) {
+              setSliderValue(Number(value));
+              setError("");
+            } else setError(`Max for ${limitname} is ${sliderMax}`);
           }}
+          error={error}
           placeholder="0,0 USD"
+          maxLength={(sliderMax ?? 0).toString().length}
         />
       </View>
       <StyledButton
