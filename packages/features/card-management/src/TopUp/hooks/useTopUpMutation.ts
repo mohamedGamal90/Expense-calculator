@@ -6,6 +6,7 @@ type TopUpAccountParams = {
   beneficiaryCardId: string;
   payerCardId: string;
   currencyCode: string;
+  otp: string;
 };
 
 async function topUpAccount({
@@ -13,6 +14,7 @@ async function topUpAccount({
   beneficiaryCardId,
   payerCardId,
   currencyCode,
+  otp,
 }: TopUpAccountParams) {
   const { data } = await authApiClient.post(
     `/fund-transfer-service/api/v1/${process.env.EXPO_PUBLIC_REALM_ID}/fund-transfer/internal-transfer`,
@@ -21,6 +23,9 @@ async function topUpAccount({
       beneficiaryCardId,
       payerCardId,
       currencyCode,
+    },
+    {
+      headers: { otp: otp },
     },
   );
   return data;

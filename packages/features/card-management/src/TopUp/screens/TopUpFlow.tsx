@@ -21,7 +21,7 @@ export function TopUpFlow() {
   const toCardRef = useRef<CardType | null>(null);
   const queryClient = useQueryClient();
   const amountRef = useRef<string>("");
-  const { data: cards } = useGetCardsQuery();
+  const { data: cards, refetch } = useGetCardsQuery();
   const selectedCard = useSelectedCard();
   const [status, setStatus] = useState<{
     status: "success" | "error" | "pending";
@@ -55,7 +55,13 @@ export function TopUpFlow() {
     onSuccess: () => onNextScreen(),
   });
 
-  const { mutateAsync: topUp, isPending: topupPending } = useTopUpMutation();
+  const { mutateAsync: topUp, isPending: topupPending } = useTopUpMutation({
+    onSuccess: async () => {
+      await refetch();
+      queryClient.refetchQueries({ queryKey: ["cardTransactions"] });
+      onNextScreen();
+    },
+  });
 
   const firstStep = (toCardId: string, amount: string) => {
     amountRef.current = amount;
@@ -67,20 +73,19 @@ export function TopUpFlow() {
     await requestOTP().catch(error => errorHandler(error));
   };
 
-  const callTopUpApi = async () => {
+  const callTopUpApi = async (otp: string) => {
     await topUp({
       paymentAmount: amountRef.current,
       currencyCode: getCurrencyCode(selectedCard.currencyName),
       beneficiaryCardId: selectedCard.id,
       payerCardId: toCardRef.current?.id as string,
+      otp: otp,
     }).catch(error =>
       setStatus({
         status: "error",
         statusTitle: error?.response?.data?.message ?? "Top up failed",
       }),
     );
-    queryClient.refetchQueries({ queryKey: ["cardList"] });
-    onNextScreen();
   };
 
   const topUpFlowScreens = [
