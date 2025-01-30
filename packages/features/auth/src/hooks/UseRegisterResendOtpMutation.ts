@@ -18,7 +18,7 @@ const resendOtp = async (body: ResendOtp) => {
   );
 };
 
-export const UseResendOtpMutation = ({
+export const UseRegistrationResendOtpMutation = ({
   onError,
   onSuccess,
 }: {

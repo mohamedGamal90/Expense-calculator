@@ -1,32 +1,27 @@
-import {
-  StyledButton,
-  StyledText,
-  View,
-  getTokens,
-  useMedia,
-  useWindowDimensions,
-} from "@aurora/components";
+import { StyledButton, StyledText, View, getTokens, useWindowDimensions } from "@aurora/components";
 import { OTPInput } from "input-otp";
 import { useTranslation } from "react-i18next";
 import { Icon } from "@aurora/icons";
 import { useState } from "react";
+import { ResendOtpBtn } from "@aurora/blocks";
 
 const CELL_COUNT = 6;
 export const AuthOtpVerification = ({
   onSubmit,
   isPending,
   credential,
+  onResendOtp,
 }: {
   onSubmit: (otp: string) => void;
   isPending: boolean;
   credential: string;
+  onResendOtp?: () => void;
 }) => {
   const { t } = useTranslation();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(false);
   const { color } = getTokens();
   const { height: screenHeight } = useWindowDimensions();
-  const { gtXs } = useMedia();
 
   const verifyObject: { icon: "mobile" | "email"; txt: string; iconTxt: JSX.Element } = (() => {
     switch ("email") {
@@ -144,6 +139,7 @@ export const AuthOtpVerification = ({
               {t("validation.otp-error-message")}
             </StyledText>
           )}
+          {onResendOtp && <ResendOtpBtn onPress={onResendOtp} />}
         </View>
       </View>
       <StyledButton

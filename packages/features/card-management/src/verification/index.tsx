@@ -1,10 +1,11 @@
-import { getTokens, StyledButton, StyledText, View } from "@aurora/components";
+import { getTokens, showAlert, StyledButton, StyledText, View } from "@aurora/components";
 import { OTPInput } from "input-otp";
 import { Icon } from "@aurora/icons";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ResendOtpBtn } from "./components/resendOtpBtn";
 import { ActivityIndicator } from "react-native";
+import { ResendOtpBtn } from "@aurora/blocks";
+import { useResendOtpMutation } from "./hooks/useResendOtpMutation";
 
 const CELL_COUNT = 6;
 
@@ -63,6 +64,14 @@ export const Verification = ({
     }
     setError(true);
   };
+
+  const { mutateAsync: ResendOTP } = useResendOtpMutation({
+    onError: () =>
+      showAlert({
+        title: t("server-error.an_error_has_occurred"),
+        message: t("otp.max-resend-otp-reached-msg"),
+      }),
+  });
 
   return (
     <View f={1} jc="space-between">
@@ -150,7 +159,7 @@ export const Verification = ({
                   {t("validation.otp-error-message")}
                 </StyledText>
               )}
-              {credential && <ResendOtpBtn />}
+              {credential && <ResendOtpBtn onPress={ResendOTP} />}
             </View>
           </View>
           <StyledButton

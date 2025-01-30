@@ -2,21 +2,12 @@ import { getTokens, showAlert, StyledText } from "@aurora/components";
 import { useEffect, useRef, useState } from "react";
 import { Pressable } from "react-native";
 import { useTranslation } from "react-i18next";
-import { useResendOtpMutation } from "../hooks/useResendOtpMutation";
 
-export const ResendOtpBtn = () => {
+export const ResendOtpBtn = ({ onPress }: { onPress: () => void }) => {
   const [time, setTime] = useState(30);
   const { t } = useTranslation();
   const { space } = getTokens();
   const resendTime = useRef(1);
-
-  const { mutateAsync: ResendOTP } = useResendOtpMutation({
-    onError: () =>
-      showAlert({
-        title: t("server-error.an_error_has_occurred"),
-        message: t("otp.max-resend-otp-reached-msg"),
-      }),
-  });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -28,7 +19,7 @@ export const ResendOtpBtn = () => {
 
   const onResendOtp = async () => {
     if (resendTime.current < 3) {
-      ResendOTP;
+      onPress();
       resendTime.current++;
       setTime(30 * resendTime.current);
     } else
