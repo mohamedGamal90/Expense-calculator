@@ -80,7 +80,8 @@
     "card-limit": "Card Limit",
     "limit-tracker": "Limit Tracker",
     "limit-inquiry": "How do you want to limit your monthly limit?",
-    "report-card-header": "What happened to your card?"
+    "report-card-header": "What happened to your card?",
+    "Create-credentials-txt": "Create credentials to access your account."
   },
   "cardDetails": {
     "yourBalance": "Your Balance",

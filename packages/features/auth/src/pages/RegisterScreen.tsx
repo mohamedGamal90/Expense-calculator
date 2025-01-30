@@ -77,7 +77,7 @@ export const RegisterScreen = () => {
             </StyledText>
 
             <StyledText mb="$xl" variant="BodySemiBoldm">
-              Create credentials to access your account
+              {t("titles.Create-credentials-txt")}
             </StyledText>
 
             <ControlledField

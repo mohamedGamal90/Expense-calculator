@@ -80,7 +80,8 @@
     "card-limit": "حد البطاقة",
     "limit-tracker": "متتبع الحد",
     "limit-inquiry": "كيف تريد تحديد الحد الشهري الخاص بك؟",
-    "report-card-header": "ماذا حدث لبطاقتك؟"
+    "report-card-header": "ماذا حدث لبطاقتك؟",
+    "Create-credentials-txt": "إنشاء بيانات اعتماد للوصول إلى حسابك."
   },
   "cardDetails": {
     "yourBalance": "رصيدك",
