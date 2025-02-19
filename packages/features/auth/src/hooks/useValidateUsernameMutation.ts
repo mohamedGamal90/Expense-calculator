@@ -3,8 +3,6 @@ import { useMutation } from "@tanstack/react-query";
 
 type validateUserMutationParams = {
   username: string;
-  password: string;
-  passwordConfirm: string;
 };
 
 type validateUserResponse = {

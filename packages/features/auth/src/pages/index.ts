@@ -1,4 +1,4 @@
-export * from "./ForgotPasswordScreen";
+export * from "./ForgetPassword/ForgotPasswordScreen";
 export * from "./NewPasswordScreen";
 export * from "./LoginScreen";
 export * from "./ForgetPasswordVerificationScreen";
