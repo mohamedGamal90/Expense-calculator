@@ -24,9 +24,11 @@ const validateUsernameApi = async ({ username }: validateUserMutationParams) => 
 export const useValidateUsernameMutation = ({
   onError,
   onSuccess,
+  onSettled,
 }: {
   onError?: (error: ErrorType) => void;
   onSuccess?: (data: validateUserResponse, variables: validateUserMutationParams) => void;
+  onSettled?: (data: validateUserResponse, variables: validateUserMutationParams) => void;
 } = {}) =>
   useMutation({
     mutationFn: (params: validateUserMutationParams) => validateUsernameApi(params),
@@ -35,5 +37,8 @@ export const useValidateUsernameMutation = ({
     },
     onSuccess(data, variables) {
       onSuccess?.(data, variables);
+    },
+    onSettled(data, _error, variables) {
+      onSettled?.(data, variables);
     },
   });

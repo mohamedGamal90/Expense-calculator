@@ -4,10 +4,11 @@ import { FormProvider, set, useForm } from "react-hook-form";
 import * as yup from "yup";
 import i18n from "i18next";
 import { useValidateUsernameMutation } from "../../../hooks";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { errorHandler } from "@aurora/utils";
 import { useTranslation } from "react-i18next";
 import { Form, StyledButton } from "@aurora/components";
+import { useCallback } from "react";
 
 enum FormFields {
   Username = "username",
@@ -26,7 +27,6 @@ export function ValidateUsername({
   setStep: (step: "VALIDATE_USERNAME" | "RESET_PASSWORD") => void;
   setUsername: (username: string) => void;
 }) {
-  const router = useRouter();
   const { t } = useTranslation();
   const form = useForm({
     resolver: yupResolver(validateUsernameSchema),
@@ -36,11 +36,10 @@ export function ValidateUsername({
   });
 
   const { isPending, mutate: validateUsername } = useValidateUsernameMutation({
-    onSuccess: (_data, { username }) => {
+    onSettled(_data, { username }) {
       setUsername(username);
       setStep("RESET_PASSWORD");
     },
-    onError: error => errorHandler(error),
   });
 
   function handleSubmit(data: FormValues) {
@@ -49,6 +48,11 @@ export function ValidateUsername({
 
   const disabled = !(form.watch().username.length > 0);
 
+  useFocusEffect(
+    useCallback(() => {
+      form.reset();
+    }, []),
+  );
   return (
     <Form flex={1} onSubmit={form.handleSubmit(handleSubmit)}>
       <FormProvider {...form}>
@@ -61,7 +65,7 @@ export function ValidateUsername({
         />
         <Form.Trigger mt="$m" asChild>
           <StyledButton disabled={disabled} isLoading={isPending}>
-            {t("buttons.submit")}
+            {t("buttons.next")}
           </StyledButton>
         </Form.Trigger>
       </FormProvider>

@@ -152,6 +152,7 @@
     "max-resend-otp-reached-msg": "Can't resend otp now. you have used all you three times."
   },
   "server-error": {
+    "number of trails exceeded": "You have exceeded the number of trials. Please try again later.",
     "an_error_has_occurred": "An error has occurred",
     "do not honor transaction": "Do not honor transaction",
     "lost card capture": "Lost Card Capture",

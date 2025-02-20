@@ -1,9 +1,9 @@
 import { View } from "tamagui";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { StyledButton, StyledText } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ValidateUsername } from "./components/ValidateUsername";
 import { ResetPassword } from "./components/ResetPassword";
 
@@ -15,14 +15,8 @@ export const ForgotPasswordScreen = () => {
 
   const STEPS = {
     VALIDATE_USERNAME: <ValidateUsername setUsername={setUsername} setStep={setStep} />,
-    RESET_PASSWORD: <ResetPassword username={username} />,
+    RESET_PASSWORD: <ResetPassword username={username} setStep={setStep} />,
   };
-
-  useEffect(() => {
-    return () => {
-      setStep("VALIDATE_USERNAME");
-    };
-  }, []);
 
   return (
     <View f={1} paddingHorizontal="$s" bg="$white">

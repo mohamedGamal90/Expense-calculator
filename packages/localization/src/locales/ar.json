@@ -151,6 +151,7 @@
     "max-resend-otp-reached-msg": "لا يمكن إعادة إرسال رمز التحقق الآن. لقد استخدمت جميع محاولاتك الثلاث."
   },
   "server-error": {
+    "number of trails exceeded": "لقد تجاوزت عدد المحاولات المسموح به. يرجى المحاولة مرة أخرى لاحقاً.",
     "an_error_has_occurred": "حدث خطأ",
     "do not honor transaction": "لا يتم تكريم المعاملة",
     "lost card capture": "التقاط البطاقة المفقودة",

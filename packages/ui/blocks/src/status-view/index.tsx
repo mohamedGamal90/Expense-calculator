@@ -28,7 +28,7 @@ export const StatusView = ({
         />
       </View>
       {statusTitle && (
-        <StyledText variant="Heading2xl" color={"$secondary900"}>
+        <StyledText mb={"base"} variant="Heading2xl" color={"$secondary900"}>
           {statusTitle}
         </StyledText>
       )}
@@ -40,7 +40,7 @@ export const StatusView = ({
         </StyledButton>
       </Dialog.Close>
     ) : (
-      <StyledButton variant="primary" onPress={onSubmit}>
+      <StyledButton mt={"$2xl"} variant="primary" onPress={onSubmit}>
         Back To Home
       </StyledButton>
     )}

@@ -6,9 +6,11 @@ import * as yup from "yup";
 import { OTPInput } from "input-otp";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForgetPasswordMutation } from "../../../hooks";
-import { useRouter, useLocalSearchParams } from "expo-router";
+import { useRouter, useLocalSearchParams, useFocusEffect } from "expo-router";
 import { errorHandler } from "@aurora/utils";
-import { ControlledField } from "@aurora/blocks";
+import { ControlledField, ResendOtpBtn } from "@aurora/blocks";
+import { useCallback, useEffect } from "react";
+import { useResendForgetPasswordOTPMutation } from "../../../hooks/useForgetPasswordResendOTP";
 
 enum FormFields {
   OTP = "otp",
@@ -17,7 +19,15 @@ enum FormFields {
 }
 
 const resetPasswordSchema = yup.object().shape({
-  [FormFields.OTP]: yup.string().required(i18n.t("validation.required")).length(6),
+  [FormFields.OTP]: yup
+    .string()
+    .required(i18n.t("validation.required"))
+    .test({
+      name: "numberErr",
+      message: i18n.t("validation.number"),
+      test: value => /^\d+$/.test(value ?? ""),
+    })
+    .length(6),
   [FormFields.Password]: yup
     .string()
     .required(i18n.t("validation.required"))
@@ -43,7 +53,7 @@ const resetPasswordSchema = yup.object().shape({
     })
     .test({
       name: "minErr",
-      message: i18n.t("Validation.minErr"),
+      message: i18n.t("validation.minErr"),
       test: value => (value?.length ?? 0) >= 8,
     }),
   [FormFields.ConfirmPassword]: yup
@@ -54,7 +64,13 @@ const resetPasswordSchema = yup.object().shape({
 
 type FormValues = yup.InferType<typeof resetPasswordSchema>;
 
-export function ResetPassword({ username }: { username: string }) {
+export function ResetPassword({
+  username,
+  setStep,
+}: {
+  username: string;
+  setStep: (step: "VALIDATE_USERNAME" | "RESET_PASSWORD") => void;
+}) {
   const { t } = useTranslation();
 
   const router = useRouter();
@@ -81,9 +97,26 @@ export function ResetPassword({ username }: { username: string }) {
     onError: error => errorHandler(error),
   });
 
+  const { mutate: resendOTP } = useResendForgetPasswordOTPMutation({
+    onError: error => errorHandler(error),
+  });
+
   function handleSubmit({ otp, password }: FormValues) {
     forgetPassword({ otp, username, password });
   }
+
+  useEffect(() => {
+    form.trigger("confirmPassword");
+  }, [form.watch("password")]);
+
+  useFocusEffect(
+    useCallback(() => {
+      form.reset();
+      return () => {
+        setStep("VALIDATE_USERNAME");
+      };
+    }, []),
+  );
 
   return (
     <Form flex={1} onSubmit={form.handleSubmit(handleSubmit)}>
@@ -92,37 +125,50 @@ export function ResetPassword({ username }: { username: string }) {
           <StyledText variant="BodyBoldm" marginBottom="$s">
             OTP
           </StyledText>
-          <Controller
-            name={FormFields.OTP}
-            render={({ field: { onChange } }) => (
-              <OTPInput
-                maxLength={6}
-                onChange={onChange}
-                inputMode="numeric"
-                render={({ slots }) => (
-                  <View flexDirection="row">
-                    {slots.map((slot, index) => (
-                      <View
-                        key={index}
-                        $xs={{ h: 35, w: 35, mr: "$s" }}
-                        jc="center"
-                        ai="center"
-                        bc={slot.isActive ? "$secondary800" : "$secondary300"}
-                        br="$s"
-                        bw={2}
-                        mr="$m"
-                        h={40}
-                        w={40}>
-                        {slot.char !== null && (
-                          <StyledText col="$secondary800">{slot.char}</StyledText>
-                        )}
+          <StyledText variant="Bodym" marginBottom="$s">
+            If an account with this username exists, a verification code will be sent to your email.
+          </StyledText>
+          <View justifyContent="center" alignItems="center">
+            <Controller
+              name={FormFields.OTP}
+              render={({ field: { onChange }, fieldState: { error } }) => (
+                <>
+                  <OTPInput
+                    maxLength={6}
+                    onChange={onChange}
+                    inputMode="numeric"
+                    render={({ slots }) => (
+                      <View flexDirection="row">
+                        {slots.map((slot, index) => (
+                          <View
+                            key={index}
+                            $xs={{ h: 35, w: 35, mr: "$s" }}
+                            jc="center"
+                            ai="center"
+                            bc={slot.isActive ? "$secondary800" : "$secondary300"}
+                            br="$s"
+                            bw={2}
+                            mr="$m"
+                            h={40}
+                            w={40}>
+                            {slot.char !== null && (
+                              <StyledText col="$secondary800">{slot.char}</StyledText>
+                            )}
+                          </View>
+                        ))}
                       </View>
-                    ))}
+                    )}
+                  />
+                  <View h="$s">
+                    <StyledText pt={"$s"} variant="Bodym" color="$error500">
+                      {error?.message}
+                    </StyledText>
                   </View>
-                )}
-              />
-            )}
-          />
+                </>
+              )}
+            />
+          </View>
+          <ResendOtpBtn onPress={() => resendOTP({ username })} />
         </View>
         <ControlledField
           fieldName={FormFields.Password}
