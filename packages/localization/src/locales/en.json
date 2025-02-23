@@ -175,6 +175,7 @@
     "you can't resend otp now. please wait until timer ends.": "You can't resend OTP now. Please wait until timer ends.",
     "customer doesn't have details.": "Customer doesn't have details.",
     "1": "1",
+    "expired otp": "Expired OTP",
     "please use lowercase letters for the username.": "Please use lowercase letters for the username.",
     "invalid username!": "Invalid Username!",
     "accountnumber is invalid!": "AccountNumber is invalid!",
