@@ -106,7 +106,7 @@ export function ResetPassword({
   }
 
   useEffect(() => {
-    if (form.formState.touchedFields.password) {
+    if (form.formState.touchedFields.password || form.watch("password")) {
       form.trigger("confirmPassword");
     }
   }, [form.watch("password")]);
