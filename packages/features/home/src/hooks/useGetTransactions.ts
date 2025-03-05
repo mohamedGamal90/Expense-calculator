@@ -11,7 +11,7 @@ type GetCardTransactionsParams = {
   transactionDateTo?: Date | string;
 };
 
-export type TransactionType = {
+export type Transaction = {
   billingAmount: string;
   billingCurrency: string;
   cardNumber: string;
@@ -31,7 +31,7 @@ export type TransactionType = {
 export type GetCardTransactionsReponse = {
   timeZone: string;
   totalSize: number;
-  transaction: TransactionType[];
+  transaction: Transaction[];
 };
 
 const getTransactionList = async ({

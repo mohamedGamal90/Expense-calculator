@@ -1,6 +1,6 @@
 import { StyledText, Pill, View, PillVariant } from "@aurora/components";
 import { Icon, IconKeys } from "@aurora/icons";
-import { TransactionType } from "@aurora/home/src/hooks/useGetTransactions";
+import { Transaction } from "@aurora/home/src/hooks/useGetTransactions";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -16,23 +16,30 @@ export const TransactionHistoryItem = ({
   transaction,
   timeZone,
 }: {
-  transaction: TransactionType;
+  transaction: Transaction;
   timeZone: string;
 }) => {
-  const { transactionType, transactionDate, billingAmount, billingCurrency, status } = transaction;
+  const {
+    transactionType,
+    merchantName,
+    transactionDate,
+    billingAmount,
+    billingCurrency,
+    status,
+    transactionId,
+  } = transaction;
 
   const { lang } = useSettingStore();
   const { t } = useTranslation();
 
-  const transactionTypeObj: { icon: IconKeys; type: string } = (() => {
+  function getTransactionTypeIcon(transaction: Transaction) {
     switch (transactionType) {
       case "MONEY_OUT":
-        return { icon: "send", type: t("status.send") }; // "Send" or "إرسال"
+        return "send";
       default:
-        return { icon: "topup", type: t("status.received") }; // "Added" or "تم الإضافة"
+        return "topup";
     }
-  })();
-
+  }
   const pillVariant: { pillVariant: PillVariant; PillTxt: string } = (() => {
     switch (status) {
       case "1":
@@ -49,12 +56,23 @@ export const TransactionHistoryItem = ({
 
   return (
     <View py="$m" fd="row" ai="center" jc="space-between">
-      <View $sm={{ width: "25%" }} w="15%" gap="$s" fd="row" ai="center">
+      <View $sm={{ width: "20%" }} w="14%" gap="$s" fd="row" ai="center">
         <View br="$xs" borderWidth={0.3} bc="$secondary900" padding="$xs">
-          <Icon name={transactionTypeObj.icon} width={14} height={14} />
+          <Icon name={getTransactionTypeIcon(transaction)} width={14} height={14} />
         </View>
-        <StyledText color="$secondary900" variant="Bodysm">
-          {transactionTypeObj.type}
+        <StyledText color="$secondary900" textOverflow="ellipsis" variant="Bodysm">
+          {merchantName}
+        </StyledText>
+      </View>
+      <StyledText $sm={{ width: "15%" }} w="10%" ta="center" variant="BodyBoldsm">
+        {transactionType === "MONEY_IN" || transaction.isReverse === "true" ? "Credit" : "Debit"}
+      </StyledText>
+      <View $sm={{ width: "15%" }} w="10%">
+        <StyledText ta="center" variant="BodyBoldsm">
+          Transaction ID
+        </StyledText>
+        <StyledText ta="center" variant="Bodysm">
+          {transactionId}
         </StyledText>
       </View>
       <StyledText $sm={{ display: "none" }} col="$secondary400" variant="BodySemiBoldml">
@@ -65,8 +83,8 @@ export const TransactionHistoryItem = ({
           {pillVariant.PillTxt}
         </Pill>
       </View>
-      <StyledText $sm={{ width: "25%" }} w="15%" ta="right" variant="BodyBoldm">
-        {`${transactionTypeObj.type === "Send" ? "-" : ""}${billingAmount} ${billingCurrency}`}
+      <StyledText $sm={{ width: "20%" }} w="12%" ta="right" variant="BodyBoldm">
+        {`${transactionType === "MONEY_IN" || transaction.isReverse === "true" ? "" : "-"}${billingAmount} ${billingCurrency}`}
       </StyledText>
     </View>
   );
