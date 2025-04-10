@@ -1,11 +1,10 @@
 import { ControlledField } from "@aurora/blocks";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormProvider, set, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import * as yup from "yup";
 import i18n from "i18next";
 import { useValidateUsernameMutation } from "../../../hooks";
-import { useFocusEffect, useRouter } from "expo-router";
-import { errorHandler } from "@aurora/utils";
+import { useFocusEffect } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Form, StyledButton } from "@aurora/components";
 import { useCallback } from "react";
@@ -62,6 +61,7 @@ export function ValidateUsername({
           placeholder={t("placeholders.username")}
           label={t("inputs.username")}
           iconLeft="email"
+          maxLength={20}
         />
         <Form.Trigger mt="$m" asChild>
           <StyledButton disabled={disabled} isLoading={isPending}>

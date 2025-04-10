@@ -1,12 +1,12 @@
 import { Form, StyledButton, StyledText, View } from "@aurora/components";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import i18n, { use } from "i18next";
+import i18n from "i18next";
 import * as yup from "yup";
 import { OTPInput } from "input-otp";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForgetPasswordMutation } from "../../../hooks";
-import { useRouter, useLocalSearchParams, useFocusEffect } from "expo-router";
+import { useRouter, useFocusEffect } from "expo-router";
 import { errorHandler } from "@aurora/utils";
 import { ControlledField, ResendOtpBtn } from "@aurora/blocks";
 import { useCallback, useEffect } from "react";
@@ -179,6 +179,7 @@ export function ResetPassword({
           label={t("inputs.newPassword")}
           iconLeft="password"
           secureTextEntry
+          maxLength={20}
         />
         <ControlledField
           fieldName={FormFields.ConfirmPassword}
@@ -187,6 +188,7 @@ export function ResetPassword({
           label={t("inputs.confirmNewPassword")}
           iconLeft="password"
           secureTextEntry
+          maxLength={20}
         />
         <Form.Trigger mt="$m" asChild>
           <StyledButton disabled={!form.formState.isValid || isPending} isLoading={isPending}>

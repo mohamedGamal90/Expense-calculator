@@ -1,9 +1,9 @@
 import { View } from "tamagui";
-import { useFocusEffect, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { StyledButton, StyledText } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { useTranslation } from "react-i18next";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { ValidateUsername } from "./components/ValidateUsername";
 import { ResetPassword } from "./components/ResetPassword";
 

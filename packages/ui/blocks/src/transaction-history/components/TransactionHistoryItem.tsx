@@ -1,5 +1,5 @@
 import { StyledText, Pill, View, PillVariant } from "@aurora/components";
-import { Icon, IconKeys } from "@aurora/icons";
+import { Icon } from "@aurora/icons";
 import { Transaction } from "@aurora/home/src/hooks/useGetTransactions";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -27,6 +27,7 @@ export const TransactionHistoryItem = ({
     billingCurrency,
     status,
     transactionId,
+    isReverse,
   } = transaction;
 
   const { lang } = useSettingStore();
@@ -84,7 +85,7 @@ export const TransactionHistoryItem = ({
         </Pill>
       </View>
       <StyledText $sm={{ width: "20%" }} w="12%" ta="right" variant="BodyBoldm">
-        {`${transactionType === "MONEY_IN" || transaction.isReverse === "true" ? "" : "-"}${billingAmount} ${billingCurrency}`}
+        {`${transactionType === "MONEY_IN" || isReverse === "true" ? "" : "-"}${billingAmount} ${billingCurrency}`}
       </StyledText>
     </View>
   );
