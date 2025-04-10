@@ -36,18 +36,23 @@ export const CardActivation = ({ selectedCard, onSubmit, isPending, activationEn
     {
       id: 4,
       title: t("titles.expiry-date"),
-      value: selectedCard.expirDate.replace(".20", "/"),
+      value: selectedCard.expirDate && selectedCard.expirDate.replace(".20", "/"),
     },
   ];
 
-  const renderItem = useCallback((item: (typeof details)[0]) => {
-    return (
-      <View fd="row" gap={"$s"} width={"100%"} jc="space-between" alignItems="center">
-        <StyledText variant="BodyBoldml">{item.title}</StyledText>
-        <StyledText variant="BodymL">{item.value}</StyledText>
+  const renderItem = useCallback(
+    (item: (typeof details)[0]) => (
+      <View fd="row" gap="$s" width="100%" jc="space-between" alignItems="center">
+        {item.value && (
+          <>
+            <StyledText variant="BodyBoldml">{item.title}</StyledText>
+            <StyledText variant="BodymL">{item.value}</StyledText>
+          </>
+        )}
       </View>
-    );
-  }, []);
+    ),
+    [],
+  );
 
   return (
     <View flex={1} paddingTop="$m">

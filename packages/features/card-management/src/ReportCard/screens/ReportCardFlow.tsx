@@ -1,5 +1,6 @@
 import { FlatList } from "react-native";
 import { useRef, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { DialogFlow } from "@aurora/blocks/src/DialogFlow";
 import { useReportCardMutation } from "@metroid/card-management/src/ReportCard/hooks/useReportCardMutation";
 import { StatusView } from "@aurora/blocks";
@@ -15,6 +16,7 @@ type Props = { returnBackHandler: () => void };
 export const ReportCardFlow = ({ returnBackHandler }: Props) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+  const queryClient = useQueryClient();
   const { t } = useTranslation();
 
   const [status, setStatus] = useState<{
@@ -65,6 +67,7 @@ export const ReportCardFlow = ({ returnBackHandler }: Props) => {
         statusTitle: error.response?.data.message ?? "Card report failed",
       }),
     );
+    queryClient.refetchQueries({ queryKey: ["cardList"] });
     onNextScreen();
   };
 
