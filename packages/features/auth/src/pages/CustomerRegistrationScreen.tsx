@@ -38,7 +38,7 @@ const customerRegisterFormResolver = yup.object().shape({
     .test({
       name: "specialErr",
       message: i18n.t("validation.specialErr"),
-      test: value => /[@$!%*?&]/.test(value ?? ""),
+      test: value => /[@$!%*?&#+^]/.test(value ?? ""),
     })
     .test({
       name: "minErr",
