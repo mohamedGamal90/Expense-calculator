@@ -1,6 +1,7 @@
 import { getTokens, StyledText, View } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { Link, usePathname } from "expo-router";
+import type { RelativePathString } from "expo-router/build/types";
 import { Image } from "expo-image";
 import { LogoutButton } from "./LogoutButton";
 
@@ -9,7 +10,7 @@ type IconProps = React.ComponentProps<typeof Icon>;
 export type SidebarButton = {
   icon: IconProps["name"];
   title: string;
-  href: string;
+  href: RelativePathString;
   disabled: boolean;
 };
 

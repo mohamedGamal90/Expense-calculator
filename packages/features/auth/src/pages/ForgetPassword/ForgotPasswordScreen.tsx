@@ -1,5 +1,5 @@
 import { View } from "tamagui";
-import { useRouter } from "expo-router";
+import { RelativePathString, useRouter } from "expo-router";
 import { StyledButton, StyledText } from "@aurora/components";
 import { Icon } from "@aurora/icons";
 import { useTranslation } from "react-i18next";
@@ -27,7 +27,7 @@ export const ForgotPasswordScreen = () => {
         mb="$s"
         w={50}
         icon={<Icon name="arrow-left" color="black" />}
-        onPress={() => router.push("auth/login")}
+        onPress={() => router.push("auth/login" as RelativePathString)}
       />
 
       <StyledText

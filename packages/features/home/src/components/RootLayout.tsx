@@ -2,6 +2,7 @@ import { Sidebar, SidebarButton } from "@aurora/blocks";
 import { RootView } from "@aurora/components";
 import { useTranslation } from "react-i18next";
 import { MobileTopbar } from "./MobileTopbar";
+import type { RelativePathString } from "expo-router/build/types";
 
 export const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation();
@@ -10,7 +11,7 @@ export const RootLayout = ({ children }: { children: React.ReactNode }) => {
     {
       icon: "layout-dashboard",
       title: t("titles.home"), // "Home" or "الرئيسية"
-      href: "/dashboard",
+      href: "/dashboard" as RelativePathString,
       disabled: false,
     },
     // {

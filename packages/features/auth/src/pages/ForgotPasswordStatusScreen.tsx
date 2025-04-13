@@ -1,6 +1,7 @@
 import { StatusView } from "@aurora/blocks";
 import { View } from "@aurora/components";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import type { RelativePathString } from "expo-router/build/types";
 
 export const StatusScreen = () => {
   const router = useRouter();
@@ -12,7 +13,7 @@ export const StatusScreen = () => {
   };
 
   const handleOnSubmit = () => {
-    router.push("auth/login");
+    router.push("auth/login" as RelativePathString);
   };
   return (
     <View flex={1}>

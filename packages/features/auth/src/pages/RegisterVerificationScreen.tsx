@@ -1,6 +1,8 @@
-import { showAlert } from "@aurora/components";
 import { useRouter, useLocalSearchParams } from "expo-router";
-import { UseRegistrationResendOtpMutation, useValidateOtpMutation } from "../hooks";
+import type { RelativePathString } from "expo-router/build/types";
+import { useValidateOtpMutation } from "../hooks";
+import { showAlert } from "@aurora/components";
+import { UseRegistrationResendOtpMutation } from "../hooks";
 import { useTranslation } from "react-i18next";
 import { AuthOtpVerification } from "../components/AuthOtpVerification";
 import { errorHandler } from "@aurora/utils";
@@ -19,7 +21,7 @@ export const RegisterVerificationScreen = () => {
   const { isPending, mutate: validateOtp } = useValidateOtpMutation({
     onSuccess: data =>
       router.push({
-        pathname: "auth/customer-register",
+        pathname: "auth/customer-register" as RelativePathString,
         params: {
           customerId,
           stepId: data.stepId,

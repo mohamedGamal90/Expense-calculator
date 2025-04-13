@@ -2,6 +2,7 @@
   "name": "aurora",
   "private": true,
   "scripts": {
+    "check:type": "tsc -p . --noEmit",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",

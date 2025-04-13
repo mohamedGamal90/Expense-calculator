@@ -1,6 +1,7 @@
 import axios from "axios";
 import { StoreKey, getValue } from "@aurora/utils";
 import { router } from "expo-router";
+import type { RelativePathString } from "expo-router/build/types";
 import { deleteValue } from "@aurora/utils/src/protectedStore";
 import { showAlert } from "@aurora/components";
 import { QueryClient } from "@tanstack/react-query";
@@ -39,7 +40,7 @@ authApiClient.interceptors.response.use(undefined, error => {
         });
         queryClient.removeQueries({ queryKey: ["cardList", "cardTransactions"] });
         deleteValue(StoreKey.AccessToken);
-        router.push("auth/login");
+        router.push("auth/login" as RelativePathString);
         break;
       default:
         break;

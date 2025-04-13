@@ -2,6 +2,7 @@ import { StyledButton, StyledText, View } from "@aurora/components";
 import { Form } from "tamagui";
 import { Icon } from "@aurora/icons";
 import { useRouter } from "expo-router";
+import type { RelativePathString } from "expo-router/build/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ControlledField } from "@aurora/blocks";
 import { useTranslation } from "react-i18next"; // Import useTranslation hook
@@ -34,7 +35,7 @@ export const NewPasswordScreen = () => {
   });
 
   function handleSubmit(data: FormValues) {
-    router.push("auth/new-password");
+    router.push("auth/new-password" as RelativePathString);
   }
 
   return (
@@ -48,7 +49,7 @@ export const NewPasswordScreen = () => {
             marginBottom={"$m"}
             width={50}
             icon={<Icon name="arrow-left" color="black" />}
-            onPress={() => router.push("auth/login")}
+            onPress={() => router.push("auth/login" as RelativePathString)}
           />
           <StyledText mt={"$4xl"} variant="Heading4xl" color={"$secondary900"} marginBottom="$xl">
             {t("titles.newPassword")} {/* Translated title */}

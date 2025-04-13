@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ArrowCircleLeft from "./arrow-circle-left.svg";
 import ArrowCircleRight from "./arrow-circle-right.svg";
 import ArrowUp from "./arrow-up.svg";

@@ -3,6 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "expo-router";
+import type { RelativePathString } from "expo-router/build/types";
 import { ControlledField } from "@aurora/blocks";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
@@ -66,7 +67,7 @@ export const RegisterScreen = () => {
             mb="$s"
             w={50}
             icon={<Icon name="arrow-left" color="black" />}
-            onPress={() => router.push("auth/login")}
+            onPress={() => router.push("auth/login" as RelativePathString)}
           />
           <StyledText variant="Heading2xl" $gtMd={{ variant: "Heading5xl" }}>
             Sign Up

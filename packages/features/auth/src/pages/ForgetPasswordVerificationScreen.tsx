@@ -1,5 +1,6 @@
 import { useForgetPasswordMutation } from "../hooks";
 import { useRouter, useLocalSearchParams } from "expo-router";
+import type { RelativePathString } from "expo-router/build/types";
 import { useTranslation } from "react-i18next";
 import { AuthOtpVerification } from "../components/AuthOtpVerification";
 import { errorHandler } from "@aurora/utils";
@@ -19,7 +20,7 @@ export const ForgetPasswordVerificationScreen = () => {
   const { isPending, mutate: forgetPassword } = useForgetPasswordMutation({
     onSuccess: () =>
       router.push({
-        pathname: "auth/status",
+        pathname: "auth/status" as RelativePathString,
         params: {
           status: "success",
           statusMessage: t("forget-password.success-msg"),

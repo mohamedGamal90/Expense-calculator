@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { OTPInput } from "input-otp";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForgetPasswordMutation } from "../../../hooks";
-import { useRouter, useFocusEffect } from "expo-router";
+import { useRouter, useFocusEffect, RelativePathString } from "expo-router";
 import { errorHandler } from "@aurora/utils";
 import { ControlledField, ResendOtpBtn } from "@aurora/blocks";
 import { useCallback, useEffect } from "react";
@@ -88,7 +88,7 @@ export function ResetPassword({
   const { isPending, mutate: forgetPassword } = useForgetPasswordMutation({
     onSuccess: () =>
       router.push({
-        pathname: "auth/status",
+        pathname: "auth/status" as RelativePathString,
         params: {
           status: "success",
           statusMessage: t("forget-password.success-msg"),
