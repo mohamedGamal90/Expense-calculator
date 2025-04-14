@@ -45,6 +45,7 @@
     "expo-system-ui": "~4.0.3",
     "expo-updates": "~0.26.10",
     "expo-web-browser": "~14.0.1",
+    "firebase-tools": "^14.1.0",
     "i18next": "^24.0.2",
     "input-otp": "^1.4.1",
     "lottie-react-native": "^7.1.0",
