@@ -125,7 +125,7 @@
     "verify-phone-number": "Verify your phone number",
     "verify-email-address": "Verify your email address",
     "otp-sent-message": "We sent a 6 digit code to:",
-    "otp-error-message": "OTP only contains characters",
+    "otp-error-message": "OTP can only contains Numbers.",
     "length": "Card number must be exactly 16 characters long"
   },
   "currencies": {
@@ -170,12 +170,14 @@
     "invalid realmid": "Invalid RealmId",
     "invalid user otp data.": "Invalid User OTP Data.",
     "invalid registration data , your phonenumber or birthdate are invalid values.": "Invalid Registration Data , Your PhoneNumber Or Birthdate are Invalid values.",
-    "invalid otp .": "Invalid Otp .",
     "cardid is invalid!": "cardId is invalid!",
     "you can't resend otp now. please wait until timer ends.": "You can't resend OTP now. Please wait until timer ends.",
     "customer doesn't have details.": "Customer doesn't have details.",
     "1": "1",
-    "expired otp": "Expired OTP",
+    "invalid otp": "Invalid Otp.",
+    "Invalid otp": "Invalid otp.",
+    "expired otp": "Expired OTP.",
+    "Expired otp": "Expired OTP.",
     "please use lowercase letters for the username.": "Please use lowercase letters for the username.",
     "invalid username!": "Invalid Username!",
     "accountnumber is invalid!": "AccountNumber is invalid!",
@@ -237,7 +239,6 @@
     "the user is currently pending and requires admin approval": "The user is currently pending and requires admin approval",
     "you cannot log in. this user has been reviewed and unfortunately has been rejected by the admin": "You cannot log in. This user has been reviewed and unfortunately has been rejected by the admin",
     "error connecting with our servers.": "Error connecting with our servers.",
-    "invalid otp": "Invalid OTP",
     "question should be between 3 and 100 characters": "Question should be between 3 and 100 characters",
     "answer should be between 3 and 100 characters": "Answer should be between 3 and 100 characters",
     "question and answer should be between 3 and 100 characters": "Question and Answer should be between 3 and 100 characters",
@@ -297,6 +298,7 @@
     "this cardid is not associated to the provided customer": "This cardId is not associated to the provided customer",
     "invalid card number": "Invalid card number",
     "unable to find this card. probably it does not exist": "Unable to find card.",
-    "the currency code for the beneficiary's card is missing.": "The currency code for the beneficiary's card is missing."
+    "the currency code for the beneficiary's card is missing.": "The currency code for the beneficiary's card is missing.",
+    "Password Has Changed Successfully!": "Password Has Changed Successfully!"
   }
 }

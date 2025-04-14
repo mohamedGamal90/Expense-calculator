@@ -1,4 +1,4 @@
-import { Form, StyledButton, StyledText, View } from "@aurora/components";
+import { Form, showAlert, StyledButton, StyledText, View } from "@aurora/components";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
@@ -9,7 +9,7 @@ import { useForgetPasswordMutation } from "../../../hooks";
 import { useRouter, useFocusEffect, RelativePathString } from "expo-router";
 import { errorHandler } from "@aurora/utils";
 import { ControlledField, ResendOtpBtn } from "@aurora/blocks";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useResendForgetPasswordOTPMutation } from "../../../hooks/useForgetPasswordResendOTP";
 
 enum FormFields {
@@ -17,7 +17,7 @@ enum FormFields {
   Password = "password",
   ConfirmPassword = "confirmPassword",
 }
-
+const CELL_COUNT = 4;
 const resetPasswordSchema = yup.object().shape({
   [FormFields.OTP]: yup
     .string()
@@ -27,7 +27,7 @@ const resetPasswordSchema = yup.object().shape({
       message: i18n.t("validation.number"),
       test: value => /^\d+$/.test(value ?? ""),
     })
-    .length(6),
+    .length(CELL_COUNT),
   [FormFields.Password]: yup
     .string()
     .required(i18n.t("validation.required"))
@@ -72,6 +72,7 @@ export function ResetPassword({
   setStep: (step: "VALIDATE_USERNAME" | "RESET_PASSWORD") => void;
 }) {
   const { t } = useTranslation();
+  const [otpError, setOtpError] = useState("");
 
   const router = useRouter();
 
@@ -94,7 +95,30 @@ export function ResetPassword({
           statusMessage: t("forget-password.success-msg"),
         },
       }),
-    onError: error => errorHandler(error),
+    onError: error => {
+      const errorMsg = error?.response?.data?.message;
+      if (errorMsg === "invalid otp" || errorMsg === "Expired otp") {
+        setOtpError(t(`server-error.${errorMsg}`));
+        setTimeout(() => setOtpError(""), 5000);
+        return;
+      }
+      if (errorMsg === "number of trails exceeded") {
+        router.push({
+          pathname: "auth/status" as RelativePathString,
+          params: {
+            status: "error",
+            statusMessage: errorMsg,
+          },
+        });
+        return;
+      }
+      showAlert({
+        title: t("server-error.an_error_has_occurred"),
+        message: t(
+          `server-error.${error?.response?.data?.message ? error.response.data.message.toLocaleLowerCase() : "an_error_has_occurred"}`,
+        ),
+      });
+    },
   });
 
   const { mutate: resendOTP } = useResendForgetPasswordOTPMutation({
@@ -123,7 +147,7 @@ export function ResetPassword({
   return (
     <Form flex={1} onSubmit={form.handleSubmit(handleSubmit)}>
       <FormProvider {...form}>
-        <View py={"$base"}>
+        <View py="$base">
           <StyledText variant="BodyBoldm" marginBottom="$s">
             OTP
           </StyledText>
@@ -136,7 +160,7 @@ export function ResetPassword({
               render={({ field: { onChange }, fieldState: { error } }) => (
                 <>
                   <OTPInput
-                    maxLength={6}
+                    maxLength={CELL_COUNT}
                     onChange={onChange}
                     inputMode="numeric"
                     render={({ slots }) => (
@@ -161,11 +185,13 @@ export function ResetPassword({
                       </View>
                     )}
                   />
-                  <View h="$s">
-                    <StyledText pt={"$s"} variant="Bodym" color="$error500">
-                      {error?.message}
-                    </StyledText>
-                  </View>
+                  {(otpError || error) && (
+                    <View h="$s">
+                      <StyledText pt="$s" variant="Bodym" color="$error500">
+                        {otpError ? otpError : error?.message}
+                      </StyledText>
+                    </View>
+                  )}
                 </>
               )}
             />

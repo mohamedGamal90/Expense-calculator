@@ -6,10 +6,12 @@ import { UseRegistrationResendOtpMutation } from "../hooks";
 import { useTranslation } from "react-i18next";
 import { AuthOtpVerification } from "../components/AuthOtpVerification";
 import { errorHandler } from "@aurora/utils";
+import { useState } from "react";
 
 export const RegisterVerificationScreen = () => {
   const params = useLocalSearchParams();
   const { t } = useTranslation();
+  const [otpError, setOtpError] = useState("");
   const router = useRouter();
 
   const { customerId, stepId, email } = params as {
@@ -27,7 +29,21 @@ export const RegisterVerificationScreen = () => {
           stepId: data.stepId,
         },
       }),
-    onError: error => errorHandler(error),
+    onError: error => {
+      const errorMsg = error?.response?.data?.message;
+      if (errorMsg === "invalid otp" || errorMsg === "Expired otp") {
+        setOtpError(errorMsg);
+        setTimeout(() => setOtpError(""), 5000);
+        return;
+      }
+      router.push({
+        pathname: "/auth/status",
+        params: {
+          status: "error",
+          statusMessage: errorMsg,
+        },
+      });
+    },
   });
 
   const { mutateAsync: ResendOTP } = UseRegistrationResendOtpMutation({
@@ -52,6 +68,7 @@ export const RegisterVerificationScreen = () => {
       isPending={isPending}
       credential={email}
       onResendOtp={onResendOtp}
+      otpError={otpError}
     />
   );
 };

@@ -56,24 +56,33 @@ export const CardLimitFlow = ({ returnBackHandler }: Props) => {
     onError: error => errorHandler(error),
   });
 
-  const { mutateAsync: setLimit, isPending: setLimitPending } = useSetCardLimitMutation();
+  const { mutateAsync: setLimit, isPending: setLimitPending } = useSetCardLimitMutation({
+    onSuccess: () => {
+      onNextScreen();
+    },
+  });
 
   const firstStep = (limitAmount: number, limitType: string) => {
     selectedLimitRef.current = { limitAmount, limitType };
     requestOTP();
   };
 
-  const secondStep = async () => {
+  const secondStep = async (otp: string) => {
     await setLimit({
       cardId: selectedCard.id,
       newLimit: selectedLimitRef.current.limitAmount.toString(),
       limitType: selectedLimitRef.current.limitType,
-    }).catch(error =>
+      otp: otp,
+    }).catch(error => {
+      const errorMsg = error?.response?.data?.message;
+      if (errorMsg === "invalid otp" || errorMsg === "Expired otp") {
+        throw errorMsg;
+      }
       setStatus({
         status: "error",
-        statusTitle: error.response?.data.message ?? "Limit set failed",
-      }),
-    );
+        statusTitle: errorMsg ?? "Limit set failed",
+      });
+    });
     onNextScreen();
   };
 

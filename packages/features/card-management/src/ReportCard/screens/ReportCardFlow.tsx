@@ -55,18 +55,27 @@ export const ReportCardFlow = ({ returnBackHandler }: Props) => {
     onError: error => errorHandler(error),
   });
 
-  const { mutateAsync: reportCard, isPending: reportCardIspending } = useReportCardMutation();
+  const { mutateAsync: reportCard, isPending: reportCardIspending } = useReportCardMutation({
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: ["cardList"] });
+      onNextScreen();
+    },
+  });
 
   const onReportCard = async (otp: string) => {
     await reportCard({
       cardId: selectedCard.id,
       otp,
-    }).catch(error =>
+    }).catch(error => {
+      const errorMsg = error?.response?.data?.message;
+      if (errorMsg === "invalid otp" || errorMsg === "Expired otp") {
+        throw errorMsg;
+      }
       setStatus({
         status: "error",
-        statusTitle: error.response?.data.message ?? "Card report failed",
-      }),
-    );
+        statusTitle: errorMsg ?? "Card report failed",
+      });
+    });
     queryClient.refetchQueries({ queryKey: ["cardList"] });
     onNextScreen();
   };

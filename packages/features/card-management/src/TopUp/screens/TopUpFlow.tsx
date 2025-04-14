@@ -80,12 +80,16 @@ export function TopUpFlow() {
       beneficiaryCardId: selectedCard.id,
       payerCardId: toCardRef.current?.id as string,
       otp: otp,
-    }).catch(error =>
+    }).catch(error => {
+      const errorMsg = error?.response?.data?.message;
+      if (errorMsg === "invalid otp" || errorMsg === "Expired otp") {
+        throw errorMsg;
+      }
       setStatus({
         status: "error",
-        statusTitle: error?.response?.data?.message ?? "Top up failed",
-      }),
-    );
+        statusTitle: errorMsg ?? "Top up failed",
+      });
+    });
   };
 
   const topUpFlowScreens = [

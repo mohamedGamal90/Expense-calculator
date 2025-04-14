@@ -48,14 +48,19 @@ export function SetPinFlow({ returnBackHandler }: Props) {
     isPending: setPinIsPending,
   } = useSetPinMutation({
     onSuccess: () => onNextScreen(),
-    onError: error => errorHandler(error),
   });
 
   const onSetPin = async (otp: string) => {
     await setPin({
       cardId: selectedCard.id,
       otp,
-    }).catch(error => errorHandler(error));
+    }).catch(error => {
+      const errorMsg = error?.response?.data?.message;
+      if (errorMsg === "invalid otp" || errorMsg === "Expired otp") {
+        throw errorMsg;
+      }
+      errorHandler(error);
+    });
   };
 
   useEffect(() => {

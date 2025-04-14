@@ -12,9 +12,7 @@ import { AvailableStatuses } from "@metroid/types";
 import { Verification } from "../../verification";
 import { errorHandler } from "@aurora/utils";
 
-type Props = { returnBackHandler: () => void };
-
-export const CardActivationFlow = ({ returnBackHandler }: Props) => {
+export const CardActivationFlow = ({ returnBackHandler }: { returnBackHandler: () => void }) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
   const selectedCard = useSelectedCard();
@@ -60,26 +58,44 @@ export const CardActivationFlow = ({ returnBackHandler }: Props) => {
     onSuccess: () => onNextScreen(),
   });
 
-  const { mutateAsync: activateCard, isPending: activePending } = useActivateCardMutation();
-  const { mutateAsync: deactivateCard, isPending: deactivePending } = useDeactivateCardMutation();
+  const { mutateAsync: activateCard, isPending: activePending } = useActivateCardMutation({
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: ["cardList"] });
+      onNextScreen();
+    },
+  });
+  const { mutateAsync: deactivateCard, isPending: deactivePending } = useDeactivateCardMutation({
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: ["cardList"] });
+      onNextScreen();
+    },
+  });
 
   const onCardActivation = async (otp: string) => {
     if (activationEnabled)
-      await activateCard({ cardId: selectedCard.id, otp }).catch(error =>
+      await activateCard({ cardId: selectedCard.id, otp }).catch(error => {
+        const errorMsg = error?.response?.data?.message;
+        if (errorMsg === "invalid otp" || errorMsg === "Expired otp") {
+          throw errorMsg;
+        }
         setStatus({
           status: "error",
-          statusTitle: error?.response?.data?.message ?? "Activation failed",
-        }),
-      );
+          statusTitle: errorMsg ?? "Activation failed",
+        });
+        onNextScreen();
+      });
     else
-      await deactivateCard({ cardId: selectedCard?.id, otp }).catch(error =>
+      await deactivateCard({ cardId: selectedCard?.id, otp }).catch(error => {
+        const errorMsg = error?.response?.data?.message;
+        if (errorMsg === "invalid otp" || errorMsg === "Expired otp") {
+          throw errorMsg;
+        }
         setStatus({
           status: "error",
-          statusTitle: error?.response?.data?.message ?? "Deactivation failed",
-        }),
-      );
-    queryClient.refetchQueries({ queryKey: ["cardList"] });
-    onNextScreen();
+          statusTitle: errorMsg ?? "Deactivation failed",
+        });
+        onNextScreen();
+      });
   };
 
   const CardLimitFlowScreens = [

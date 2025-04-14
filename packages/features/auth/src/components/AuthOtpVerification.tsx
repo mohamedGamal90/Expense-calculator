@@ -5,41 +5,28 @@ import { Icon } from "@aurora/icons";
 import { useState } from "react";
 import { ResendOtpBtn } from "@aurora/blocks";
 
-const CELL_COUNT = 6;
+const CELL_COUNT = 4;
 export const AuthOtpVerification = ({
   onSubmit,
   isPending,
   credential,
   onResendOtp,
+  otpError,
 }: {
   onSubmit: (otp: string) => void;
   isPending: boolean;
   credential: string;
   onResendOtp?: () => void;
+  otpError: string;
 }) => {
   const { t } = useTranslation();
   const [otp, setOtp] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const { color } = getTokens();
   const { height: screenHeight } = useWindowDimensions();
 
   const verifyObject: { icon: "mobile" | "email"; txt: string; iconTxt: JSX.Element } = (() => {
     switch ("email") {
-      // case "mobile":
-      //   return {
-      //     icon: "mobile",
-      //     txt: t("validation.verify-phone-number"),
-      //     iconTxt: (
-      //       <>
-      //         <StyledText variant="Bodysm" color="$neutral800">
-      //           {t("inputs.phone")}
-      //         </StyledText>
-      //         <StyledText variant="Bodysm" color="$neutral800">
-      //           {t("inputs.number")}
-      //         </StyledText>
-      //       </>
-      //     ),
-      //   };
       case "email":
         return {
           icon: "email",
@@ -56,9 +43,11 @@ export const AuthOtpVerification = ({
   const validateOtp = () => {
     if (/^\d+$/.test(otp)) {
       onSubmit(otp);
+      setOtp("");
       return;
     }
-    setError(true);
+    setError(t("validation.otp-error-message"));
+    setOtp("");
   };
 
   return (
@@ -113,6 +102,7 @@ export const AuthOtpVerification = ({
           <OTPInput
             maxLength={CELL_COUNT}
             onChange={setOtp}
+            value={otp}
             inputMode="numeric"
             render={({ slots }) => (
               <View flexDirection="row">
@@ -134,17 +124,19 @@ export const AuthOtpVerification = ({
               </View>
             )}
           />
-          {error && (
-            <StyledText variant="Bodysm" col="$error600" mt="$sm">
-              {t("validation.otp-error-message")}
-            </StyledText>
+          {(otpError || error) && (
+            <View h="$s">
+              <StyledText pt="$s" variant="Bodym" color="$error500">
+                {otpError ? t(`server-error.${otpError}`) : error}
+              </StyledText>
+            </View>
           )}
           {onResendOtp && <ResendOtpBtn onPress={onResendOtp} />}
         </View>
       </View>
       <StyledButton
         isLoading={isPending}
-        disabled={otp.length < 6}
+        disabled={otp.length < CELL_COUNT}
         onPress={validateOtp}
         variant="primary">
         {t("buttons.next")}

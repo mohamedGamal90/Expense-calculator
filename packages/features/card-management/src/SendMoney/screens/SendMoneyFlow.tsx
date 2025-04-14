@@ -54,12 +54,16 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
     onError: error => errorHandler(error),
   });
 
-  const { mutate: sendMoney, isPending: sendMoneyIsPending } = useSendMoneyMutation({
+  const { mutateAsync: sendMoney, isPending: sendMoneyIsPending } = useSendMoneyMutation({
     onSuccess: () => onNextScreen(),
     onError: error => {
+      const errorMsg = error?.response?.data?.message;
+      if (errorMsg === "invalid otp" || errorMsg === "Expired otp") {
+        throw errorMsg;
+      }
       setStatus({
         status: "error",
-        statusTitle: error.response?.data.message ?? "Send money failed.",
+        statusTitle: errorMsg ?? "Send money failed.",
       });
       onNextScreen();
     },
@@ -79,14 +83,15 @@ export const SendMoneyFlow = ({ returnBackHandler }: Props) => {
     await fetchCardHolderName({ cardNumber }).catch(error => errorHandler(error));
   };
 
-  const onSendMoney = (otp: string) =>
-    sendMoney({
+  const onSendMoney = async (otp: string) => {
+    await sendMoney({
       paymentAmount: amountRef.current,
       currencyCode: getCurrencyCode(selectedCard.currencyName),
       beneficiaryCardNumber: toCardNumber.current,
       payerCardId: selectedCard?.id as string,
       otp,
     });
+  };
 
   const ReportCardFlowScreens = [
     {

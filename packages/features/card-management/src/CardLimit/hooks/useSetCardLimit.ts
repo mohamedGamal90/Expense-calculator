@@ -5,8 +5,9 @@ type setCardLimitMutationParams = {
   cardId: string;
   newLimit: string;
   limitType: string;
+  otp: string;
 };
-const setLimit = async (cardId: string, newLimit: string, limitType: string) =>
+const setLimit = async (cardId: string, newLimit: string, limitType: string, otp: string) =>
   await authApiClient.post(
     `/card-management-service/api/v1/${process.env.EXPO_PUBLIC_REALM_ID}/cards/change-limit`,
     {
@@ -14,6 +15,7 @@ const setLimit = async (cardId: string, newLimit: string, limitType: string) =>
       newLimit,
       limitType,
     },
+    { headers: { otp } },
   );
 
 export const useSetCardLimitMutation = ({
@@ -25,7 +27,7 @@ export const useSetCardLimitMutation = ({
 } = {}) =>
   useMutation({
     mutationFn: (params: setCardLimitMutationParams) =>
-      setLimit(params.cardId, params.newLimit, params.limitType),
+      setLimit(params.cardId, params.newLimit, params.limitType, params.otp),
     onError: error => onError?.(error as ErrorType),
     onSuccess: () => onSuccess?.(),
   });

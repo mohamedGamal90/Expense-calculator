@@ -7,7 +7,7 @@ import { ActivityIndicator } from "react-native";
 import { ResendOtpBtn } from "@aurora/blocks";
 import { useResendOtpMutation } from "./hooks/useResendOtpMutation";
 
-const CELL_COUNT = 6;
+const CELL_COUNT = 4;
 
 export const Verification = ({
   onSubmit,
@@ -16,34 +16,19 @@ export const Verification = ({
   isPending,
   loading,
 }: {
-  onSubmit: (otp: string) => void;
+  onSubmit: (otp: string) => Promise<void>;
   credential: string | undefined;
   type?: "mobile" | "email";
   isPending: boolean;
   loading?: boolean;
 }) => {
-  const [value, setValue] = useState("");
+  const [otpValue, setOtpValue] = useState("");
+  const [otpError, setOtpError] = useState("");
   const { t } = useTranslation();
-  const [error, setError] = useState(false);
   const { color } = getTokens();
 
   const verifyObject: { icon: "mobile" | "email"; txt: string; iconTxt: JSX.Element } = (() => {
     switch ("email") {
-      // case "mobile":
-      //   return {
-      //     icon: "mobile",
-      //     txt: t("validation.verify-phone-number"),
-      //     iconTxt: (
-      //       <>
-      //         <StyledText variant="Bodysm" color="$neutral800">
-      //           {t("inputs.phone")}
-      //         </StyledText>
-      //         <StyledText variant="Bodysm" color="$neutral800">
-      //           {t("inputs.number")}
-      //         </StyledText>
-      //       </>
-      //     ),
-      //   };
       case "email":
         return {
           icon: "email",
@@ -58,11 +43,12 @@ export const Verification = ({
   })();
 
   const validateOtp = () => {
-    if (/^\d+$/.test(value)) {
-      onSubmit(value);
+    if (/^\d+$/.test(otpValue)) {
+      onSubmit(otpValue).catch(error => setOtpError(t(`server-error.${error}`)));
+      setOtpValue("");
       return;
     }
-    setError(true);
+    setOtpValue("");
   };
 
   const { mutateAsync: ResendOTP } = useResendOtpMutation({
@@ -105,7 +91,7 @@ export const Verification = ({
                   backgroundColor="$secondary50"
                   borderWidth={1}
                   borderColor="$secondary300"
-                  borderRadius={"$full"}
+                  borderRadius="$full"
                   justifyContent="center"
                   alignItems="center">
                   <Icon name="tick-circle" color={color.secondary300.val} />
@@ -128,43 +114,55 @@ export const Verification = ({
               <StyledText variant="BodymL" color="$neutral800" marginBottom="$l">
                 {credential}
               </StyledText>
-              <OTPInput
-                maxLength={CELL_COUNT}
-                onChange={setValue}
-                inputMode="numeric"
-                render={({ slots }) => (
-                  <View flexDirection="row">
-                    {slots.map((slot, index) => (
-                      <View
-                        $xs={{ h: 35, w: 35, mr: "$s" }}
-                        key={index}
-                        jc="center"
-                        ai="center"
-                        bc={slot.isActive ? "$secondary800" : "$secondary300"}
-                        br="$s"
-                        bw={2}
-                        mr="$m"
-                        h={40}
-                        w={40}>
-                        {slot.char !== null && (
-                          <StyledText col="$secondary800">{slot.char}</StyledText>
-                        )}
-                      </View>
-                    ))}
+              <>
+                <OTPInput
+                  maxLength={CELL_COUNT}
+                  onChange={value => {
+                    if (value === "" || /^\d+$/.test(value)) {
+                      setOtpError("");
+                    } else {
+                      setOtpError(t("validation.otp-error-message"));
+                    }
+                    setOtpValue(value);
+                  }}
+                  value={otpValue}
+                  inputMode="numeric"
+                  render={({ slots }) => (
+                    <View flexDirection="row">
+                      {slots.map((slot, index) => (
+                        <View
+                          key={index}
+                          $xs={{ h: 35, w: 35, mr: "$s" }}
+                          jc="center"
+                          ai="center"
+                          bc={slot.isActive ? "$secondary800" : "$secondary300"}
+                          br="$s"
+                          bw={2}
+                          mr="$m"
+                          h={40}
+                          w={40}>
+                          {slot.char !== null && (
+                            <StyledText col="$secondary800">{slot.char}</StyledText>
+                          )}
+                        </View>
+                      ))}
+                    </View>
+                  )}
+                />
+                {otpError && (
+                  <View h="$s">
+                    <StyledText pt="$s" variant="Bodym" color="$error500">
+                      {otpError}
+                    </StyledText>
                   </View>
                 )}
-              />
-              {error && (
-                <StyledText variant="Bodysm" col="$error600" mt="$sm">
-                  {t("validation.otp-error-message")}
-                </StyledText>
-              )}
+              </>
               {credential && <ResendOtpBtn onPress={ResendOTP} />}
             </View>
           </View>
           <StyledButton
             isLoading={isPending}
-            disabled={value.length < 6}
+            disabled={otpValue.length < CELL_COUNT}
             onPress={validateOtp}
             variant="primary">
             {t("buttons.next")}
